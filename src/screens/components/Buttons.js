@@ -2,11 +2,11 @@ import React from "react";
 import { SafeAreaView, View, Text, Pressable, StyleSheet, Alert } from "react-native";
 
 export default function Button(props) {
-    const { title = 'Sign in' } = props;
+
     return (
         <SafeAreaView>
         <Pressable style={styles.button} onPress={() => Alert.alert('Fin du är idag :)')}>
-            <Text style={styles.text}>{title}</Text>
+            <Text style={styles.text}>{props.title}</Text>
         </Pressable>            
         </SafeAreaView>
 

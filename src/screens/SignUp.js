@@ -1,7 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {SafeAreaView, StyleSheet, TextInput, Text} from 'react-native';
+import Buttons from './components/Buttons';
+import { LinearGradient } from 'expo-linear-gradient';
 
-export default function Input() {
+
+
+export default function SignUp({navigation}) {
   const [name, SetName] = React.useState('Name');
   const [lastname, SetLastname] = React.useState('Lastname');
   const [email, SetMail] = React.useState('Email');
@@ -10,7 +14,10 @@ export default function Input() {
   const [matchpassword, SetMatchPassword] = React.useState('MatchPassword');
 
   return (
-    <SafeAreaView>
+    <LinearGradient
+    colors={['#093129', '#69DEDE', '#093129']}
+    style={styles.container}>
+      <Text>{this.navigation}</Text>
         <TextInput
             style={styles.input}
             SetText={SetName}
@@ -45,11 +52,17 @@ export default function Input() {
             SetText={SetMatchPassword}
             value={matchpassword}
         />
-    </SafeAreaView>
+        <Buttons title="Sign up"/>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   input: {
     width: 300,
     height: 50,
