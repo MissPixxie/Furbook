@@ -14,45 +14,45 @@ export default function SignUp({navigation}) {
   const [matchpassword, SetMatchPassword] = React.useState('MatchPassword');
 
   return (
-    <LinearGradient
-    colors={['#093129', '#69DEDE', '#093129']}
-    style={styles.container}>
-      <Text>{this.navigation}</Text>
-        <TextInput
-            style={styles.input}
-            SetText={SetName}
-            value={name}
-        />
-        <TextInput
-            style={styles.input}
-            SetText={SetLastname}
-            value={lastname}
-        />
-        <TextInput
-            style={styles.input}
-            SetText={SetMail}
-            value={email}
-        />
-        <TextInput
-            style={styles.input}
-            SetText={SetNumber}
-            value={number}
-            placeholder="useless placeholder"
-            keyboardType="numeric"
-        />
-        <TextInput
-            secureTextEntry={true}
-            style={styles.input}
-            SetText={SetPassword}
-            value={password}
-        />
-        <TextInput
-            secureTextEntry={true}
-            style={styles.input}
-            SetText={SetMatchPassword}
-            value={matchpassword}
-        />
-        <Buttons title="Sign up"/>
+    <LinearGradient colors={['#093129', '#69DEDE', '#093129']} style={styles.container}>
+      <SafeAreaView style={styles.container}>
+            <TextInput
+                style={styles.input}
+                SetText={SetName}
+                value={name}
+            />
+            <TextInput
+                style={styles.input}
+                SetText={SetLastname}
+                value={lastname}
+            />
+            <TextInput
+                style={styles.input}
+                SetText={SetMail}
+                value={email}
+            />
+            <TextInput
+                style={styles.input}
+                SetText={SetNumber}
+                value={number}
+                placeholder="Phone number"
+                keyboardType="numeric"
+            />
+            <TextInput
+                secureTextEntry={true}
+                style={styles.input}
+                SetText={SetPassword}
+                value={password}
+            />
+            <TextInput
+                secureTextEntry={true}
+                style={styles.input}
+                SetText={SetMatchPassword}
+                value={matchpassword}
+            />
+            <Buttons title="Sign up"/>        
+      </SafeAreaView>
+
     </LinearGradient>
   );
 };
