@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable, Alert, SafeAreaView, TextInput, Button } from "react-native";
-import Buttons from "./components/Buttons";
+import Buttons from "./components/CustomButton";
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-export default function SignIn({navigation}) {
+export default function SignInScreen({navigation}) {
   const [username, setUsername] = React.useState('Username');
   const [password, setPassword] = React.useState('Password');
 
@@ -35,7 +35,6 @@ export default function SignIn({navigation}) {
                         <Pressable onPress={() => navigation.navigate('Sign up')}>
                             <Text style={styles.SignUpButton}>Sign up</Text>
                         </Pressable> 
-
 
 
 

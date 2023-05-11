@@ -1,18 +1,19 @@
 import React from "react";
-import { SafeAreaView, View, Text, Pressable, StyleSheet } from "react-native";
+import { SafeAreaView, View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import StackTwo from "../navigation/AppStack";
 
 
 
-export default function Header() {
+export default function Header({ navigation }) {
 
     const openMenu = () => {
-        
+
     }
 
     return (
         <SafeAreaView style={styles.header}>
-            <Ionicons name="menu" size={40} color="black" onPress={openMenu} style={styles.icon}/>                  
+            <Ionicons name="menu" size={40} color="black" onPress={(openMenu)}/>                  
         </SafeAreaView>
 
     );
@@ -24,9 +25,4 @@ export default function Header() {
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    icon: {
-        position: 'absolute',
-        left: 280,
-        top: -18,
-    }
   });

@@ -1,15 +1,14 @@
 import React from "react";
-import { SafeAreaView, View, Text, Pressable, StyleSheet, Alert } from "react-native";
+import { SafeAreaView, View, Text, Pressable, StyleSheet, Alert, TouchableOpacity } from "react-native";
 
-export default function Button(props) {
+export default function CustomButton(props) {
 
     return (
-        <SafeAreaView>
-        <Pressable style={styles.button} onPress={() => Alert.alert('Fin du är idag :)')}>
-            <Text style={styles.text}>{props.title}</Text>
-        </Pressable>            
-        </SafeAreaView>
+       <TouchableOpacity style={styles.button} onPress={ () => {
 
+       }}>
+        <Text style={styles.text}>Klicka här</Text>
+       </TouchableOpacity>
     );
   }
   
