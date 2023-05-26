@@ -1,17 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable, Alert, SafeAreaView, TextInput, Button } from "react-native";
+import { View, Text, StyleSheet, Pressable, SafeAreaView, TextInput, Button, Alert } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
 
-export default function SettingsScreen({navigation}) {
+export default function MessagesScreen({navigation}) {
 
     return (
       <SafeAreaView style={styles.container}>
-          <Text>Settings</Text>        
-          <Pressable onPress={() => navigation.openDrawer()}>
+          <View>
+              <Text>Messages</Text>
+              <Pressable onPress={() => navigation.openDrawer()}>
             <Ionicons name="menu" size={24} color="black" />
-          </Pressable> 
+            </Pressable>            
+          </View>       
       </SafeAreaView>
 
     );

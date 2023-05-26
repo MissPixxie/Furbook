@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable, Alert, SafeAreaView, TextInput, Button } from "react-native";
 import Buttons from "./components/CustomButton";
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default function SignInScreen({navigation}) {
@@ -14,18 +15,24 @@ export default function SignInScreen({navigation}) {
               style={styles.container}>
                 <SafeAreaView style={styles.container}>
                     <Text style={styles.title}>Login</Text>
-
+                      <View style={styles.input}>
+                      <Ionicons name="person" size={24} color="black" />
                         <TextInput
-                          style={styles.input}
                           onChangeText={setUsername}
                           value={username}
-                        />
+                          style={styles.inputText}
+                        />                      
+                      </View>
+                      <View style={styles.input}>
+                        <Ionicons name="lock-closed-outline" size={24} color="black" />
                         <TextInput
                           secureTextEntry={true}
-                          style={styles.input}
                           onChangeText={setPassword}
                           value={password}
-                        />
+                          style={styles.inputText}
+                        />                        
+                      </View>
+
                         {/*<Buttons title="Sign in"/>*/}
 
                         <Pressable onPress={() => navigation.navigate('Profile')}>
@@ -33,7 +40,7 @@ export default function SignInScreen({navigation}) {
                         </Pressable> 
 
                         <Pressable onPress={() => navigation.navigate('Sign up')}>
-                            <Text style={styles.SignUpButton}>Sign up</Text>
+                            <Text style={styles.SignUpButton}>Register</Text>
                         </Pressable> 
 
 
@@ -53,13 +60,17 @@ export default function SignInScreen({navigation}) {
       alignItems: 'center',
     },
     input: {
+      flexDirection: 'row',
       width: 300,
       height: 50,
       margin: 10,
-      borderWidth: 1,
+      borderRadius: 5,
       padding: 10,
       backgroundColor: 'white',
-      fontSize: 22,
+    },
+    inputText: {
+      marginLeft: 13,
+      fontSize: 18,
     },
     title: {
       fontSize: 32,
@@ -75,23 +86,25 @@ export default function SignInScreen({navigation}) {
       color: 'white',
       marginTop: 50,
     },
-    SignUpButton: {
-      backgroundColor: 'lightblue',
-      width: 300,
-      textAlign: 'center',
-      paddingVertical: 12,
-      paddingHorizontal: 32,
-      borderRadius: 5,
-      elevation: 3,
-      fontSize: 16,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'black',
-      marginTop: 20,
-    },
     SignInButton: {
-      backgroundColor: 'lightblue',
+      backgroundColor: '#0a2121',
+      width: 300,
+      textAlign: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 5,
+      elevation: 3,
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+      marginTop: 20,
+      borderWidth: 2,
+      borderColor: '#0a2121',
+    },
+    SignUpButton: {
+      backgroundColor: 'white',
       width: 300,
       textAlign: 'center',
       paddingVertical: 12,
@@ -104,6 +117,8 @@ export default function SignInScreen({navigation}) {
       letterSpacing: 0.25,
       color: 'black',
       marginTop: 20,
+      borderWidth: 2,
+      borderColor: '#123b3b',
     },
     button: {
       width: 300,

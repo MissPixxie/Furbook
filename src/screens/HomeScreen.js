@@ -8,22 +8,16 @@ const HomeScreen = ({ navigation }) => {
     return (
         <LinearGradient colors={['#bdbdbd', '#fff', '#bdbdbd']} style={styles.container}>
             <SafeAreaView>
-            <Text>Home</Text>
-            <View style={styles.buttonContainer}>
-                <Pressable onPress={() => navigation.navigate('Sign in')}>
-                    <LinearGradient colors={['#7aff85', '#a8ffaf', '#a8ffaf', '#7aff85']} style={styles.SigninButton}>
-                        <Text style={styles.ButtonText}>Sign in</Text>
-                    </LinearGradient>
-                </Pressable>                
-            </View>
-            <View>
-                <Pressable onPress={() => navigation.navigate('Sign up')}>
-                    <LinearGradient colors={['#7aff85', '#a8ffaf', '#a8ffaf', '#7aff85']} style={styles.SigninButton}>
-                        <Text style={styles.ButtonText}>Sign up</Text>
-                    </LinearGradient>
-                </Pressable>                
-            </View>
-
+                <View style={styles.ButtonContainer}>
+                    <Pressable onPress={() => navigation.navigate('Sign in')} style={styles.SigninButton}>
+                            <Text style={styles.ButtonText}>Sign in</Text>
+                    </Pressable>                     
+                </View>
+               <View style={styles.ButtonContainer}>
+                    <Pressable onPress={() => navigation.navigate('Sign up')} style={styles.SignupButton}>
+                            <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Register</Text>
+                    </Pressable>                  
+               </View>
             </SafeAreaView>            
         </LinearGradient>
     )
@@ -37,16 +31,30 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
-    buttonContainer: {
-        marginBottom: 15,
-    },
     SigninButton: {
-        width: 300,
+        width: "100%",
+        backgroundColor: "#184d4d",
         padding: 13,
         borderRadius: 5,
     },
+    SignupButton: {
+        width: "100%",
+        padding: 13,
+        borderRadius: 5,
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: "#184d4d",
+        marginTop: 15,
+    },
     ButtonText: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold',
+        paddingHorizontal: 55,
+        paddingVertical: 1,
+        color: 'white',
+    },
+    ButtonTextSignup: {
+        color: '#184d4d',
     }
   });

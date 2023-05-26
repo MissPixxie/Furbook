@@ -9,16 +9,16 @@ const CustomDrawer = (props) => {
 
     return (
         <View style={styles.container}>
-            <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: '#60d66d'}}>
-                <View style={styles.ListContainer}>
-                    <DrawerItemList {...props}/>                    
-                </View>
-            </DrawerContentScrollView>
-            <View style={styles.drawerFooter}>
-                <Octicons name="sign-out" size={20} color="#333" />
-                <Text style={{paddingLeft: 15}}>Sign out</Text>
-            </View>            
-        </View>
+                <DrawerContentScrollView {...props} contentContainerStyle={{backgroundColor: '#123b3b'}}>
+                    <View style={styles.ListContainer}>
+                        <DrawerItemList {...props}/>                    
+                    </View>
+                </DrawerContentScrollView>
+                <View style={styles.drawerFooter}>
+                    <Octicons name="sign-out" size={20} color="#333" />
+                    <Text style={{paddingLeft: 15}}>Sign out</Text>
+                </View>                  
+        </View> 
     );
   }
 
