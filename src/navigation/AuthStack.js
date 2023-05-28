@@ -2,11 +2,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from '../HomeScreen';
-import SignInScreen from '../SignInScreen';
-import SignUpScreen from '../SignUpScreen';
-import ProfileScreen from '../ProfileScreen';
-import Header from '../components/Header';
+import HomeScreen from '../screens/HomeScreen';
+import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 
 

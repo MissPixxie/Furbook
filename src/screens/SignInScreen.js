@@ -1,13 +1,37 @@
 import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Pressable, Alert, SafeAreaView, TextInput, Button } from "react-native";
-import Buttons from "./components/CustomButton";
 import { LinearGradient } from 'expo-linear-gradient';
+import IP from "../../fetchIP";
 import { Ionicons } from '@expo/vector-icons';
 
 
 export default function SignInScreen({navigation}) {
-  const [username, setUsername] = React.useState('Username');
-  const [password, setPassword] = React.useState('Password');
+  const [email, setMail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function signIn () {
+    
+    try {
+      const response = await fetch(IP, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        })
+      })
+      .then((resp) => resp.json())
+      .then((data) => {
+        Alert.alert(data.message);
+      })
+    }
+    catch (error) {
+      console.log(error.message)
+    }
+  }
 
     return (
             <LinearGradient
@@ -18,8 +42,9 @@ export default function SignInScreen({navigation}) {
                       <View style={styles.input}>
                       <Ionicons name="person" size={24} color="black" />
                         <TextInput
-                          onChangeText={setUsername}
-                          value={username}
+                          onChangeText={setMail}
+                          value={email}
+                          placeholder='Email'
                           style={styles.inputText}
                         />                      
                       </View>
@@ -29,13 +54,14 @@ export default function SignInScreen({navigation}) {
                           secureTextEntry={true}
                           onChangeText={setPassword}
                           value={password}
+                          placeholder="Password"
                           style={styles.inputText}
                         />                        
                       </View>
 
                         {/*<Buttons title="Sign in"/>*/}
 
-                        <Pressable onPress={() => navigation.navigate('Profile')}>
+                        <Pressable onPress={signIn}>
                             <Text style={styles.SignInButton}>Sign in</Text>
                         </Pressable> 
 

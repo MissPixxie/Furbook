@@ -13,14 +13,23 @@ const User = require('../models/UsersModel')
 //  }
 //});
 
-router.get('/', async (request, respons) => {
+router.get('/', async (req, res) => {
   try {
-    const users = await User.create({ Name: 'Mia'});
-    await users.save();
-    respons.send(users);
+    console.log(req.body.email)
+    const user = req.body.email;
+    const userExists = await User.findOne({email: user});
+    if (userExists) {
+      // console.log('User exists')
+      let svar = { message: 'User exists'};
+      res.status(200).json(svar);
+    }
+    else {
+      let svar = { message: 'User does not exists'};
+      res.status(404).json(svar); 
+    }
   }
   catch (error) {
-    console.error(error)
+    console.log(error.message)
   }
 });
 

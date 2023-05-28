@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable, SafeAreaView, TextInput, Button, Alert } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import StackTwo from "./navigation/AppStack";
 import { Ionicons } from '@expo/vector-icons';
 
 

@@ -2,24 +2,24 @@ import React from 'react';
 import { useState, useEffect, useRef } from "react";
 import {SafeAreaView, StyleSheet, TextInput, Text, Pressable, View, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from './components/CustomButton';
 import IP from '../../fetchIP'
 
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons'; 
 
 
 
 
 export default function SignUpScreen({navigation}) {
-  
 
-  const [name, setName] = React.useState('');
-  const [email, setMail] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [matchpassword, setMatchPassword] = React.useState('');
+  const [name, setName] = useState('');
+  const [email, setMail] = useState('');
+  const [number, setNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [matchpassword, setMatchPassword] = useState('');
+
 
   
   
@@ -38,12 +38,28 @@ export default function SignUpScreen({navigation}) {
           password: password,
         })
       })
-      .then(console.log('Success!'))
+      .then((resp) => resp.json())
+      .then((data) => {
+        Alert.alert(data.message);
+      })
     }
     catch (error) {
       console.log(error.message)
     }
   }
+
+  function checkPasswordMatch () {
+    if (password === matchpassword) {
+      signUp();
+    }
+    else {
+      Alert.alert('Password do not match');
+    }
+  }
+  
+  // Check valid number ?
+  // Check email validation
+  // Check password security
 
 
   return (
@@ -60,7 +76,7 @@ export default function SignUpScreen({navigation}) {
             />        
         </View>
             <View style={styles.Input}>
-              <MaterialIcons name="alternate-email" size={24} color="black" />
+              <Entypo name="mail" size={24} color="black" />
               <TextInput
                   onChangeText={setMail}
                   value={email}
@@ -103,7 +119,7 @@ export default function SignUpScreen({navigation}) {
         </View>
 
 
-            <Pressable onPress={signUp}>
+            <Pressable onPress={checkPasswordMatch}>
                 <Text style={styles.SignInButton}>Register</Text>
             </Pressable> 
             <Text style={styles.text}>Already have an account?</Text>

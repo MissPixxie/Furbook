@@ -1,15 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import HomeScreen from '../HomeScreen';
-import SignInScreen from '../SignInScreen';
-import SignUpScreen from '../SignUpScreen';
-import ProfileScreen from '../ProfileScreen';
-import SettingsScreen from '../SettingsScreen';
+
+//SCREENS
+import HomeScreen from '../screens/HomeScreen';
+import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import CustomDrawer from '../components/CustomDrawer';
+import MessagesScreen from '../screens/MessagesScreen';
+
+// ICONS
 import { Ionicons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
-import MessagesScreen from '../MessagesScreen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 

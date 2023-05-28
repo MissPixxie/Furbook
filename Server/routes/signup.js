@@ -5,7 +5,15 @@ var User = require('../models/UsersModel')
 
 router.post('/', async (req, res) => {
   try {
-    console.log(req.body)
+
+    const user = req.body.email;
+    const userExists = await User.findOne({email: user});
+    if (userExists) {
+      // console.log('User exists')
+      let svar = { message: 'User already exists'};
+      res.status(200).json(svar);
+    }
+    else {
     var users =  await User.create({ 
       name: req.body.name,
       email: req.body.email,
@@ -15,9 +23,10 @@ router.post('/', async (req, res) => {
     console.log(users)
      users.save()
     .then(data => {
-      console.log(data)
-      res.send('posted');
-    })
+      let svar = { message: 'User added successfully'};
+      res.status(200).json(svar);
+    })      
+    }
   }
   catch (error) {
     console.log(error.message)
