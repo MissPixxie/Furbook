@@ -22,11 +22,10 @@ export default function SignUpScreen({navigation}) {
 
 
   
-  
   async function signUp () {
     
     try {
-      const response = await fetch(IP, {
+      const response = await fetch(IP + '/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

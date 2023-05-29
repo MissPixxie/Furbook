@@ -16,7 +16,10 @@ const HomeScreen = ({ navigation }) => {
                <View style={styles.ButtonContainer}>
                     <Pressable onPress={() => navigation.navigate('Sign up')} style={styles.SignupButton}>
                             <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Register</Text>
-                    </Pressable>                  
+                    </Pressable>
+                    <Pressable onPress={() => navigation.navigate('Posts')} style={styles.SignupButton}>
+                            <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Posts</Text>
+                    </Pressable>                
                </View>
             </SafeAreaView>            
         </LinearGradient>

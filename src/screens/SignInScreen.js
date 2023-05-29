@@ -10,10 +10,11 @@ export default function SignInScreen({navigation}) {
   const [email, setMail] = useState('');
   const [password, setPassword] = useState('');
 
+  
   async function signIn () {
     
     try {
-      const response = await fetch(IP, {
+      const response = await fetch(IP + '/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
