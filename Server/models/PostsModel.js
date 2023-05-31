@@ -1,22 +1,27 @@
 const mongoose = require('mongoose');
 
 const PostsSchema = new mongoose.Schema({
-title: {
-    type: String,
-},
-text: {
-    type: String,
-},
-comments: [
-    
-],
-createdAt: {
-    type: Date,
-    default: () => Date.now(),
-}
-},
-{
-collection: 'posts'
+    title: {
+        type: String,
+    },
+    text: {
+        type: String,
+    },
+    comments: {
+        commentTitle: {
+            type: String,
+        },
+        commentsText: {
+            type: String,
+        }
+    },
+    createdAt: {
+        type: Date,
+        default: () => Date.now(),
+    }
+    },
+    {
+    collection: 'posts'
 });
 
 

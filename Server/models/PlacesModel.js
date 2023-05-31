@@ -1,30 +1,31 @@
 const mongoose = require('mongoose');
 
 const PlacesSchema = new mongoose.Schema({
-place: {
-    type: String,
-    required: true,
-},
-category: {
-    type: String,
-    required: true,
-},
-location: {
-    type: String,
-    required: true,
-},
-description: {
-    type: String,
-    required: true,
-},
-reviews: {
-    type: String,
-    required: true,
-},
-comments: {
-    type: String,
-}
-},
+    name: {
+        type: String,
+    },
+    // valmöjligheter på kategorier, kanske ett listobjekt?
+    category: {
+        type: String,
+    },
+    location: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    reviews: {
+
+    },
+    comments: {
+        commentTitle: {
+            type: String,
+        },
+        commentsText: {
+            type: String,
+        }
+    },
+    },
 {
 collection: 'places'
 });

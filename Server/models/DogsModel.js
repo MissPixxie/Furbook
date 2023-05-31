@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var DogsSchema = new mongoose.Schema({
-Name: String,
-Age: String,
-Sex: String,
-Breed: String
-},
+const DogsSchema = new mongoose.Schema({
+    Name: String,
+    Age: String,
+    Sex: String,
+    Breed: String
+    },
 {
 collection: 'dogs'
 });

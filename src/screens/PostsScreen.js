@@ -7,7 +7,7 @@ import Post from "../components/Post";
 const PostsScreen = ({ navigation }) => {
 
     return (
-        <LinearGradient colors={['#bdbdbd', '#fff', '#bdbdbd']} style={styles.container}>
+        <LinearGradient colors={['#acdbab', '#d7ffd6', '#acdbab']} style={styles.container}>
             <SafeAreaView>
                 <Post />
             </SafeAreaView>            
