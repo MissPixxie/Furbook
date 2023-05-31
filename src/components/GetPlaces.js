@@ -40,7 +40,6 @@ export default function Places() {
                   renderItem={({ item }) => (
                     <View style={styles.postContainer}>
                         <Text style={styles.postTitle}>{item.place}</Text>
-
                         <Text style={styles.postText}>{item.location}</Text>
                         <Text style={styles.postText}>{item.category}</Text>
                         <Text style={styles.postText}>{item.description}</Text>

@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
 const DogsSchema = new mongoose.Schema({
-    Name: String,
-    Age: String,
-    Sex: String,
-    Breed: String
+    name: String,
+    age: String,
+    sex: String,
+    breed: String,
+    neutered: String,
+    images: {},
+    friends: {},
     },
 {
 collection: 'dogs'

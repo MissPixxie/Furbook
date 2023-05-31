@@ -15,16 +15,13 @@ const PlacesSchema = new mongoose.Schema({
         type: String,
     },
     reviews: {
-
-    },
-    comments: {
-        commentTitle: {
-            type: String,
-        },
-        commentsText: {
-            type: String,
+        total: String,
+        review: {
+            paws: String,
+            title: String,
+            text: String,
         }
-    },
+    }
     },
 {
 collection: 'places'

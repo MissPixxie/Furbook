@@ -15,6 +15,13 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    country: String,
+    city: String,
+    messages: {},
+    dogs: {},
+    savedPlaces: {},
+    savedPosts: {},
+    savedEvents: {},
     createdAt: {
         type: Date,
         default: () => Date.now(),
