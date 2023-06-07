@@ -71,6 +71,7 @@ export default function SignUpScreen({navigation}) {
                   onChangeText={setName}
                   value={name}
                 placeholder='Full name'
+                placeholderTextColor={'#636363'}
                 style={styles.inputText}
             />        
         </View>
@@ -80,6 +81,7 @@ export default function SignUpScreen({navigation}) {
                   onChangeText={setMail}
                   value={email}
                   placeholder='Email'
+                  placeholderTextColor={'#636363'}
                   style={styles.inputText}
               />              
             </View>
@@ -90,6 +92,7 @@ export default function SignUpScreen({navigation}) {
                   value={number}
                   style={styles.inputText}
                   placeholder="Phone number"
+                  placeholderTextColor={'#636363'}
                   keyboardType="numeric"
               />            
             </View>
@@ -101,6 +104,7 @@ export default function SignUpScreen({navigation}) {
                   value={password}
                   secureTextEntry={true}
                   placeholder='Password'
+                  placeholderTextColor={'#636363'}
                   style={styles.inputText}
               />              
             </View>
@@ -112,6 +116,7 @@ export default function SignUpScreen({navigation}) {
                   value={matchpassword}
                   secureTextEntry={true}
                   placeholder='Repeat password'
+                  placeholderTextColor={'#636363'}
                   style={styles.inputText}
               />
             </View>

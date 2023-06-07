@@ -46,6 +46,7 @@ export default function SignInScreen({navigation}) {
                           onChangeText={setMail}
                           value={email}
                           placeholder='Email'
+                          placeholderTextColor={'#636363'}
                           style={styles.inputText}
                         />                      
                       </View>
@@ -56,11 +57,10 @@ export default function SignInScreen({navigation}) {
                           onChangeText={setPassword}
                           value={password}
                           placeholder="Password"
+                          placeholderTextColor={'#636363'}
                           style={styles.inputText}
                         />                        
                       </View>
-
-                        {/*<Buttons title="Sign in"/>*/}
 
                         <Pressable onPress={signIn}>
                             <Text style={styles.SignInButton}>Sign in</Text>

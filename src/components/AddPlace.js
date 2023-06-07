@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import {SafeAreaView, StyleSheet, TextInput, Text, Pressable, View, Alert } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import IP from '../../fetchIP'
+import { SelectList } from 'react-native-dropdown-select-list'
 
 import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
@@ -14,13 +15,20 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 export default function AddPlace() {
 
+
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
 
 
-
+  const [selected, setSelected] = useState("");
+  const data = [
+      {key:'1', value:'Beach'},
+      {key:'2', value:'Store'},
+      {key:'3', value:'Café'},
+      {key:'5', value:'Park'},
+  ];
   
   async function newPlace () {
     
@@ -105,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   inputs: {
     padding: 10,

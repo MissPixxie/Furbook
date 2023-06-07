@@ -8,7 +8,6 @@ import HomeScreen from '../screens/HomeScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import PostsScreen from '../screens/PostsScreen';
 import PlacesScreen from '../screens/PlacesScreen';
 
 
@@ -23,7 +22,6 @@ const AuthStack = () => {
           <Stack.Screen name="Sign in" component={SignInScreen} options={{ headerShown: false}} />
           <Stack.Screen name="Sign up" component={SignUpScreen} options={{ headerShown: false}}/>
           <Stack.Screen name="Profile" component={ProfileScreen} />
-          <Stack.Screen name="Posts" component={PostsScreen} />
           <Stack.Screen name="Places" component={PlacesScreen} />
         </Stack.Navigator>     
   );

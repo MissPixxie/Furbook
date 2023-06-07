@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { useState, useEffect, useRef } from "react";
 import { SafeAreaView, View, Text, Pressable, StyleSheet, Alert, FlatList, Modal } from "react-native";
 import IP from "../../fetchIP";
@@ -7,9 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
-
-
 export default function Places() {
+
+
     const [isVisable, setIsVisable] = useState(false);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,7 +26,9 @@ export default function Places() {
             const data = await response.json();
             setData(data);
             setLoading(false);
-            const test = JSON.stringify(data);          
+            const test = JSON.stringify(data);
+            console.log(test)
+            console.log(data)       
           }
           catch(error) {
             console.log(error.message);
@@ -39,7 +41,10 @@ export default function Places() {
                   data={data}
                   renderItem={({ item }) => (
                     <View style={styles.postContainer}>
-                        <Text style={styles.postTitle}>{item.place}</Text>
+                        <Pressable onPress={() => {}}>
+                          <Text>{item.name}</Text>
+                        </Pressable>
+                        <Text style={styles.postTitle}>{item.name}</Text>
                         <Text style={styles.postText}>{item.location}</Text>
                         <Text style={styles.postText}>{item.category}</Text>
                         <Text style={styles.postText}>{item.description}</Text>
@@ -69,6 +74,14 @@ export default function Places() {
                     </View>
                   )}
                 />
+                <FlatList
+                  data={data}
+                  renderItem={({ item }) => (
+                      <Pressable onPress={() => {}}>
+                        <Text>{item.name}</Text>
+                      </Pressable>
+                  )}
+                />
           </SafeAreaView>
         );
   }
@@ -89,8 +102,7 @@ export default function Places() {
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
-        
+        elevation: 5,       
     },
     postTitle: {
         fontSize: 24,

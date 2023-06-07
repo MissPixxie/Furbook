@@ -16,28 +16,31 @@ router.get('/', async function(req, res) {
   });
 
   router.post('/newplace', async (req, res) => {
-    try {
-  
+    try { 
       const getLocation = req.body.location;
-      const locationExists = await Place.findOne({location: getLocation});
+      const locationExists = await PlacesModel.findOne({location: getLocation});
       if (locationExists) {
         // console.log('User exists')
         let svar = { message: 'Location already exists'};
-        res.status(200).json(svar);
+        res.status(404).json(svar);
+      }
+      else if (getLocation.length === 0) {
+        let svar = { message: 'Reqired field'};
+        res.status(404).json(svar);
       }
       else {
-      const newlocation =  await Place.create({ 
-        place: req.body.name,
-        category: req.body.category,
-        description: req.body.description,
-        location: req.body.location
-      });
-      console.log(newlocation)
-       newlocation.save()
-      .then(data => {
-        let svar = { message: 'Location added successfully'};
-        res.status(200).json(svar);
-      })      
+        const newlocation =  await PlacesModel.create({ 
+          name: req.body.name,
+          category: req.body.category,
+          description: req.body.description,
+          location: req.body.location
+        });
+        console.log(newlocation)
+        newlocation.save()
+        .then(data => {
+          let svar = { message: 'Location added successfully'};
+          res.status(200).json(svar);
+        })      
       }
     }
     catch (error) {

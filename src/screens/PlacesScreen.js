@@ -1,14 +1,38 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Pressable, SafeAreaView, TouchableOpacity, Modal, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Pressable, SafeAreaView, TouchableOpacity, Modal, ScrollView, Keyboard, TextInput } from "react-native";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { SelectList } from 'react-native-dropdown-select-list'
 import { LinearGradient } from 'expo-linear-gradient';
+
 import GetPlaces from "../components/GetPlaces";
 import AddPlace from "../components/AddPlace";
 
 
+import { Ionicons } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
+
 
 const PlacesScreen = ({ navigation }) => {
+
+
     const [modalVisible, setModalVisible] = useState(false);
+
+
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+    const [location, setLocation] = useState('');
+    const [description, setDescription] = useState('');
+  
+  
+    // const inputElement = useRef();
+  
+    // const focusInput = () => {
+    //   inputElement.current.focus();
+    // };
+  
 
     return (
         <LinearGradient colors={['#acdbab', '#d7ffd6', '#acdbab']} style={styles.container}>
@@ -18,26 +42,23 @@ const PlacesScreen = ({ navigation }) => {
                             animationType="slide"
                             transparent={true}
                             visible={modalVisible}
+                            style={styles.modal}
                             onRequestClose={() => {
-                            Alert.alert('Modal has been closed.');
                             setModalVisible(!modalVisible);
                             }}>
-                            <View style={[styles.centeredView, styles.inputContainer]}>
-                                    <AddPlace />
-                                    <Pressable
+                              <AddPlace />
+                              <Pressable
                                         style={[styles.button, styles.buttonClose]}
                                         onPress={() => setModalVisible(!modalVisible)}>
                                         <Text style={styles.textStyle}>Close</Text>
-                                    </Pressable>
-                            </View>
+                              </Pressable>
                         </Modal>
-
 
                     <TouchableOpacity style={styles.openModalButton} onPress={() => setModalVisible(true)}>
                         <Text style={styles.buttonText}>
                             Add new place
                         </Text>
-                    </TouchableOpacity>               
+                    </TouchableOpacity>      
             </SafeAreaView>            
         </LinearGradient>
     )
@@ -64,28 +85,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         textAlign: 'center'
     },
-      inputContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'green',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-      },
       buttonClose: {
         borderRadius: 10,
         backgroundColor: '#264026',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingVertical: 15,
+        paddingHorizontal: 25,
         elevation: 2,
       },
       textStyle: {
@@ -93,8 +97,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
       },
-      modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-      },
+      modal: {
+        flex: 1,
+        backgroundColor: 'white',
+      }
   });
