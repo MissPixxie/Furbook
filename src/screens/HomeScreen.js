@@ -14,18 +14,6 @@ const HomeScreen = ({ navigation }) => {
     const toggleTheme = () => setnewTheme(newTheme === 'light' ? 'dark' : 'light')
     console.log(newTheme);
 
-    const light = {
-      backgroundColor: 'white',
-      textColor: 'black'
-    }
-  
-    const dark = {
-      backgroundColor: 'black',
-      textColor: 'white'
-    }
-
-    // const [isEnabled, setIsEnabled] = useState(false);
-    // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     const [isSignedIn, setSignedIn] = useState(false);
     
@@ -48,11 +36,11 @@ const HomeScreen = ({ navigation }) => {
                         </Pressable>           
                 </View>
                         <Switch
-                            trackColor={{false: '#767577', true: '#81ff83'}}
-                            thumbColor={newTheme ? '#184718' : '#f4f3f4'}
+                            trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}
+                            thumbColor={newTheme === 'light' ? '#f4f3f4' : '#184718'}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleTheme}
-                            value={newTheme}
+                            value={newTheme === 'light'}
                         />
                 </SafeAreaView>            
             </LinearGradient>            
