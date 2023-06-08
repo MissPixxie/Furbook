@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet, Pressable, SafeAreaView, TouchableOpacity, Modal, ScrollView, Keyboard, TextInput } from "react-native";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -12,11 +12,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { Foundation } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ThemeContext } from "./HomeScreen";
+
 
 
 
 const PlacesScreen = ({ navigation }) => {
 
+    // const theme = useContext(ThemeContext);
+    // console.log(theme);
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -37,7 +41,7 @@ const PlacesScreen = ({ navigation }) => {
     return (
         <LinearGradient colors={['#acdbab', '#d7ffd6', '#acdbab']} style={styles.container}>
             <SafeAreaView>
-                <GetPlaces />
+                 <GetPlaces /> 
                         <Modal
                             animationType="slide"
                             transparent={true}
@@ -60,7 +64,8 @@ const PlacesScreen = ({ navigation }) => {
                         </Text>
                     </TouchableOpacity>      
             </SafeAreaView>            
-        </LinearGradient>
+        </LinearGradient>        
+
     )
 }
 
