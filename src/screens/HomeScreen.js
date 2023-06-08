@@ -8,7 +8,11 @@ import { ThemeContext } from "../components/Theme";
 const HomeScreen = ({ navigation }) => {
 
     const theme = useContext(ThemeContext);
-    console.log(theme);
+
+    const [newTheme, setnewTheme] = useState('light');
+
+    const toggleTheme = () => setnewTheme(newTheme === 'light' ? 'dark' : 'light')
+    console.log(newTheme);
 
     const light = {
       backgroundColor: 'white',
@@ -20,23 +24,11 @@ const HomeScreen = ({ navigation }) => {
       textColor: 'white'
     }
 
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    // const [isEnabled, setIsEnabled] = useState(false);
+    // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     const [isSignedIn, setSignedIn] = useState(false);
     
-
-    // const [ dark, setDark] = useState(false);
-
-    // const themeStyle = useMemo(() => {
-    //     return {
-    //         backgroundColor: dark ? 'black' : 'white',
-    //         color: dark ? 'white' : 'black' 
-    //     }
-    // }, [dark])
-    // useEffect(() => {
-    //     console.log('Theme changed');
-    // }, [themeStyle])
 
     return (
         <ThemeContext.Provider value={theme}>
@@ -53,17 +45,14 @@ const HomeScreen = ({ navigation }) => {
                         </Pressable>
                         <Pressable onPress={() => navigation.navigate('Places')} style={styles.SignupButton}>
                                 <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Places</Text>
-                        </Pressable>                
+                        </Pressable>           
                 </View>
-                {/* <Pressable onPress={() => setDark(prevDark => !prevDark)} style={styles.SignupButton}>
-                                <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Places</Text>
-                        </Pressable> */}
                         <Switch
                             trackColor={{false: '#767577', true: '#81ff83'}}
-                            thumbColor={isEnabled ? '#184718' : '#f4f3f4'}
+                            thumbColor={newTheme ? '#184718' : '#f4f3f4'}
                             ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
+                            onValueChange={toggleTheme}
+                            value={newTheme}
                         />
                 </SafeAreaView>            
             </LinearGradient>            
