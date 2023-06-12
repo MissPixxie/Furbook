@@ -1,27 +1,20 @@
 import React, { useContext, createContext, useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, Pressable, SafeAreaView, TextInput, Button, TouchableOpacity, Switch } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import { ThemeContext } from "../components/Theme";
+import { useTheme } from "../../App";
 
 
 
 const HomeScreen = ({ navigation }) => {
 
-    const theme = useContext(ThemeContext);
-
-    const [newTheme, setnewTheme] = useState('light');
-
-    const toggleTheme = () => setnewTheme(newTheme === 'light' ? 'dark' : 'light')
-    console.log(newTheme);
-
+    const { toggleTheme, theme } = useTheme();
+    const background = theme.background;
 
     const [isSignedIn, setSignedIn] = useState(false);
     
 
     return (
-        <ThemeContext.Provider value={theme}>
-            <LinearGradient colors={['#bdbdbd', '#fff', '#bdbdbd']} style={styles.container}>
-                <SafeAreaView>
+                <View style={styles.container}>
                     <View style={styles.ButtonContainer}>
                         <Pressable onPress={() => navigation.navigate('Sign in')} style={styles.SigninButton}>
                                 <Text style={styles.ButtonText}>Sign in</Text>
@@ -33,18 +26,19 @@ const HomeScreen = ({ navigation }) => {
                         </Pressable>
                         <Pressable onPress={() => navigation.navigate('Places')} style={styles.SignupButton}>
                                 <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Places</Text>
-                        </Pressable>           
+                        </Pressable>
+                        <Pressable onPress={toggleTheme} style={styles.SignupButton}>
+                                <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Theme</Text>
+                        </Pressable> 
                 </View>
-                        <Switch
+                        {/* <Switch
                             trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}
                             thumbColor={newTheme === 'light' ? '#f4f3f4' : '#184718'}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleTheme}
                             value={newTheme === 'light'}
-                        />
-                </SafeAreaView>            
-            </LinearGradient>            
-        </ThemeContext.Provider>
+                        /> */}
+                </View>                      
 
     )
 }
