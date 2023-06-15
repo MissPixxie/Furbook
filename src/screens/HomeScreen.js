@@ -1,20 +1,25 @@
 import React, { useContext, createContext, useEffect, useMemo, useState } from "react";
 import { View, Text, StyleSheet, Pressable, SafeAreaView, TextInput, Button, TouchableOpacity, Switch } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import { useTheme } from "../../App";
+import { useTheme, toggleTheme } from '@react-navigation/native';
+import { ThemeContext } from '../../App';
 
 
 
 const HomeScreen = ({ navigation }) => {
 
-    const { toggleTheme, theme } = useTheme();
-    const background = theme.background;
+    //console.log('home screen component rendered');
+
+     const { colors } = useTheme();
+     const {theme, toggleTheme} = useContext(ThemeContext);
+     console.log(theme)
 
     const [isSignedIn, setSignedIn] = useState(false);
     
 
     return (
-                <View style={styles.container}>
+        <View style={styles.container}>
+                <View>
                     <View style={styles.ButtonContainer}>
                         <Pressable onPress={() => navigation.navigate('Sign in')} style={styles.SigninButton}>
                                 <Text style={styles.ButtonText}>Sign in</Text>
@@ -29,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
                         </Pressable>
                         <Pressable onPress={toggleTheme} style={styles.SignupButton}>
                                 <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>Theme</Text>
-                        </Pressable> 
+                        </Pressable>
                 </View>
                         {/* <Switch
                             trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}
@@ -38,7 +43,9 @@ const HomeScreen = ({ navigation }) => {
                             onValueChange={toggleTheme}
                             value={newTheme === 'light'}
                         /> */}
-                </View>                      
+                </View>               
+        </View>
+                   
 
     )
 }

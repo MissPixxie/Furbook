@@ -23,10 +23,10 @@ const EventsSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now(),
     }
-    },
+},
     {
-    collection: 'events'
-});
+        collection: 'events'
+    });
 
 
 module.exports =  mongoose.model('Event', EventsSchema);

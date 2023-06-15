@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 export default function Places() {
-
+  //console.log('getplaces component rendered');
 
     const [isVisable, setIsVisable] = useState(false);
     const [data, setData] = useState([]);
@@ -16,6 +16,7 @@ export default function Places() {
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
+      console.log('useEffect rendered');
         fetchPosts();
       }, []);
 

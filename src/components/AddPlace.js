@@ -15,6 +15,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 export default function AddPlace() {
 
+  //console.log('addplace component rendered');
+
 
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');

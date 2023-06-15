@@ -7,6 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 export default function SignInScreen({navigation}) {
+
+  //console.log('Signin screen component rendered');
+
+
   const [email, setMail] = useState('');
   const [password, setPassword] = useState('');
 

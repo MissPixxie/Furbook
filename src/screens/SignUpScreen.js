@@ -14,6 +14,8 @@ import { Entypo } from '@expo/vector-icons';
 
 export default function SignUpScreen({navigation}) {
 
+  //console.log('Signup screen component rendered');
+
   const [name, setName] = useState('');
   const [email, setMail] = useState('');
   const [number, setNumber] = useState('');

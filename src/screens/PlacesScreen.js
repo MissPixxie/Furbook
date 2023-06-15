@@ -19,6 +19,10 @@ import { ThemeContext } from "./HomeScreen";
 
 const PlacesScreen = ({ navigation }) => {
 
+  //console.log('places screen component rendered');
+  const { toggleTheme, darkTheme } = useTheme();
+  console.log(darkTheme)
+
     // const theme = useContext(ThemeContext);
     // console.log(theme);
 
