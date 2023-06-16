@@ -1,9 +1,0 @@
-{
-    "appId": "application-0-zzngn",
-    "appUrl": "https://realm.mongodb.com/groups/6456644e9a5b161ec57e8161/apps/648c449f2917de383d5d85f5",
-    "baseUrl": "https://realm.mongodb.com",
-    "clientApiBaseUrl": "https://eu-central-1.aws.realm.mongodb.com",
-    "dataApiBaseUrl": "https://eu-central-1.aws.data.mongodb-api.com",
-    "dataExplorerLink": "https://cloud.mongodb.com/links/6456644e9a5b161ec57e8161/explorer/Emelies/database/collection/find",
-    "dataSourceName": "mongodb-atlas"
-}
