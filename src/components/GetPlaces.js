@@ -57,9 +57,21 @@ export default function Places({ setModalVisible, theme }) {
         <SearchBar
           round
           containerStyle={{
-            borderRadius: 10,
-            backgroundColor: thisTheme ? "#000" : "#fff",
+            borderRadius: 15,
+            backgroundColor: thisTheme ? "#000" : "#bced95",
           }}
+          inputContainerStyle={{
+            backgroundColor: thisTheme ? "#a4a4a4" : "#fff",
+          }}
+          searchIcon={{
+            size: 32,
+            color: thisTheme ? "#fff" : "#000",
+          }}
+          inputStyle={{
+            fontSize: 20,
+            color: thisTheme ? "#fff" : "#000",
+          }}
+          placeholderTextColor={thisTheme ? "#fff" : "#000"}
           placeholder="Type Here..."
           onChangeText={updateSearch}
           value={search}
@@ -166,12 +178,9 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  inputContainerStyle: {
-    backgroundColor: "#6e6e6e",
-  },
   filterButton: {
     width: "30%",
-    backgroundColor: "#75c767",
+    backgroundColor: "#bced95",
     borderRadius: 10,
     padding: 5,
     textAlign: "center",
@@ -180,7 +189,7 @@ const styles = StyleSheet.create({
   },
   filterButtonText: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 20,
   },
   openModalButton: {
     width: "80%",
