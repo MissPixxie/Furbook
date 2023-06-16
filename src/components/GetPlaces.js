@@ -11,17 +11,25 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
+import { SearchBar } from "@rneui/themed";
 import IP from "../../fetchIP";
 
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function Places({ setModalVisible }) {
+export default function Places({ setModalVisible, theme }) {
   //console.log('getplaces component rendered');
+
+  const thisTheme = theme.dark;
 
   const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState();
+
+  const updateSearch = (search) => {
+    setSearchState(search);
+  };
 
   useEffect(() => {
     console.log("useEffect rendered");
@@ -41,7 +49,22 @@ export default function Places({ setModalVisible }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <Pressable onPress={() => {}} style={styles.filterButton}>
+        <Text style={styles.filterButtonText}>Filter</Text>
+      </Pressable>
+      <View>
+        <SearchBar
+          round
+          containerStyle={{
+            borderRadius: 10,
+            backgroundColor: thisTheme ? "#000" : "#fff",
+          }}
+          placeholder="Type Here..."
+          onChangeText={updateSearch}
+          value={search}
+        />
+      </View>
       <FlatList
         data={data}
         renderItem={({ item }) => (
@@ -117,25 +140,21 @@ export default function Places({ setModalVisible }) {
           </TouchableOpacity>
         }
       />
-      {/* <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <Pressable onPress={() => {}}>
-            <Text>{item.name}</Text>
-          </Pressable>
-        )}
-      /> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    paddingHorizontal: 15,
+  },
   postContainer: {
-    marginTop: 10,
-    marginBottom: 10,
+    width: "100%",
+    marginVertical: 10,
     alignSelf: "center",
     backgroundColor: "white",
-    width: "90%",
     borderRadius: 10,
     padding: 15,
     shadowColor: "#000",
@@ -146,6 +165,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  inputContainerStyle: {
+    backgroundColor: "#6e6e6e",
+  },
+  filterButton: {
+    width: "30%",
+    backgroundColor: "#75c767",
+    borderRadius: 10,
+    padding: 5,
+    textAlign: "center",
+    alignSelf: "flex-end",
+    marginVertical: 10,
+  },
+  filterButtonText: {
+    textAlign: "center",
+    fontSize: 18,
   },
   openModalButton: {
     width: "80%",

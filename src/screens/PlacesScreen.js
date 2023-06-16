@@ -37,7 +37,7 @@ const PlacesScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <GetPlaces setModalVisible={setModalVisible} />
+      <GetPlaces setModalVisible={setModalVisible} theme={theme} />
       <Modal
         animationType="slide"
         transparent={true}
@@ -65,7 +65,6 @@ export default PlacesScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
   },
   openModalButton: {
     width: "80%",
