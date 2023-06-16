@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const DogsSchema = new mongoose.Schema({
+const DogsSchema = new mongoose.Schema(
+  {
     name: String,
     age: String,
     sex: String,
@@ -8,9 +9,10 @@ const DogsSchema = new mongoose.Schema({
     neutered: String,
     images: {},
     friends: {},
-    },
-{
-collection: 'dogs'
-});
+  },
+  {
+    collection: "dogs",
+  }
+);
 
-module.exports = mongoose.model('DogsModel', DogsSchema);
+module.exports = mongoose.model("DogsModel", DogsSchema);

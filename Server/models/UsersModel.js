@@ -1,19 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const UsersSchema = new mongoose.Schema({
+const UsersSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
+      type: String,
     },
     email: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     number: {
-        type: String,
+      type: String,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      //   required: true,
     },
     country: String,
     city: String,
@@ -23,13 +24,13 @@ const UsersSchema = new mongoose.Schema({
     savedPosts: {},
     savedEvents: {},
     createdAt: {
-        type: Date,
-        default: () => Date.now(),
-    }
-},
-{
-    collection: 'users'
-});
+      type: Date,
+      default: () => Date.now(),
+    },
+  },
+  {
+    collection: "users",
+  }
+);
 
-
-module.exports =  mongoose.model('User', UsersSchema);
+module.exports = mongoose.model("User", UsersSchema);

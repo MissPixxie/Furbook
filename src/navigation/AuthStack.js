@@ -17,8 +17,6 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
 
-      console.log('navigation component rendered');
-
 
   return (
         <Stack.Navigator>
