@@ -16,6 +16,7 @@ import { SearchBar } from "@rneui/themed";
 import { ThemeContext } from "../../App";
 import { RefreshControl } from "react-native-gesture-handler";
 import GetEvents from "../components/GetEvents";
+import GetDogs from "../components/GetDogs";
 
 const EventsScreen = ({ navigation }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -96,7 +97,10 @@ const EventsScreen = ({ navigation }) => {
           <Text style={styles.filterButtonText}>{FILTER_TYPE.places}</Text>
         </Pressable>
       </View>
-      <GetEvents setModalVisible={setModalVisible} theme={theme} />
+      {filterType === FILTER_TYPE.dogs ? <GetDogs theme={theme} /> : null}
+      {filterType === FILTER_TYPE.places ? (
+        <GetEvents setModalVisible={setModalVisible} theme={theme} />
+      ) : null}
       {/* <Modal
         animationType="slide"
         transparent={true}

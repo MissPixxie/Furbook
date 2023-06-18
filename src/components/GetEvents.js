@@ -17,12 +17,11 @@ import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function GetEvents() {
+export default function GetEvents({ setModalVisible, theme }) {
   //console.log('getplaces component rendered');
 
   const thisTheme = theme.dark;
 
-  const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +31,7 @@ export default function GetEvents() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(IP + "/places");
+      const response = await fetch(IP + "/events");
       const data = await response.json();
       setData(data);
       setLoading(false);
@@ -48,10 +47,11 @@ export default function GetEvents() {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
-            <Text style={styles.postTitle}>{item.name}</Text>
-            <Text style={styles.postText}>{item.location}</Text>
-            <Text style={styles.postText}>{item.category}</Text>
+            <Text style={styles.postTitle}>{item.title}</Text>
+            <Text style={styles.postText}>{item.place}</Text>
             <Text style={styles.postText}>{item.description}</Text>
+            <Text style={styles.postText}>{item.typeOfEvent}</Text>
+            <Text style={styles.postText}>{item.time}</Text>
             <Text
               style={styles.postComments}
               onPress={() => {
