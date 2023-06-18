@@ -17,7 +17,7 @@ import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function Places({ setModalVisible, theme }) {
+export default function GetEvents({ setModalVisible, theme }) {
   //console.log('getplaces component rendered');
 
   const thisTheme = theme.dark;
@@ -25,11 +25,6 @@ export default function Places({ setModalVisible, theme }) {
   const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState();
-
-  const updateSearch = (search) => {
-    setSearch(search);
-  };
 
   useEffect(() => {
     console.log("useEffect rendered");
@@ -50,33 +45,6 @@ export default function Places({ setModalVisible, theme }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Pressable onPress={() => {}} style={styles.filterButton}>
-        <Text style={styles.filterButtonText}>Filter</Text>
-      </Pressable>
-      <View>
-        <SearchBar
-          round
-          containerStyle={{
-            borderRadius: 15,
-            backgroundColor: thisTheme ? "#000" : "#bced95",
-          }}
-          inputContainerStyle={{
-            backgroundColor: thisTheme ? "#a4a4a4" : "#fff",
-          }}
-          searchIcon={{
-            size: 32,
-            color: thisTheme ? "#fff" : "#000",
-          }}
-          inputStyle={{
-            fontSize: 20,
-            color: thisTheme ? "#fff" : "#000",
-          }}
-          placeholderTextColor={thisTheme ? "#fff" : "#000"}
-          placeholder="Type Here..."
-          onChangeText={updateSearch}
-          value={search}
-        />
-      </View>
       <FlatList
         data={data}
         renderItem={({ item }) => (
@@ -104,43 +72,6 @@ export default function Places({ setModalVisible, theme }) {
               </View>
             )}
             <Text style={styles.postDate}>{item.date}</Text>
-            <View style={styles.reviewContainer}>
-              <Pressable
-                onPress={() => {
-                  Alert.alert("Paw pressed");
-                }}
-              >
-                <Ionicons name="paw" size={24} color="#264026" />
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  Alert.alert("Paw pressed");
-                }}
-              >
-                <Ionicons name="paw" size={24} color="#264026" />
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  Alert.alert("Paw pressed");
-                }}
-              >
-                <Ionicons name="paw" size={24} color="#264026" />
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  Alert.alert("Paw pressed");
-                }}
-              >
-                <Ionicons name="paw" size={24} color="#264026" />
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  Alert.alert("Paw pressed");
-                }}
-              >
-                <Ionicons name="paw" size={24} color="#264026" />
-              </Pressable>
-            </View>
           </View>
         )}
         ListFooterComponent={

@@ -62,6 +62,14 @@ const HomeScreen = ({ navigation }) => {
               Theme
             </Text>
           </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("Events")}
+            style={styles.SignupButton}
+          >
+            <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>
+              Events
+            </Text>
+          </Pressable>
         </View>
         {/* <Switch
                             trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}

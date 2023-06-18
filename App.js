@@ -14,7 +14,7 @@ const MyTheme = {
   dark: {
     dark: true,
     colors: {
-      primary: "rgb(255, 45, 85)",
+      primary: "#ccffcc",
       background: "#1f1f1f",
       card: "rgb(255, 255, 255)",
       text: "rgb(28, 28, 30)",
