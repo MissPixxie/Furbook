@@ -28,10 +28,12 @@ const EventsScreen = ({ navigation }) => {
     setSearch(search);
   };
 
-  const [focus, setFocus] = useState(false);
-  const toggleFocus = () => {
-    setFocus(!focus);
+  const FILTER_TYPE = {
+    dogs: "Dogs",
+    events: "Events",
+    places: "Places",
   };
+  const [filterType, setFilterType] = useState(FILTER_TYPE.dogs);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,22 +66,34 @@ const EventsScreen = ({ navigation }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <Pressable
-          onPress={toggleFocus}
-          style={focus ? [styles.baseButton, styles.active] : styles.baseButton}
+          onPress={() => setFilterType(FILTER_TYPE.dogs)}
+          style={
+            filterType === FILTER_TYPE.dogs
+              ? [styles.baseButton, styles.active]
+              : styles.baseButton
+          }
         >
-          <Text style={styles.filterButtonText}>Dogs</Text>
+          <Text style={styles.filterButtonText}>{FILTER_TYPE.dogs}</Text>
         </Pressable>
         <Pressable
-          onPress={toggleFocus}
-          style={focus ? [styles.baseButton, styles.active] : styles.baseButton}
+          onPress={() => setFilterType(FILTER_TYPE.events)}
+          style={
+            filterType === FILTER_TYPE.events
+              ? [styles.baseButton, styles.active]
+              : styles.baseButton
+          }
         >
-          <Text style={styles.filterButtonText}>Events</Text>
+          <Text style={styles.filterButtonText}>{FILTER_TYPE.events}</Text>
         </Pressable>
         <Pressable
-          onPress={toggleFocus}
-          style={focus ? [styles.baseButton, styles.active] : styles.baseButton}
+          onPress={() => setFilterType(FILTER_TYPE.places)}
+          style={
+            filterType === FILTER_TYPE.places
+              ? [styles.baseButton, styles.active]
+              : styles.baseButton
+          }
         >
-          <Text style={styles.filterButtonText}>Places</Text>
+          <Text style={styles.filterButtonText}>{FILTER_TYPE.places}</Text>
         </Pressable>
       </View>
       <GetEvents setModalVisible={setModalVisible} theme={theme} />

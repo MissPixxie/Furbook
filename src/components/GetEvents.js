@@ -17,7 +17,7 @@ import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function GetEvents({ setModalVisible, theme }) {
+export default function GetEvents() {
   //console.log('getplaces component rendered');
 
   const thisTheme = theme.dark;
@@ -27,7 +27,6 @@ export default function GetEvents({ setModalVisible, theme }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect rendered");
     fetchPosts();
   }, []);
 
@@ -74,14 +73,6 @@ export default function GetEvents({ setModalVisible, theme }) {
             <Text style={styles.postDate}>{item.date}</Text>
           </View>
         )}
-        ListFooterComponent={
-          <TouchableOpacity
-            style={styles.openModalButton}
-            onPress={() => setModalVisible(true)}
-          >
-            <Text style={styles.buttonText}>Add new place</Text>
-          </TouchableOpacity>
-        }
       />
     </SafeAreaView>
   );
