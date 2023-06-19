@@ -12,15 +12,23 @@ import {
   TextInput,
 } from "react-native";
 import { SearchBar } from "@rneui/themed";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import { ThemeContext } from "../../App";
 import { RefreshControl } from "react-native-gesture-handler";
 import GetEvents from "../components/GetEvents";
 import GetDogs from "../components/GetDogs";
+import GetPlaces from "../components/GetPlaces";
+import SmallButton from "../components/SmallButton";
 
 const EventsScreen = ({ navigation }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
+
+  const { colors } = theme;
+  console.log(colors);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -66,41 +74,36 @@ const EventsScreen = ({ navigation }) => {
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <Pressable
+        <SmallButton
+          title="Dogs"
+          iconName="paw"
           onPress={() => setFilterType(FILTER_TYPE.dogs)}
-          style={
-            filterType === FILTER_TYPE.dogs
-              ? [styles.baseButton, styles.active]
-              : styles.baseButton
-          }
-        >
-          <Text style={styles.filterButtonText}>{FILTER_TYPE.dogs}</Text>
-        </Pressable>
-        <Pressable
+          active={filterType === FILTER_TYPE.dogs}
+          icon={<Ionicons name="paw" size={20} color="white" />}
+        />
+        <SmallButton
+          title="Events"
+          iconName="events"
           onPress={() => setFilterType(FILTER_TYPE.events)}
-          style={
-            filterType === FILTER_TYPE.events
-              ? [styles.baseButton, styles.active]
-              : styles.baseButton
-          }
-        >
-          <Text style={styles.filterButtonText}>{FILTER_TYPE.events}</Text>
-        </Pressable>
-        <Pressable
+          active={filterType === FILTER_TYPE.events}
+          icon={<MaterialIcons name="event" size={20} color="white" />}
+        />
+        <SmallButton
+          title="Places"
+          iconName="location-pin"
           onPress={() => setFilterType(FILTER_TYPE.places)}
-          style={
-            filterType === FILTER_TYPE.places
-              ? [styles.baseButton, styles.active]
-              : styles.baseButton
-          }
-        >
-          <Text style={styles.filterButtonText}>{FILTER_TYPE.places}</Text>
-        </Pressable>
+          active={filterType === FILTER_TYPE.places}
+          icon={<Entypo name="location-pin" size={20} color="white" />}
+        />
       </View>
-      {filterType === FILTER_TYPE.dogs ? <GetDogs theme={theme} /> : null}
-      {filterType === FILTER_TYPE.places ? (
-        <GetEvents setModalVisible={setModalVisible} theme={theme} />
-      ) : null}
+      <View style={{ flex: 1, backgroundColor: colors.primary }}>
+        {filterType === FILTER_TYPE.dogs ? <GetDogs theme={theme} /> : null}
+        {filterType === FILTER_TYPE.events ? <GetEvents theme={theme} /> : null}
+        {filterType === FILTER_TYPE.places ? (
+          <GetPlaces setModalVisible={setModalVisible} theme={theme} />
+        ) : null}
+      </View>
+
       {/* <Modal
         animationType="slide"
         transparent={true}
@@ -139,18 +142,6 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignSelf: "center",
   },
-  baseButton: {
-    width: "30%",
-    backgroundColor: "#a4a4a4",
-    borderRadius: 10,
-    padding: 5,
-    textAlign: "center",
-    alignSelf: "flex-end",
-    marginVertical: 10,
-  },
-  active: {
-    backgroundColor: "#bced95",
-  },
   filterButton: {
     width: "30%",
     backgroundColor: "#bced95",
@@ -163,13 +154,7 @@ const styles = StyleSheet.create({
   filterButtonText: {
     textAlign: "center",
     fontSize: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 26,
-    paddingHorizontal: 5,
-    paddingVertical: 10,
-    textAlign: "center",
+    marginRight: 7,
   },
   buttonClose: {
     borderRadius: 10,

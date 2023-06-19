@@ -55,7 +55,6 @@ const PlacesScreen = ({ navigation }) => {
           <Text style={styles.textStyle}>Close</Text>
         </Pressable>
       </Modal>
-      <View></View>
     </SafeAreaView>
   );
 };

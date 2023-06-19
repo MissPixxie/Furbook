@@ -14,10 +14,10 @@ const MyTheme = {
   dark: {
     dark: true,
     colors: {
-      primary: "#ccffcc",
-      background: "#1f1f1f",
+      primary: "#202020",
+      background: "#000",
       card: "rgb(255, 255, 255)",
-      text: "rgb(28, 28, 30)",
+      text: "#fff",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
     },

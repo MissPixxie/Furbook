@@ -27,7 +27,6 @@ export default function Places({ setModalVisible, theme }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect rendered");
     fetchPosts();
   }, []);
 
@@ -134,17 +133,9 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     alignSelf: "center",
-    backgroundColor: "white",
-    borderRadius: 10,
     padding: 15,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    borderBottomColor: "#bced95",
+    borderBottomWidth: 2,
   },
   filterButton: {
     width: "30%",
@@ -175,18 +166,22 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     fontSize: 24,
+    color: "white",
   },
   postText: {
     marginVertical: 15,
     fontSize: 22,
+    color: "white",
   },
   postComments: {
     marginVertical: 5,
     fontSize: 18,
     color: "green",
+    color: "white",
   },
   metaComments: {
     fontSize: 18,
+    color: "white",
   },
   reviewContainer: {
     flexDirection: "row",

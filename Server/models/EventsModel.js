@@ -8,9 +8,15 @@ const EventsSchema = new mongoose.Schema(
     place: {
       type: String,
     },
-    description: String,
-    typeOfEvent: String,
-    time: String,
+    description: {
+      type: String,
+    },
+    typeOfEvent: {
+      type: String,
+    },
+    time: {
+      type: String,
+    },
     attending: {},
     comments: {
       commentTitle: {

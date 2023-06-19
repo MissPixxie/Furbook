@@ -26,7 +26,6 @@ export default function GetDogs({ theme }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect rendered");
     fetchPosts();
   }, []);
 
@@ -37,7 +36,6 @@ export default function GetDogs({ theme }) {
       setData(data);
       setLoading(false);
       const test = JSON.stringify(data);
-      console.log(test);
     } catch (error) {
       console.log(error.message);
     }

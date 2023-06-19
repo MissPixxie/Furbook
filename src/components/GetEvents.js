@@ -22,6 +22,7 @@ export default function GetEvents({ setModalVisible, theme }) {
 
   const thisTheme = theme.dark;
 
+  const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
