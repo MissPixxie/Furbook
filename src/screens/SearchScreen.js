@@ -22,8 +22,10 @@ import GetEvents from "../components/GetEvents";
 import GetDogs from "../components/GetDogs";
 import GetPlaces from "../components/GetPlaces";
 import SmallButton from "../components/SmallButton";
+import AddPlace from "../components/AddPlace";
+import { BottomTabs } from "../components/BottomTabs";
 
-const EventsScreen = ({ navigation }) => {
+const SearchScreen = ({ navigation }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
 
@@ -46,6 +48,23 @@ const EventsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        style={styles.modal}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <AddPlace />
+        <Pressable
+          style={[styles.button, styles.buttonClose]}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Text style={styles.textStyle}>Close</Text>
+        </Pressable>
+      </Modal>
       <Pressable onPress={() => {}} style={styles.filterButton}>
         <Text style={styles.filterButtonText}>Filter</Text>
       </Pressable>
@@ -103,29 +122,11 @@ const EventsScreen = ({ navigation }) => {
           <GetPlaces setModalVisible={setModalVisible} theme={theme} />
         ) : null}
       </View>
-
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        style={styles.modal}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <AddPlace />
-        <Pressable
-          style={[styles.button, styles.buttonClose]}
-          onPress={() => setModalVisible(!modalVisible)}
-        >
-          <Text style={styles.textStyle}>Close</Text>
-        </Pressable>
-      </Modal> */}
     </SafeAreaView>
   );
 };
 
-export default EventsScreen;
+export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {

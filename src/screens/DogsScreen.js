@@ -6,18 +6,14 @@ import {
   Pressable,
   SafeAreaView,
   TextInput,
-  Button,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function MessagesScreen({ navigation }) {
+export default function DogsScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text>Messages</Text>
-      </View>
+      <Text>Dogs</Text>
     </SafeAreaView>
   );
 }

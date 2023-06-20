@@ -9,6 +9,7 @@ import {
 import AppStack from "./src/navigation/AppStack";
 import AuthStack from "./src/navigation/AuthStack";
 import { View } from "react-native-web";
+import { BottomTabs } from "./src/components/BottomTabs";
 
 const MyTheme = {
   dark: {
@@ -17,7 +18,7 @@ const MyTheme = {
       primary: "#202020",
       background: "#000",
       card: "rgb(255, 255, 255)",
-      text: "#fff",
+      text: "#000",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
     },
@@ -48,9 +49,10 @@ export default function App({ children }) {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <NavigationContainer theme={theme}>
-        <AuthStack />
+        {/* <        <AuthStack /> */}
         {children}
         {/*<AppStack />*/}
+        <BottomTabs />
       </NavigationContainer>
     </ThemeContext.Provider>
   );
