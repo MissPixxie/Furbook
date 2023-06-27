@@ -19,18 +19,23 @@ const PlacesSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    reviews: {
-      total: String,
-      review: {
-        paws: String,
-        title: String,
-        text: String,
-      },
-    },
   },
   {
     collection: "places",
   }
 );
+
+PlacesSchema.statics.addReview = function (paw) {
+  // try {
+  //   const newReview = ReviewsShema.create({
+  //     paws: paw,
+  //   });
+  //   newReview.save().then(() => {
+  //     console.log("saved");
+  //   });
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
+};
 
 module.exports = mongoose.model("Place", PlacesSchema);

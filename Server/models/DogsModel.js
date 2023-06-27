@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("./UsersModel");
 
 const DogsSchema = new mongoose.Schema(
   {
@@ -9,6 +10,10 @@ const DogsSchema = new mongoose.Schema(
     neutered: String,
     images: {},
     friends: {},
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+    },
   },
   {
     collection: "dogs",

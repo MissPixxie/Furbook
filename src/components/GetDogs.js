@@ -18,9 +18,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function GetDogs({ theme }) {
-  //console.log('getplaces component rendered');
 
   const thisTheme = theme.dark;
+  const { colors } = theme;
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,11 +47,11 @@ export default function GetDogs({ theme }) {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
-            <Text style={styles.postTitle}>{item.name}</Text>
-            <Text style={styles.postText}>{item.age}</Text>
-            <Text style={styles.postText}>{item.sex}</Text>
-            <Text style={styles.postText}>{item.breed}</Text>
-            <Text style={styles.postText}>{item.neutered}</Text>
+            <Text style={{fontSize: 26, color: colors.text}}>{item.name}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.age}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.sex}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.breed}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.neutered}</Text>
           </View>
         )}
       />
@@ -75,11 +75,9 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     fontSize: 24,
-    color: "white",
   },
   postText: {
     marginVertical: 15,
     fontSize: 22,
-    color: "white",
   },
 });

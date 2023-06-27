@@ -7,7 +7,6 @@ import HomeScreen from "../screens/HomeScreen";
 import SignInScreen from "../screens/SignInScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import PlacesScreen from "../screens/PlacesScreen";
 import SearchScreen from "../screens/SearchScreen";
 
 const Stack = createNativeStackNavigator();
@@ -33,11 +32,6 @@ const AuthStack = () => {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Places"
-        component={PlacesScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -22,7 +22,6 @@ export default function SignUpScreen({ navigation }) {
 
   const [name, setName] = useState("");
   const [email, setMail] = useState("");
-  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [matchpassword, setMatchPassword] = useState("");
 
@@ -36,7 +35,6 @@ export default function SignUpScreen({ navigation }) {
         body: JSON.stringify({
           name: name,
           email: email,
-          number: number,
           password: password,
         }),
       })
@@ -86,17 +84,6 @@ export default function SignUpScreen({ navigation }) {
               placeholder="Email"
               placeholderTextColor={"#636363"}
               style={styles.inputText}
-            />
-          </View>
-          <View style={styles.Input}>
-            <Foundation name="telephone" size={24} color="black" />
-            <TextInput
-              onChangeText={setNumber}
-              value={number}
-              style={styles.inputText}
-              placeholder="Phone number"
-              placeholderTextColor={"#636363"}
-              keyboardType="numeric"
             />
           </View>
 

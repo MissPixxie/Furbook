@@ -18,20 +18,22 @@ const MyTheme = {
       primary: "#202020",
       background: "#000",
       card: "rgb(255, 255, 255)",
-      text: "#000",
-      border: "rgb(199, 199, 204)",
+      text: "#fff",
+      border: "",
       notification: "rgb(255, 69, 58)",
+      tabBar: ["#252525", "#141414"]
     },
   },
   light: {
     dark: false,
     colors: {
-      primary: "rgb(255, 45, 85)",
+      primary: "#fff",
       background: "#f3f3f3",
       card: "rgb(255, 255, 255)",
-      text: "rgb(28, 28, 30)",
-      border: "rgb(199, 199, 204)",
+      text: "#000",
+      border: "",
       notification: "rgb(255, 69, 58)",
+      tabBar: ["#bced95", "#fff"]
     },
   },
 };

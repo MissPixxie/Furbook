@@ -11,6 +11,7 @@ import {
   Keyboard,
   TextInput,
 } from "react-native";
+import { BlurView } from "expo-blur";
 import { SearchBar } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -30,7 +31,6 @@ const SearchScreen = ({ navigation }) => {
   const thisTheme = theme.dark;
 
   const { colors } = theme;
-  console.log(colors);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -98,21 +98,21 @@ const SearchScreen = ({ navigation }) => {
           iconName="paw"
           onPress={() => setFilterType(FILTER_TYPE.dogs)}
           active={filterType === FILTER_TYPE.dogs}
-          icon={<Ionicons name="paw" size={20} color="white" />}
+          icon={<Ionicons name="paw" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Events"
           iconName="events"
           onPress={() => setFilterType(FILTER_TYPE.events)}
           active={filterType === FILTER_TYPE.events}
-          icon={<MaterialIcons name="event" size={20} color="white" />}
+          icon={<MaterialIcons name="event" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Places"
           iconName="location-pin"
           onPress={() => setFilterType(FILTER_TYPE.places)}
           active={filterType === FILTER_TYPE.places}
-          icon={<Entypo name="location-pin" size={20} color="white" />}
+          icon={<Entypo name="location-pin" size={20} color={colors.text} />}
         />
       </View>
       <View style={{ flex: 1, backgroundColor: colors.primary }}>
@@ -142,6 +142,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     alignSelf: "center",
+  },
+  blurContainer: {
+    flex: 1,
   },
   filterButton: {
     width: "30%",

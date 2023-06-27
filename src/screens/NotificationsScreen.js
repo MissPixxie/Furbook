@@ -1,19 +1,14 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Pressable,
   SafeAreaView,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  Keyboard,
-  TextInput,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
 import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from 'expo-blur';
 
 import GetPlaces from "../components/GetPlaces";
 import AddPlace from "../components/AddPlace";
@@ -29,16 +24,17 @@ const NotificationScreen = ({ navigation }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [modalVisible, setModalVisible] = useState(false);
-
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
+  const text = 'Hello, my container is blurring contents underneath!';
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Notifications</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <BlurView intensity={100} style={styles.blurContainer}>
+        <Text style={styles.text}>{text}</Text>
+      </BlurView>
+      <BlurView intensity={80} tint="light" style={styles.blurContainer}>
+        <Text style={styles.text}>{text}</Text>
+      </BlurView>
+    </View>
   );
 };
 
@@ -49,6 +45,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#202020",
   },
 });

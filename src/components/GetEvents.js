@@ -19,9 +19,9 @@ import { Entypo } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
 export default function GetEvents({ setModalVisible, theme }) {
-  //console.log('getplaces component rendered');
-
   const thisTheme = theme.dark;
+
+  const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState([]);
@@ -49,21 +49,39 @@ export default function GetEvents({ setModalVisible, theme }) {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
-            <Text style={styles.postTitle}>{item.title}</Text>
-            <Text style={styles.postText}>{item.place}</Text>
-            <Text style={styles.postText}>{item.time}</Text>
+            <Text style={{ fontSize: 26, color: colors.text }}>
+              {item.title}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.place}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.time}
+            </Text>
             <Pressable
               onPress={() => {
                 setIsVisable(!isVisable);
               }}
               style={styles.arrowButton}
             >
-              <Entypo name="chevron-thin-down" size={42} color="white" />
+              {isVisable ? (
+                <Entypo name="chevron-thin-up" size={42} color={colors.text} />
+              ) : (
+                <Entypo
+                  name="chevron-thin-down"
+                  size={42}
+                  color={colors.text}
+                />
+              )}
             </Pressable>
             {isVisable && (
               <View>
-                <Text style={styles.postText}>{item.description}</Text>
-                <Text style={styles.postText}>{item.typeOfEvent}</Text>
+                <Text style={{ fontSize: 20, color: colors.text }}>
+                  {item.description}
+                </Text>
+                <Text style={{ fontSize: 20, color: colors.text }}>
+                  {item.typeOfEvent}
+                </Text>
               </View>
             )}
             <Text style={styles.postDate}>{item.date}</Text>
@@ -112,29 +130,17 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonText: {
-    color: "white",
     fontSize: 26,
     paddingHorizontal: 5,
     paddingVertical: 10,
     textAlign: "center",
   },
-  postTitle: {
-    fontSize: 24,
-    color: "white",
-  },
-  postText: {
-    marginVertical: 15,
-    fontSize: 22,
-    color: "white",
-  },
   postComments: {
     marginVertical: 5,
     fontSize: 18,
-    color: "white",
   },
   metaComments: {
     fontSize: 18,
-    color: "white",
   },
   reviewContainer: {
     flexDirection: "row",

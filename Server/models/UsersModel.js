@@ -9,12 +9,10 @@ const UsersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    number: {
-      type: String,
-    },
     password: {
       type: String,
-      //   required: true,
+      required: true,
+      minLength: 10,
     },
     country: String,
     city: String,
@@ -25,6 +23,7 @@ const UsersSchema = new mongoose.Schema(
     savedEvents: {},
     createdAt: {
       type: Date,
+      immutable: true,
       default: () => Date.now(),
     },
   },

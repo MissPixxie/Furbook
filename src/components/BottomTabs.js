@@ -1,4 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useContext } from "react";
+import { LinearGradient } from "expo-linear-gradient";
+import { ThemeContext } from '../../App';
+
 
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -14,14 +18,23 @@ import DogsScreen from "../screens/DogsScreen";
 const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const thisTheme = theme.dark;
+
+  const { colors } = theme;
+  const { tabBar } = colors;
+  console.log(tabBar)
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#121212" },
         tabBarShowLabel: false,
-        tabBarInactiveTintColor: "#bced95",
-        tabBarActiveTintColor: "#51951a",
+        tabBarBackground: () => (
+          <LinearGradient  colors={tabBar} style={{height:70}}/>
+        ),
+        tabBarInactiveTintColor: "#51951a",
+        tabBarActiveTintColor: "#294d0d",
       }}
     >
       <Tab.Screen
@@ -70,6 +83,7 @@ function BottomTabs() {
         }}
       />
     </Tab.Navigator>
+
   );
 }
 

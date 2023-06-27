@@ -1,7 +1,8 @@
 {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-    },
-    "javascript.preferences.quoteStyle": "single"
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "javascript.preferences.quoteStyle": "single",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

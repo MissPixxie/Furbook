@@ -25,7 +25,6 @@ const HomeScreen = ({ navigation }) => {
 
   const { colors } = useTheme();
   const { theme, toggleTheme } = useContext(ThemeContext);
-  console.log(theme);
 
   const [isSignedIn, setSignedIn] = useState(false);
 
