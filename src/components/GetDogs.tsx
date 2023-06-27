@@ -1,28 +1,25 @@
 import React, { createContext } from "react";
 import { useState, useEffect, useRef } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  Alert,
-  FlatList,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
-import { SearchBar } from "@rneui/themed";
+import { SafeAreaView, View, Text, StyleSheet, FlatList } from "react-native";
+
 import IP from "../../fetchIP";
 
-import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from "react-native-gesture-handler";
+interface Props {
+  theme: any;
+}
 
-export default function GetDogs({ theme }) {
+interface Dog {
+  name: string;
+  age: number;
+  sex: string;
+  breed: string;
+  neutered: boolean;
+}
 
+const GetDogs: React.FC<Props> = ({ theme }) => {
   const thisTheme = theme.dark;
   const { colors } = theme;
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Dog[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,12 +29,14 @@ export default function GetDogs({ theme }) {
   const fetchPosts = async () => {
     try {
       const response = await fetch(IP + "/dogs");
-      const data = await response.json();
-      setData(data);
+      const jsonData = await response.json();
+      setData(jsonData);
       setLoading(false);
-      const test = JSON.stringify(data);
+      const test = JSON.stringify(jsonData);
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   };
 
@@ -47,17 +46,25 @@ export default function GetDogs({ theme }) {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
-            <Text style={{fontSize: 26, color: colors.text}}>{item.name}</Text>
+            <Text style={{ fontSize: 26, color: colors.text }}>
+              {item.name}
+            </Text>
             <Text style={{ fontSize: 20, color: colors.text }}>{item.age}</Text>
             <Text style={{ fontSize: 20, color: colors.text }}>{item.sex}</Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>{item.breed}</Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>{item.neutered}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.breed}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.neutered}
+            </Text>
           </View>
         )}
       />
     </SafeAreaView>
   );
-}
+};
+
+export default GetDogs;
 
 const styles = StyleSheet.create({
   container: {

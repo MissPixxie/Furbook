@@ -12,7 +12,7 @@ interface Theme {
     text: string;
     border: string;
     notification: string;
-    tabBar: Array<String>;
+    tabBar: Array<string>;
   };
 }
 interface MyTheme {

@@ -1,30 +1,37 @@
 import React, { createContext } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
   Text,
   Pressable,
   StyleSheet,
-  Alert,
   FlatList,
-  Modal,
-  TouchableOpacity,
 } from "react-native";
-import { SearchBar } from "@rneui/themed";
+
 import IP from "../../fetchIP";
-
-import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { TextInput } from "react-native-gesture-handler";
 
-export default function GetEvents({ setModalVisible, theme }) {
+interface Props {
+  theme: any;
+}
+
+interface Event {
+  title: string;
+  place: number;
+  time: string;
+  description: string;
+  typeOfEvent: string;
+  date: Date;
+}
+
+const GetEvents: React.FC<Props> = ({ theme }) => {
   const thisTheme = theme.dark;
 
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,13 +40,15 @@ export default function GetEvents({ setModalVisible, theme }) {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(IP + "/events");
-      const data = await response.json();
-      setData(data);
+      const response = await fetch(IP + "/event");
+      const jsonData = await response.json();
+      setData(jsonData);
       setLoading(false);
-      const test = JSON.stringify(data);
+      const test = JSON.stringify(jsonData);
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   };
 
@@ -84,13 +93,15 @@ export default function GetEvents({ setModalVisible, theme }) {
                 </Text>
               </View>
             )}
-            <Text style={styles.postDate}>{item.date}</Text>
+            <Text>{item.date.toString()}</Text>
           </View>
         )}
       />
     </SafeAreaView>
   );
-}
+};
+
+export default GetEvents;
 
 const styles = StyleSheet.create({
   container: {

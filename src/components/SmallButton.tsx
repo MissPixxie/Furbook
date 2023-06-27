@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Pressable, Text } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
 
-export default function SmallButton({ title, active, icon, onPress }) {
+interface Props {
+  title: string;
+  active: boolean;
+  icon: any;
+  onPress: any;
+}
+
+const SmallButton: React.FC<Props> = ({ title, active, icon, onPress }) => {
   return (
     <Pressable
       onPress={onPress}
@@ -15,7 +19,9 @@ export default function SmallButton({ title, active, icon, onPress }) {
       <Text style={{ marginLeft: 10 }}>{icon}</Text>
     </Pressable>
   );
-}
+};
+
+export default SmallButton;
 
 const styles = StyleSheet.create({
   baseButton: {

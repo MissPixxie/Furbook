@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -8,25 +8,36 @@ import {
   StyleSheet,
   Alert,
   FlatList,
-  Modal,
   TouchableOpacity,
 } from "react-native";
-import { SearchBar } from "@rneui/themed";
 import IP from "../../fetchIP";
-
 import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from "react-native-gesture-handler";
-import TextComponent from "./TextComponent";
 
-export default function Places({ setModalVisible, theme }) {
-  //console.log('getplaces component rendered');
+interface Props {
+  theme: any;
+  setModalVisible: any;
+}
 
+interface Place {
+  _id: string;
+  name: string;
+  location: string;
+  category: string;
+  description: string;
+  date: Date;
+  comments: {
+    commentTitle: string;
+    commentText: string;
+  };
+}
+
+const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
   const thisTheme = theme.dark;
 
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Place[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,16 +47,18 @@ export default function Places({ setModalVisible, theme }) {
   const fetchPosts = async () => {
     try {
       const response = await fetch(IP + "/places");
-      const data = await response.json();
-      setData(data);
+      const jsonData = await response.json();
+      setData(jsonData);
       setLoading(false);
-      const test = JSON.stringify(data);
+      const test = JSON.stringify(jsonData);
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   };
 
-  async function pawRating(paw, _id) {
+  async function pawRating(paw: number, _id: string) {
     try {
       const response = await fetch(IP + "/places/newrating", {
         method: "POST",
@@ -62,24 +75,11 @@ export default function Places({ setModalVisible, theme }) {
           Alert.alert(data.message);
         });
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
   }
-
-  // const paws = [];
-  // function pawRating(paw) {
-  //   paws.push(paw);
-  //   console.log(paws);
-
-  //   const avarage = (paws) => {
-  //     sum = 0;
-  //     paws.forEach((element) => {
-  //       sum += element;
-  //     });
-  //     return sum / paws.length;
-  //   };
-  //   console.log(avarage);
-  // }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -118,7 +118,7 @@ export default function Places({ setModalVisible, theme }) {
                   </Text>
                 </View>
               )}
-              <Text style={styles.postDate}>{item.date}</Text>
+              <Text>{item.date.toString()}</Text>
               <View style={styles.reviewContainer}>
                 <Pressable
                   onPress={() => {
@@ -170,7 +170,9 @@ export default function Places({ setModalVisible, theme }) {
       />
     </SafeAreaView>
   );
-}
+};
+
+export default GetPlaces;
 
 const styles = StyleSheet.create({
   container: {

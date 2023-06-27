@@ -1,15 +1,11 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Pressable,
   SafeAreaView,
-  TouchableOpacity,
   Modal,
-  ScrollView,
-  Keyboard,
-  TextInput,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import { SearchBar } from "@rneui/themed";
@@ -24,9 +20,12 @@ import GetDogs from "../components/GetDogs";
 import GetPlaces from "../components/GetPlaces";
 import SmallButton from "../components/SmallButton";
 import AddPlace from "../components/AddPlace";
-import { BottomTabs } from "../components/BottomTabs";
 
-const SearchScreen = ({ navigation }) => {
+interface Props {
+  navigation: any;
+}
+
+const SearchScreen: React.FC<Props> = ({ navigation }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
 
@@ -34,17 +33,24 @@ const SearchScreen = ({ navigation }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [search, setSearch] = useState();
-  const updateSearch = (search) => {
+  const [search, setSearch] = useState<string>("");
+  const updateSearch = (search: string) => {
     setSearch(search);
   };
 
-  const FILTER_TYPE = {
+  interface FILTER_TYPE {
+    dogs: string;
+    events: string;
+    places: string;
+  }
+
+  const filter_type: FILTER_TYPE = {
     dogs: "Dogs",
     events: "Events",
     places: "Places",
   };
-  const [filterType, setFilterType] = useState(FILTER_TYPE.dogs);
+
+  const [filterType, setFilterType] = useState<FILTER_TYPE>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,7 +65,7 @@ const SearchScreen = ({ navigation }) => {
       >
         <AddPlace />
         <Pressable
-          style={[styles.button, styles.buttonClose]}
+          style={styles.buttonClose}
           onPress={() => setModalVisible(!modalVisible)}
         >
           <Text style={styles.textStyle}>Close</Text>
@@ -95,30 +101,37 @@ const SearchScreen = ({ navigation }) => {
       <View style={styles.buttonsContainer}>
         <SmallButton
           title="Dogs"
-          iconName="paw"
-          onPress={() => setFilterType(FILTER_TYPE.dogs)}
-          active={filterType === FILTER_TYPE.dogs}
+          onPress={() =>
+            setFilterType({ ...filter_type, dogs: filter_type.dogs })
+          }
+          active={filterType?.dogs === filter_type.dogs}
           icon={<Ionicons name="paw" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Events"
-          iconName="events"
-          onPress={() => setFilterType(FILTER_TYPE.events)}
-          active={filterType === FILTER_TYPE.events}
+          onPress={() =>
+            setFilterType({ ...filter_type, events: filter_type.events })
+          }
+          active={filterType?.events === filter_type.events}
           icon={<MaterialIcons name="event" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Places"
-          iconName="location-pin"
-          onPress={() => setFilterType(FILTER_TYPE.places)}
-          active={filterType === FILTER_TYPE.places}
+          onPress={() =>
+            setFilterType({ ...filter_type, places: filter_type.places })
+          }
+          active={filterType?.places === filter_type.places}
           icon={<Entypo name="location-pin" size={20} color={colors.text} />}
         />
       </View>
       <View style={{ flex: 1, backgroundColor: colors.primary }}>
-        {filterType === FILTER_TYPE.dogs ? <GetDogs theme={theme} /> : null}
-        {filterType === FILTER_TYPE.events ? <GetEvents theme={theme} /> : null}
-        {filterType === FILTER_TYPE.places ? (
+        {filterType?.dogs === filter_type.dogs ? (
+          <GetDogs theme={theme} />
+        ) : null}
+        {filterType?.events === filter_type.events ? (
+          <GetEvents theme={theme} />
+        ) : null}
+        {filterType?.places === filter_type.places ? (
           <GetPlaces setModalVisible={setModalVisible} theme={theme} />
         ) : null}
       </View>
