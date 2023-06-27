@@ -1,15 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
-import { Pressable, useColorScheme } from "react-native";
 import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+  NavigationContainer
+} from "@react-navigation/native"
+import React, { createContext, useState } from "react"
 
-import AppStack from "./src/navigation/AppStack";
-import AuthStack from "./src/navigation/AuthStack";
-import { View } from "react-native-web";
-import { BottomTabs } from "./src/components/BottomTabs";
+import { BottomTabs } from "./src/components/BottomTabs"
 
 const MyTheme = {
   dark: {
@@ -38,7 +32,11 @@ const MyTheme = {
 
 export const ThemeContext = createContext(MyTheme.light);
 
-export default function App({ children }) {
+interface Props {
+  children: React.ReactNode;
+}
+
+export default function App({ children }: Props) {
   const [theme, setTheme] = useState(MyTheme.light);
 
   const toggleTheme = () => {
@@ -47,7 +45,7 @@ export default function App({ children }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme } as any}>
       <NavigationContainer theme={theme}>
         {/* <        <AuthStack /> */}
         {children}
