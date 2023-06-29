@@ -22,6 +22,9 @@ const GetDogs: React.FC<Props> = ({ theme }) => {
   const [data, setData] = useState<Dog[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // loggas 3 gånger?!!
+  console.log(colors.text);
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -35,7 +38,7 @@ const GetDogs: React.FC<Props> = ({ theme }) => {
       const test = JSON.stringify(jsonData);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log(error);
       }
     }
   };
@@ -79,12 +82,5 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomColor: "#bced95",
     borderBottomWidth: 2,
-  },
-  postTitle: {
-    fontSize: 24,
-  },
-  postText: {
-    marginVertical: 15,
-    fontSize: 22,
   },
 });

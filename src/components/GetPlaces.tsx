@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
+import CustomButton from "./CustomButton";
 
 interface Props {
   theme: any;
@@ -29,6 +30,11 @@ interface Place {
     commentTitle: string;
     commentText: string;
   };
+}
+
+interface Rating {
+  _id: string;
+  paw: number;
 }
 
 const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
@@ -76,7 +82,7 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
         });
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log(error);
       }
     }
   }
@@ -118,7 +124,7 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
                   </Text>
                 </View>
               )}
-              <Text>{item.date.toString()}</Text>
+              {item.date && <Text>{item.date.toString()}</Text>}
               <View style={styles.reviewContainer}>
                 <Pressable
                   onPress={() => {
@@ -160,12 +166,11 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
           </Pressable>
         )}
         ListFooterComponent={
-          <TouchableOpacity
-            style={styles.openModalButton}
+          <CustomButton
+            title="Events"
             onPress={() => setModalVisible(true)}
-          >
-            <Text style={styles.buttonText}>Add new place</Text>
-          </TouchableOpacity>
+            bgColor="#bced95"
+          />
         }
       />
     </SafeAreaView>
@@ -200,19 +205,6 @@ const styles = StyleSheet.create({
   filterButtonText: {
     textAlign: "center",
     fontSize: 20,
-  },
-  openModalButton: {
-    width: "80%",
-    backgroundColor: "#264026",
-    borderRadius: 10,
-    marginVertical: 10,
-    alignSelf: "center",
-  },
-  buttonText: {
-    fontSize: 26,
-    paddingHorizontal: 5,
-    paddingVertical: 10,
-    textAlign: "center",
   },
   postComments: {
     marginVertical: 5,

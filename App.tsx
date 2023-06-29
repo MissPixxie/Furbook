@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { createContext, useState } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { BottomTabs } from "./src/components/BottomTabs";
 
@@ -7,6 +8,7 @@ interface Theme {
   dark: boolean;
   colors: {
     primary: string;
+    secondary: string;
     background: string;
     card: string;
     text: string;
@@ -29,9 +31,10 @@ const MyTheme: MyTheme = {
     dark: true,
     colors: {
       primary: "#202020",
+      secondary: "#e2e2e2",
       background: "#000",
       card: "rgb(255, 255, 255)",
-      text: "#000",
+      text: "#fff",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
       tabBar: ["#252525", "#141414"],
@@ -40,10 +43,11 @@ const MyTheme: MyTheme = {
   light: {
     dark: false,
     colors: {
-      primary: "rgb(255, 45, 85)",
+      primary: "#f4f4f4",
+      secondary: "#e2e2e2",
       background: "#f3f3f3",
       card: "rgb(255, 255, 255)",
-      text: "rgb(28, 28, 30)",
+      text: "#000",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
       tabBar: ["#bced95", "#fff"],
@@ -69,13 +73,15 @@ export default function App({ children }: Props) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <NavigationContainer theme={theme}>
-        {/* <        <AuthStack /> */}
-        {children}
-        {/*<AppStack />*/}
-        <BottomTabs />
-      </NavigationContainer>
-    </ThemeContext.Provider>
+    <SafeAreaProvider>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <NavigationContainer theme={theme}>
+          {/* <        <AuthStack /> */}
+          {children}
+          {/*<AppStack />*/}
+          <BottomTabs />
+        </NavigationContainer>
+      </ThemeContext.Provider>
+    </SafeAreaProvider>
   );
 }

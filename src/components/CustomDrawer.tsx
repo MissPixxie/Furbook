@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Alert,
-  SafeAreaView,
-  TextInput,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   DrawerContentScrollView,
@@ -16,7 +7,7 @@ import {
 } from "@react-navigation/drawer";
 import { Octicons } from "@expo/vector-icons";
 
-const CustomDrawer = (props) => {
+const CustomDrawer = (props: any) => {
   return (
     <View style={styles.container}>
       <DrawerContentScrollView

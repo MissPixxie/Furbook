@@ -1,12 +1,6 @@
 import React, { useState, useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  SafeAreaView,
-  Modal,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { BlurView } from "expo-blur";
 import { SearchBar } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
@@ -39,21 +33,29 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   interface FILTER_TYPE {
-    dogs: string;
-    events: string;
-    places: string;
+    dogs?: string;
+    events?: string;
+    places?: string;
   }
 
   const filter_type: FILTER_TYPE = {
-    dogs: "Dogs",
-    events: "Events",
-    places: "Places",
+    dogs: "dogs",
+    events: "events",
+    places: "places",
   };
 
-  const [filterType, setFilterType] = useState<FILTER_TYPE>();
+  const [filterType, setFilterType] = useState(filter_type.dogs);
 
   return (
     <SafeAreaView style={styles.container}>
+      <View>
+        <SmallButton
+          title="Filter"
+          bgColor="#bced95"
+          align="flex-end"
+          onPress={() => {}}
+        />
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -71,15 +73,13 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
           <Text style={styles.textStyle}>Close</Text>
         </Pressable>
       </Modal>
-      <Pressable onPress={() => {}} style={styles.filterButton}>
-        <Text style={styles.filterButtonText}>Filter</Text>
-      </Pressable>
+
       <View>
         <SearchBar
           round
           containerStyle={{
             borderRadius: 15,
-            backgroundColor: thisTheme ? "#000" : "#8E8E8E",
+            backgroundColor: thisTheme ? "#000" : "#e2e2e2",
           }}
           inputContainerStyle={{
             backgroundColor: thisTheme ? "#a4a4a4" : "#fff",
@@ -101,37 +101,30 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.buttonsContainer}>
         <SmallButton
           title="Dogs"
-          onPress={() =>
-            setFilterType({ ...filter_type, dogs: filter_type.dogs })
-          }
-          active={filterType?.dogs === filter_type.dogs}
+          bgColor="#e2e2e2"
+          onPress={() => setFilterType(filter_type.dogs)}
+          active={filterType === filter_type.dogs}
           icon={<Ionicons name="paw" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Events"
-          onPress={() =>
-            setFilterType({ ...filter_type, events: filter_type.events })
-          }
-          active={filterType?.events === filter_type.events}
+          bgColor="#e2e2e2"
+          onPress={() => setFilterType(filter_type.events)}
+          active={filterType === filter_type.events}
           icon={<MaterialIcons name="event" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Places"
-          onPress={() =>
-            setFilterType({ ...filter_type, places: filter_type.places })
-          }
-          active={filterType?.places === filter_type.places}
+          bgColor="#e2e2e2"
+          onPress={() => setFilterType(filter_type.places)}
+          active={filterType === filter_type.places}
           icon={<Entypo name="location-pin" size={20} color={colors.text} />}
         />
       </View>
       <View style={{ flex: 1, backgroundColor: colors.primary }}>
-        {filterType?.dogs === filter_type.dogs ? (
-          <GetDogs theme={theme} />
-        ) : null}
-        {filterType?.events === filter_type.events ? (
-          <GetEvents theme={theme} />
-        ) : null}
-        {filterType?.places === filter_type.places ? (
+        {filterType === filter_type.dogs ? <GetDogs theme={theme} /> : null}
+        {filterType === filter_type.events ? <GetEvents theme={theme} /> : null}
+        {filterType === filter_type.places ? (
           <GetPlaces setModalVisible={setModalVisible} theme={theme} />
         ) : null}
       </View>
@@ -158,20 +151,6 @@ const styles = StyleSheet.create({
   },
   blurContainer: {
     flex: 1,
-  },
-  filterButton: {
-    width: "30%",
-    backgroundColor: "#bced95",
-    borderRadius: 10,
-    padding: 5,
-    textAlign: "center",
-    alignSelf: "flex-end",
-    marginVertical: 10,
-  },
-  filterButtonText: {
-    textAlign: "center",
-    fontSize: 20,
-    marginRight: 7,
   },
   buttonClose: {
     borderRadius: 10,

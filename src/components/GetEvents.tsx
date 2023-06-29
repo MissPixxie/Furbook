@@ -40,14 +40,14 @@ const GetEvents: React.FC<Props> = ({ theme }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(IP + "/event");
+      const response = await fetch(IP + "/events");
       const jsonData = await response.json();
       setData(jsonData);
       setLoading(false);
       const test = JSON.stringify(jsonData);
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log(error);
       }
     }
   };
@@ -93,7 +93,7 @@ const GetEvents: React.FC<Props> = ({ theme }) => {
                 </Text>
               </View>
             )}
-            <Text>{item.date.toString()}</Text>
+            {item.date && <Text>{item.date.toString()}</Text>}
           </View>
         )}
       />

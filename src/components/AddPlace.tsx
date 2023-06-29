@@ -1,7 +1,6 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   TextInput,
   Text,
@@ -11,16 +10,19 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import IP from "../../fetchIP";
-import { SelectList } from "react-native-dropdown-select-list";
 
-import { Ionicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function AddPlace() {
-  //console.log('addplace component rendered');
+interface Place {
+  name: string;
+  category: string;
+  location: string;
+  description: string;
+}
 
+export default function AddPlace() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -53,7 +55,9 @@ export default function AddPlace() {
           Alert.alert(data.message);
         });
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error);
+      }
     }
   }
 
@@ -125,7 +129,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     backgroundColor: "white",
-    flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#262626",
