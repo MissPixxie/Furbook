@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BlurView } from "expo-blur";
 import { SearchBar } from "@rneui/themed";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { Overlay } from "@rneui/themed";
 
 import { ThemeContext } from "../../App";
-import { RefreshControl } from "react-native-gesture-handler";
 import GetEvents from "../components/GetEvents";
 import GetDogs from "../components/GetDogs";
 import GetPlaces from "../components/GetPlaces";
@@ -26,6 +26,15 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
   const { colors } = theme;
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [overlayVisable, setOverlayVisable] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const toggleOverlay = () => {
+    setOverlayVisable(!overlayVisable);
+  };
 
   const [search, setSearch] = useState<string>("");
   const updateSearch = (search: string) => {
@@ -48,6 +57,16 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        style={styles.modal}
+        onRequestClose={toggleModal}
+      >
+        <AddPlace closeModal={toggleModal} />
+      </Modal>
+      {/* <Overlay isVisible={overlayVisable} onBackdropPress={toggleOverlay}> */}
       <View>
         <SmallButton
           title="Filter"
@@ -56,30 +75,13 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
           onPress={() => {}}
         />
       </View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        style={styles.modal}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <AddPlace />
-        <Pressable
-          style={styles.buttonClose}
-          onPress={() => setModalVisible(!modalVisible)}
-        >
-          <Text style={styles.textStyle}>Close</Text>
-        </Pressable>
-      </Modal>
 
       <View>
         <SearchBar
           round
           containerStyle={{
             borderRadius: 15,
-            backgroundColor: thisTheme ? "#000" : "#e2e2e2",
+            backgroundColor: thisTheme ? colors.primary : "#e2e2e2",
           }}
           inputContainerStyle={{
             backgroundColor: thisTheme ? "#a4a4a4" : "#fff",
@@ -122,12 +124,13 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
         />
       </View>
       <View style={{ flex: 1, backgroundColor: colors.primary }}>
-        {filterType === filter_type.dogs ? <GetDogs theme={theme} /> : null}
-        {filterType === filter_type.events ? <GetEvents theme={theme} /> : null}
-        {filterType === filter_type.places ? (
+        {filterType === filter_type.dogs && <GetDogs theme={theme} />}
+        {filterType === filter_type.events && <GetEvents theme={theme} />}
+        {filterType === filter_type.places && (
           <GetPlaces setModalVisible={setModalVisible} theme={theme} />
-        ) : null}
+        )}
       </View>
+      {/* </Overlay> */}
     </SafeAreaView>
   );
 };
@@ -142,12 +145,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  openModalButton: {
-    width: "80%",
-    backgroundColor: "#264026",
-    borderRadius: 10,
-    marginVertical: 10,
-    alignSelf: "center",
+  modal: {
+    marginTop: 30,
   },
   blurContainer: {
     flex: 1,
@@ -163,9 +162,5 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-  },
-  modal: {
-    flex: 1,
-    backgroundColor: "white",
   },
 });

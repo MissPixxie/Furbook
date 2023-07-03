@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     if (userExists) {
       // console.log('User exists')
       let svar = { message: "User already exists" };
-      res.status(200).json(svar);
+      res.status(404).json(svar);
     } else {
       var users = await User.create({
         name: req.body.name,

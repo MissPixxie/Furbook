@@ -17,7 +17,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-export default function SignUpScreen({ navigation }) {
+interface Props {
+  navigation: any;
+}
+
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export default function SignUpScreen({ navigation }: Props) {
   //console.log('Signup screen component rendered');
 
   const [name, setName] = useState("");
@@ -43,7 +53,9 @@ export default function SignUpScreen({ navigation }) {
           Alert.alert(data.message);
         });
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error);
+      }
     }
   }
 
@@ -143,7 +155,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     backgroundColor: "white",
-    flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#262626",

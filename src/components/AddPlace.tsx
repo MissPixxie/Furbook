@@ -14,6 +14,12 @@ import IP from "../../fetchIP";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { trusted } from "mongoose";
+import CustomButton from "./CustomButton";
+
+interface Props {
+  closeModal: () => void;
+}
 
 interface Place {
   name: string;
@@ -22,7 +28,7 @@ interface Place {
   description: string;
 }
 
-export default function AddPlace() {
+const AddPlace: React.FC<Props> = ({ closeModal }) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -64,6 +70,13 @@ export default function AddPlace() {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.container}>
+        <Entypo
+          name="cross"
+          size={36}
+          color="black"
+          style={styles.exitButton}
+          onPress={closeModal}
+        />
         <View style={styles.inputs}>
           <View style={styles.Input}>
             <Entypo name="location-pin" size={24} color="black" />
@@ -105,10 +118,13 @@ export default function AddPlace() {
         <Pressable onPress={newPlace}>
           <Text style={styles.addButton}>Add new place</Text>
         </Pressable>
+        <CustomButton title="Close" bgColor="#bced95" onPress={closeModal} />
       </View>
     </KeyboardAwareScrollView>
   );
-}
+};
+
+export default AddPlace;
 
 const styles = StyleSheet.create({
   container: {
@@ -162,5 +178,11 @@ const styles = StyleSheet.create({
   SigninText: {
     fontSize: 18,
     color: "white",
+  },
+  exitButton: {
+    alignSelf: "flex-end",
+    color: "#5d5d5d",
+    marginHorizontal: 20,
+    marginTop: 20,
   },
 });

@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { SafeAreaView, View, Text, StyleSheet, FlatList } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 
 import IP from "../../fetchIP";
 
@@ -29,6 +30,14 @@ const GetDogs: React.FC<Props> = ({ theme }) => {
     fetchPosts();
   }, []);
 
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   const fetchPosts = async () => {
     try {
       const response = await fetch(IP + "/dogs");
@@ -47,6 +56,9 @@ const GetDogs: React.FC<Props> = ({ theme }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
             <Text style={{ fontSize: 26, color: colors.text }}>

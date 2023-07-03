@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -13,12 +13,20 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
+import { AuthContext } from "../context/AuthContext";
 
-export default function SignInScreen({ navigation }) {
+interface Props {
+  navigation: any;
+}
+
+export default function SignInScreen({ navigation }: Props) {
   //console.log('Signin screen component rendered');
 
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { isLoggedIn, fixedContext } = useContext(AuthContext);
+  console.log(isLoggedIn);
 
   async function signIn() {
     try {
@@ -34,10 +42,17 @@ export default function SignInScreen({ navigation }) {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          Alert.alert(data.message);
+          const { message } = data;
+          if (message === "User exists") {
+            fixedContext();
+          } else {
+            return "Log in";
+          }
         });
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error);
+      }
     }
   }
 
@@ -51,7 +66,7 @@ export default function SignInScreen({ navigation }) {
         <View style={styles.input}>
           <Ionicons name="person" size={24} color="black" />
           <TextInput
-            onChangeText={setMail}
+            onChangeText={(setText) => setMail(setText)}
             value={email}
             placeholder="Email"
             placeholderTextColor={"#636363"}
@@ -62,7 +77,7 @@ export default function SignInScreen({ navigation }) {
           <Ionicons name="lock-closed-outline" size={24} color="black" />
           <TextInput
             secureTextEntry={true}
-            onChangeText={setPassword}
+            onChangeText={(setText) => setPassword(setText)}
             value={password}
             placeholder="Password"
             placeholderTextColor={"#636363"}

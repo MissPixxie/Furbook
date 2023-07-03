@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useCallback } from "react";
 import { useState, useEffect } from "react";
 import {
   SafeAreaView,
@@ -13,6 +13,7 @@ import {
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "./CustomButton";
+import { RefreshControl } from "react-native-gesture-handler";
 
 interface Props {
   theme: any;
@@ -45,9 +46,17 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
   const [isVisable, setIsVisable] = useState(false);
   const [data, setData] = useState<Place[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchPosts();
+  }, []);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
 
   const fetchPosts = async () => {
@@ -91,6 +100,9 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
           <Pressable onPress={() => Alert.alert("pressed")}>
             <View style={styles.postContainer}>
@@ -167,7 +179,7 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
         )}
         ListFooterComponent={
           <CustomButton
-            title="Events"
+            title="Add new place"
             onPress={() => setModalVisible(true)}
             bgColor="#bced95"
           />

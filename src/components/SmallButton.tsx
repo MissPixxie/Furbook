@@ -5,10 +5,12 @@ interface Props {
   title: string;
   active?: boolean;
   icon?: any;
-  bgColor?: any;
-  align?: any;
-  onPress: any;
+  bgColor?: string;
+  align?: AlignSelf;
+  onPress: () => void;
 }
+
+type AlignSelf = "stretch" | "center" | "flex-start" | "flex-end";
 
 const SmallButton: React.FC<Props> = ({
   title,

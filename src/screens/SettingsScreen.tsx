@@ -4,21 +4,25 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  Alert,
   SafeAreaView,
   TextInput,
   Button,
-  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function ProfileScreen({ navigation }) {
+interface Props {
+  navigation: any;
+}
+
+export default function SettingsScreen({ navigation }: Props) {
   return (
     <SafeAreaView style={styles.container}>
+      <Text>Settings</Text>
       <Pressable onPress={() => navigation.openDrawer()}>
         <Ionicons name="menu" size={24} color="black" />
       </Pressable>
-      <Text>Profile</Text>
     </SafeAreaView>
   );
 }
