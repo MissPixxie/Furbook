@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,8 @@ import {
   Button,
   Alert,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { ThemeContext } from "../context/ThemeContext";
+import CustomButton from "../components/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
@@ -17,12 +18,14 @@ interface Props {
 }
 
 export default function ProfileScreen({ navigation }: Props) {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   return (
     <SafeAreaView style={styles.container}>
       <Pressable onPress={() => navigation.openDrawer()}>
         <Ionicons name="menu" size={24} color="black" />
       </Pressable>
       <Text>Profile</Text>
+      <CustomButton title="Theme" onPress={toggleTheme} bgColor="#000" />
     </SafeAreaView>
   );
 }

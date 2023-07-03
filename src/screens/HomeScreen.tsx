@@ -34,13 +34,7 @@ const HomeScreen = ({ navigation }: Props) => {
     return <SignInScreen navigation={navigation} />;
   }
   return <ProfileScreen navigation={navigation} />;
-  {
-    /* <Pressable onPress={toggleTheme} style={styles.SignupButton}>
-            <Text style={[styles.ButtonText, styles.ButtonTextSignup]}>
-              Theme
-            </Text>
-          </Pressable> */
-  }
+
   {
     /* <Switch
                             trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}

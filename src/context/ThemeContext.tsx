@@ -58,12 +58,12 @@ const MyTheme: MyTheme = {
   },
 };
 
-export const ThemeProvider = createContext<Context>({
+export const ThemeContext = createContext<Context>({
   theme: MyTheme.light,
   toggleTheme: () => {},
 });
 
-export const ThemeContext = ({ children }: Props) => {
+export const ThemeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState<Theme>(MyTheme.light);
 
   const toggleTheme = () => {
@@ -73,9 +73,9 @@ export const ThemeContext = ({ children }: Props) => {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider.Provider value={{ theme, toggleTheme }}>
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
         {children}
-      </ThemeProvider.Provider>
+      </ThemeContext.Provider>
     </SafeAreaProvider>
   );
 };

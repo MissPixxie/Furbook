@@ -13,19 +13,19 @@ interface Props {
 }
 
 export default function App({ children }: Props) {
-  const { theme, toggleTheme } = useContext(ThemeProvider);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <SafeAreaProvider>
       <AuthProvider>
-        <ThemeContext>
+        <ThemeProvider>
           <NavigationContainer theme={theme}>
             <AuthStack />
             {children}
             {/* <AppStack /> */}
             {/* <BottomTabs /> */}
           </NavigationContainer>
-        </ThemeContext>
+        </ThemeProvider>
       </AuthProvider>
     </SafeAreaProvider>
   );
