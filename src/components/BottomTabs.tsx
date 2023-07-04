@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useContext } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { ThemeContext } from "../../App";
+import { ThemeContext } from "../context/ThemeContext";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";

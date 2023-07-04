@@ -14,19 +14,23 @@ interface Props {
 
 export default function App({ children }: Props) {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { isLoggedIn, fixedContext } = useContext(AuthContext);
+
+  console.log(isLoggedIn);
 
   return (
     <SafeAreaProvider>
-      <AuthProvider>
-        <ThemeProvider>
-          <NavigationContainer theme={theme}>
+      <ThemeProvider>
+        <NavigationContainer theme={theme}>
+          <AuthProvider>
             <AuthStack />
             {children}
-            {/* <AppStack /> */}
-            {/* <BottomTabs /> */}
-          </NavigationContainer>
-        </ThemeProvider>
-      </AuthProvider>
+            {isLoggedIn === true && <BottomTabs />}
+          </AuthProvider>
+          {/* <AppStack /> */}
+          {/* <BottomTabs /> */}
+        </NavigationContainer>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }

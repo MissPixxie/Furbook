@@ -10,6 +10,7 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,6 +20,11 @@ interface Props {
   navigation: any;
 }
 
+type FormData = {
+  email: string;
+  password: string;
+};
+
 export default function SignInScreen({ navigation }: Props) {
   //console.log('Signin screen component rendered');
 
@@ -26,7 +32,6 @@ export default function SignInScreen({ navigation }: Props) {
   const [password, setPassword] = useState("");
 
   const { isLoggedIn, fixedContext } = useContext(AuthContext);
-  console.log(isLoggedIn);
 
   async function signIn() {
     try {
@@ -66,8 +71,8 @@ export default function SignInScreen({ navigation }: Props) {
         <View style={styles.input}>
           <Ionicons name="person" size={24} color="black" />
           <TextInput
-            onChangeText={(setText) => setMail(setText)}
-            value={email}
+            onChangeText={setMail}
+            defaultValue={email}
             placeholder="Email"
             placeholderTextColor={"#636363"}
             style={styles.inputText}
@@ -77,8 +82,8 @@ export default function SignInScreen({ navigation }: Props) {
           <Ionicons name="lock-closed-outline" size={24} color="black" />
           <TextInput
             secureTextEntry={true}
-            onChangeText={(setText) => setPassword(setText)}
-            value={password}
+            onChangeText={setPassword}
+            defaultValue={password}
             placeholder="Password"
             placeholderTextColor={"#636363"}
             style={styles.inputText}

@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { useReducer } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 interface Props {

@@ -19,21 +19,26 @@ interface Props {
 
 export default function ProfileScreen({ navigation }: Props) {
   const { theme, toggleTheme } = useContext(ThemeContext);
+
+  const { colors } = theme;
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: colors.background,
+    },
+  });
+
   return (
     <SafeAreaView style={styles.container}>
-      <Pressable onPress={() => navigation.openDrawer()}>
-        <Ionicons name="menu" size={24} color="black" />
-      </Pressable>
-      <Text>Profile</Text>
-      <CustomButton title="Theme" onPress={toggleTheme} bgColor="#000" />
+      <Text style={{ color: colors.text }}>Profile</Text>
+      <CustomButton
+        title="Theme"
+        onPress={toggleTheme}
+        bgColor={colors.secondary}
+      />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

@@ -8,7 +8,7 @@ import { Entypo } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Overlay } from "@rneui/themed";
 
-import { ThemeContext } from "../../App";
+import { ThemeContext } from "../context/ThemeContext";
 import GetEvents from "../components/GetEvents";
 import GetDogs from "../components/GetDogs";
 import GetPlaces from "../components/GetPlaces";
