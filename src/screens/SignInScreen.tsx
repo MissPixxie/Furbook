@@ -49,7 +49,7 @@ export default function SignInScreen({ navigation }: Props) {
         .then((data) => {
           const { message } = data;
           if (message === "User exists") {
-            fixedContext();
+            fixedContext(true);
           } else {
             return "Log in";
           }

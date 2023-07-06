@@ -1,49 +1,50 @@
-import React, { useContext, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  SafeAreaView,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  Switch,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTheme } from "@react-navigation/native";
+import React, { useContext } from "react";
+import { SafeAreaView, StyleSheet, Text } from "react-native";
+import CustomButton from "../components/CustomButton";
 import { AuthContext } from "../context/AuthContext";
-import ProfileScreen from "./ProfileScreen";
-import SignInScreen from "./SignInScreen";
+import { ThemeContext } from "../context/ThemeContext";
 
 interface Props {
   navigation: any;
 }
 
 const HomeScreen = ({ navigation }: Props) => {
-  //console.log('home screen component rendered');
-
-  const { colors } = useTheme();
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const { isLoggedIn, fixedContext } = useContext(AuthContext);
 
-  const checkUser = async () => {
-    console.log();
-  };
+  const { colors } = theme;
 
-  if (!isLoggedIn) {
-    return <SignInScreen navigation={navigation} />;
-  }
-  return <ProfileScreen navigation={navigation} />;
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: colors.background,
+    },
+  });
 
-  {
-    /* <Switch
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={{ color: colors.text }}>Profile</Text>
+      <CustomButton
+        title="Theme"
+        onPress={toggleTheme}
+        bgColor={colors.secondary}
+      />
+      <CustomButton
+        title="Logout"
+        onPress={fixedContext}
+        bgColor={colors.secondary}
+      />
+    </SafeAreaView>
+  );
+  /* <Switch
                             trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}
                             thumbColor={newTheme === 'light' ? '#f4f3f4' : '#184718'}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleTheme}
                             value={newTheme === 'light'}
                         /> */
-  }
 };
 
 export default HomeScreen;

@@ -9,7 +9,7 @@ interface Props {
 interface Context {
   user?: string;
   isLoggedIn: boolean;
-  fixedContext: () => void;
+  fixedContext: (isLoggedIn: boolean) => void;
 }
 
 interface State {
@@ -25,8 +25,9 @@ export const AuthContext = createContext<Context>({
 export const AuthProvider = ({ children }: Props) => {
   const [state, setState] = useState<State>({ isLoggedIn: false });
 
-  const fixedContext = () => {
-    setState({ isLoggedIn: true });
+  const fixedContext = (isLoggedIn: boolean) => {
+    const newState = !state.isLoggedIn;
+    setState({ isLoggedIn: newState });
   };
 
   return (
