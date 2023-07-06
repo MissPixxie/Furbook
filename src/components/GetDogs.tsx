@@ -17,14 +17,14 @@ interface Dog {
   neutered: boolean;
 }
 
-const GetDogs: React.FC<Props> = ({ theme }) => {
+const GetDogs = ({ theme }: Props) => {
   const thisTheme = theme.dark;
   const { colors } = theme;
   const [data, setData] = useState<Dog[]>([]);
   const [loading, setLoading] = useState(true);
 
   // loggas 3 gånger?!!
-  console.log(colors.text);
+  console.log("getdogs component rendered");
 
   useEffect(() => {
     fetchPosts();
@@ -79,7 +79,7 @@ const GetDogs: React.FC<Props> = ({ theme }) => {
   );
 };
 
-export default GetDogs;
+export { GetDogs };
 
 const styles = StyleSheet.create({
   container: {

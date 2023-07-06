@@ -14,8 +14,7 @@ import IP from "../../fetchIP";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { trusted } from "mongoose";
-import CustomButton from "./CustomButton";
+import { CustomButton } from "./CustomButton";
 
 interface Props {
   closeModal: () => void;
@@ -28,7 +27,9 @@ interface Place {
   description: string;
 }
 
-const AddPlace: React.FC<Props> = ({ closeModal }) => {
+const AddPlace = ({ closeModal }: Props) => {
+  console.log("addplace component rendered");
+
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -124,7 +125,7 @@ const AddPlace: React.FC<Props> = ({ closeModal }) => {
   );
 };
 
-export default AddPlace;
+export { AddPlace };
 
 const styles = StyleSheet.create({
   container: {

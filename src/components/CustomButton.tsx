@@ -10,14 +10,16 @@ interface Props {
   borderWidth?: number;
 }
 
-const CustomButton: React.FC<Props> = ({
+const CustomButton = ({
   title,
   onPress,
   bgColor,
   borderColor,
   color,
   borderWidth,
-}) => {
+}: Props) => {
+
+  console.log("custombutton component rendered")
   const styles = StyleSheet.create({
     button: {
       width: "80%",
@@ -49,4 +51,4 @@ const CustomButton: React.FC<Props> = ({
   );
 };
 
-export default CustomButton;
+export { CustomButton };

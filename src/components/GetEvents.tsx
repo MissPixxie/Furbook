@@ -26,9 +26,9 @@ interface Event {
   date: Date;
 }
 
-const GetEvents: React.FC<Props> = ({ theme }) => {
+const GetEvents = ({ theme }: Props) => {
   const thisTheme = theme.dark;
-
+  console.log("getevents component rendered")
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
@@ -113,7 +113,7 @@ const GetEvents: React.FC<Props> = ({ theme }) => {
   );
 };
 
-export default GetEvents;
+export { GetEvents };
 
 const styles = StyleSheet.create({
   container: {

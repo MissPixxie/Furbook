@@ -25,8 +25,8 @@ type FormData = {
   password: string;
 };
 
-export default function SignInScreen({ navigation }: Props) {
-  //console.log('Signin screen component rendered');
+export const SignInScreen = ({ navigation }: Props) => {
+  console.log('Signin screen component rendered');
 
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");

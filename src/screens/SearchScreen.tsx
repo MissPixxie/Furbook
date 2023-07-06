@@ -9,17 +9,17 @@ import { BlurView } from "expo-blur";
 import { Overlay } from "@rneui/themed";
 
 import { ThemeContext } from "../context/ThemeContext";
-import GetEvents from "../components/GetEvents";
-import GetDogs from "../components/GetDogs";
-import GetPlaces from "../components/GetPlaces";
-import SmallButton from "../components/SmallButton";
-import AddPlace from "../components/AddPlace";
+import { GetEvents } from "../components/GetEvents";
+import { GetDogs } from "../components/GetDogs";
+import { GetPlaces } from "../components/GetPlaces";
+import { SmallButton } from "../components/SmallButton";
+import { AddPlace } from "../components/AddPlace";
 
 interface Props {
   navigation: any;
 }
 
-const SearchScreen: React.FC<Props> = ({ navigation }) => {
+export const SearchScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
 
@@ -134,8 +134,6 @@ const SearchScreen: React.FC<Props> = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -27,8 +27,8 @@ interface User {
   password: string;
 }
 
-export default function SignUpScreen({ navigation }: Props) {
-  //console.log('Signup screen component rendered');
+export const SignUpScreen = ({ navigation }: Props) => {
+  console.log("Signup screen component rendered");
 
   const [name, setName] = useState("");
   const [email, setMail] = useState("");
@@ -134,7 +134,7 @@ export default function SignUpScreen({ navigation }: Props) {
       </SafeAreaView>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

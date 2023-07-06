@@ -12,7 +12,12 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function MessagesScreen({ navigation }) {
+
+interface Props {
+  navigation: any;
+}
+
+export const MessagesScreen = ({ navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>

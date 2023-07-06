@@ -25,6 +25,8 @@ export const AuthContext = createContext<Context>({
 export const AuthProvider = ({ children }: Props) => {
   const [state, setState] = useState<State>({ isLoggedIn: false });
 
+  console.log("auth context rendered")
+
   const fixedContext = (isLoggedIn: boolean) => {
     const newState = !state.isLoggedIn;
     setState({ isLoggedIn: newState });

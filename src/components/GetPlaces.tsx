@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "./CustomButton";
+import { CustomButton } from "./CustomButton";
 import { RefreshControl } from "react-native-gesture-handler";
 
 interface Props {
@@ -40,6 +40,8 @@ interface Rating {
 
 const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
   const thisTheme = theme.dark;
+
+  console.log("getplaces component rendered")
 
   const { colors } = theme;
 
@@ -189,7 +191,7 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
   );
 };
 
-export default GetPlaces;
+export { GetPlaces };
 
 const styles = StyleSheet.create({
   container: {

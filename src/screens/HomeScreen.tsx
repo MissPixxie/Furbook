@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
-import CustomButton from "../components/CustomButton";
+import { CustomButton } from "../components/CustomButton";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -11,6 +11,8 @@ interface Props {
 const HomeScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { isLoggedIn, fixedContext } = useContext(AuthContext);
+
+  console.log("Home screen rendered");
 
   const { colors } = theme;
 
@@ -47,4 +49,4 @@ const HomeScreen = ({ navigation }: Props) => {
                         /> */
 };
 
-export default HomeScreen;
+export { HomeScreen };

@@ -10,7 +10,11 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function DogsScreen({ navigation }) {
+interface Props {
+  navigation: any;
+}
+
+export const DogsScreen = ({ navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Dogs</Text>

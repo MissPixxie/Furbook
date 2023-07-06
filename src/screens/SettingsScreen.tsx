@@ -16,7 +16,7 @@ interface Props {
   navigation: any;
 }
 
-export default function SettingsScreen({ navigation }: Props) {
+export const SettingsScreen = ({ navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Settings</Text>

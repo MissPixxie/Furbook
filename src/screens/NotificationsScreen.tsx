@@ -10,17 +10,22 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from 'expo-blur';
 
-import GetPlaces from "../components/GetPlaces";
-import AddPlace from "../components/AddPlace";
+import { GetPlaces } from "../components/GetPlaces";
+import { AddPlace } from "../components/AddPlace";
 
 import { Ionicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { ThemeContext } from "../../App";
+import { ThemeContext } from "../context/ThemeContext";
 import { RefreshControl } from "react-native-gesture-handler";
 
-const NotificationScreen = ({ navigation }) => {
+
+interface Props {
+  navigation: any;
+} 
+
+export const NotificationScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,12 +33,8 @@ const NotificationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <BlurView intensity={100} style={styles.blurContainer}>
-        <Text style={styles.text}>{text}</Text>
-      </BlurView>
-      <BlurView intensity={80} tint="light" style={styles.blurContainer}>
-        <Text style={styles.text}>{text}</Text>
-      </BlurView>
+        <Text>{text}</Text>
+        <Text>{text}</Text>
     </View>
   );
 };
