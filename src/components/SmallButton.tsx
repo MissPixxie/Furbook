@@ -12,7 +12,7 @@ interface Props {
 
 type AlignSelf = "stretch" | "center" | "flex-start" | "flex-end";
 
-const SmallButton = ({
+export const SmallButton = ({
   title,
   active,
   icon,
@@ -20,8 +20,6 @@ const SmallButton = ({
   align,
   onPress,
 }: Props) => {
-  console.log("small button component rendered");
-
   const styles = StyleSheet.create({
     baseButton: {
       flexDirection: "row",
@@ -58,5 +56,3 @@ const SmallButton = ({
     </Pressable>
   );
 };
-
-export { SmallButton };

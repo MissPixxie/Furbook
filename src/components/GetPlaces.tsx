@@ -38,7 +38,7 @@ interface Rating {
   paw: number;
 }
 
-const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
+export const GetPlaces = ({ setModalVisible, theme }: Props) => {
   const thisTheme = theme.dark;
 
   console.log("getplaces component rendered")
@@ -191,7 +191,6 @@ const GetPlaces: React.FC<Props> = ({ setModalVisible, theme }) => {
   );
 };
 
-export { GetPlaces };
 
 const styles = StyleSheet.create({
   container: {

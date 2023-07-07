@@ -28,7 +28,6 @@ interface User {
 }
 
 export const SignUpScreen = ({ navigation }: Props) => {
-  console.log("Signup screen component rendered");
 
   const [name, setName] = useState("");
   const [email, setMail] = useState("");

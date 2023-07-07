@@ -3,14 +3,14 @@ import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
 interface Props {
   title: string;
-  onPress: any;
+  onPress: () => void;
   bgColor: any;
   borderColor?: string;
   color?: string;
   borderWidth?: number;
 }
 
-const CustomButton = ({
+export const CustomButton = ({
   title,
   onPress,
   bgColor,
@@ -18,8 +18,6 @@ const CustomButton = ({
   color,
   borderWidth,
 }: Props) => {
-
-  console.log("custombutton component rendered")
   const styles = StyleSheet.create({
     button: {
       width: "80%",
@@ -50,5 +48,3 @@ const CustomButton = ({
     </TouchableOpacity>
   );
 };
-
-export { CustomButton };

@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function App({ children }: Props) {
-  console.log("App component rendered");
   return (
     <SafeAreaProvider>
       <ThemeProvider>

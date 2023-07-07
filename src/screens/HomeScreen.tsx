@@ -8,11 +8,9 @@ interface Props {
   navigation: any;
 }
 
-const HomeScreen = ({ navigation }: Props) => {
+export const HomeScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { isLoggedIn, fixedContext } = useContext(AuthContext);
-
-  console.log("Home screen rendered");
+  const { state, setState } = useContext(AuthContext);
 
   const { colors } = theme;
 
@@ -27,7 +25,7 @@ const HomeScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ color: colors.text }}>Profile</Text>
+      <Text style={{ color: colors.text }}>{state.user}</Text>
       <CustomButton
         title="Theme"
         onPress={toggleTheme}
@@ -35,7 +33,7 @@ const HomeScreen = ({ navigation }: Props) => {
       />
       <CustomButton
         title="Logout"
-        onPress={fixedContext}
+        onPress={() => setState({ user: "", isLoggedIn: false })}
         bgColor={colors.secondary}
       />
     </SafeAreaView>
@@ -48,5 +46,3 @@ const HomeScreen = ({ navigation }: Props) => {
                             value={newTheme === 'light'}
                         /> */
 };
-
-export { HomeScreen };

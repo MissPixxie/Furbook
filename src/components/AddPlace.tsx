@@ -27,9 +27,7 @@ interface Place {
   description: string;
 }
 
-const AddPlace = ({ closeModal }: Props) => {
-  console.log("addplace component rendered");
-
+export const AddPlace = ({ closeModal }: Props) => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -124,8 +122,6 @@ const AddPlace = ({ closeModal }: Props) => {
     </KeyboardAwareScrollView>
   );
 };
-
-export { AddPlace };
 
 const styles = StyleSheet.create({
   container: {

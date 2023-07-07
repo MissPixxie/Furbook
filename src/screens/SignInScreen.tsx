@@ -26,12 +26,10 @@ type FormData = {
 };
 
 export const SignInScreen = ({ navigation }: Props) => {
-  console.log('Signin screen component rendered');
-
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isLoggedIn, fixedContext } = useContext(AuthContext);
+  const { state, setState } = useContext(AuthContext);
 
   async function signIn() {
     try {
@@ -47,9 +45,9 @@ export const SignInScreen = ({ navigation }: Props) => {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          const { message } = data;
+          const { message, user } = data;
           if (message === "User exists") {
-            fixedContext(true);
+            setState({ user: user.name, isLoggedIn: true });
           } else {
             return "Log in";
           }
@@ -104,7 +102,7 @@ export const SignInScreen = ({ navigation }: Props) => {
       </SafeAreaView>
     </LinearGradient>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -26,9 +26,9 @@ interface Event {
   date: Date;
 }
 
-const GetEvents = ({ theme }: Props) => {
+export const GetEvents = ({ theme }: Props) => {
   const thisTheme = theme.dark;
-  console.log("getevents component rendered")
+  console.log("getevents component rendered");
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
@@ -112,8 +112,6 @@ const GetEvents = ({ theme }: Props) => {
     </SafeAreaView>
   );
 };
-
-export { GetEvents };
 
 const styles = StyleSheet.create({
   container: {

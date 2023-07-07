@@ -17,7 +17,7 @@ interface Dog {
   neutered: boolean;
 }
 
-const GetDogs = ({ theme }: Props) => {
+export const GetDogs = ({ theme }: Props) => {
   const thisTheme = theme.dark;
   const { colors } = theme;
   const [data, setData] = useState<Dog[]>([]);
@@ -78,8 +78,6 @@ const GetDogs = ({ theme }: Props) => {
     </SafeAreaView>
   );
 };
-
-export { GetDogs };
 
 const styles = StyleSheet.create({
   container: {
