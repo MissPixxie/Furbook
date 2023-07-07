@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { CustomButton } from "../components/CustomButton";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext, defaultContextState } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 
 interface Props {
@@ -13,6 +13,9 @@ export const HomeScreen = ({ navigation }: Props) => {
   const { state, setState } = useContext(AuthContext);
 
   const { colors } = theme;
+  const { user } = state;
+
+  console.log(state);
 
   const styles = StyleSheet.create({
     container: {
@@ -25,7 +28,8 @@ export const HomeScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ color: colors.text }}>{state.user}</Text>
+      <Text style={{ color: colors.text }}>{user.userName}</Text>
+      <Text style={{ color: colors.text }}>{user.userEmail}</Text>
       <CustomButton
         title="Theme"
         onPress={toggleTheme}
@@ -33,7 +37,7 @@ export const HomeScreen = ({ navigation }: Props) => {
       />
       <CustomButton
         title="Logout"
-        onPress={() => setState({ user: "", isLoggedIn: false })}
+        onPress={() => setState(defaultContextState)}
         bgColor={colors.secondary}
       />
     </SafeAreaView>

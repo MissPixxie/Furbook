@@ -13,27 +13,33 @@ interface Context {
 }
 
 interface State {
-  user: string;
+  user: User;
   isLoggedIn: boolean;
 }
 
-// interface User {
-//   userID: string;
-//   userName: string;
-// }
+interface User {
+  userID: string;
+  userName: string;
+  userEmail: string;
+}
+
+export const defaultContextState: State = {
+  user: {
+    userID: "",
+    userName: "",
+    userEmail: "",
+  },
+  isLoggedIn: false,
+};
 
 export const AuthContext = createContext<Context>({
-  state: { user: "", isLoggedIn: false },
+  state: defaultContextState,
   setState: (state) => {},
 });
 
 export const AuthProvider = ({ children }: Props) => {
-  const [state, setState] = useState<State>({
-    user: "",
-    isLoggedIn: false,
-  });
+  const [state, setState] = useState<State>(defaultContextState);
 
-  
   return (
     <SafeAreaProvider>
       <AuthContext.Provider value={{ state, setState }}>

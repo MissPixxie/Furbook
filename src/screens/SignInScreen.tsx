@@ -20,16 +20,14 @@ interface Props {
   navigation: any;
 }
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
 export const SignInScreen = ({ navigation }: Props) => {
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const { state, setState } = useContext(AuthContext);
+  const { userID, userName, userEmail } = state.user;
+
+  console.log(state);
 
   async function signIn() {
     try {
@@ -47,7 +45,14 @@ export const SignInScreen = ({ navigation }: Props) => {
         .then((data) => {
           const { message, user } = data;
           if (message === "User exists") {
-            setState({ user: user.name, isLoggedIn: true });
+            setState({
+              user: {
+                userID: user.ID,
+                userName: user.name,
+                userEmail: user.email,
+              },
+              isLoggedIn: true,
+            });
           } else {
             return "Log in";
           }
