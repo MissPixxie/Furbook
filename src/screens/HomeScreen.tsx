@@ -17,12 +17,6 @@ interface Props {
 export const HomeScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
-  const [isActive, setIsActive] = useState(false);
-
-  const toggleActive = () => {
-    setIsActive(!isActive);
-    console.log(isActive);
-  };
 
   const { colors } = theme;
   const { user } = state;
@@ -46,16 +40,6 @@ export const HomeScreen = ({ navigation }: Props) => {
       />
       <Text style={{ color: colors.text }}>{user.userName}</Text>
       <Text style={{ color: colors.text }}>{user.userEmail}</Text>
-      <CustomButton
-        title="Theme"
-        onPress={toggleTheme}
-        bgColor={colors.secondary}
-      />
-      <CustomButton
-        title="Logout"
-        onPress={() => setState(defaultContextState)}
-        bgColor={colors.secondary}
-      />
     </SafeAreaView>
   );
   /* <Switch
