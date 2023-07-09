@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -11,21 +11,24 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { ThemeContext } from "../context/ThemeContext";
 
 interface Props {
   navigation: any;
 }
 
 export const SettingsScreen = ({ navigation }: Props) => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { colors } = theme;
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Settings</Text>
-      <Pressable onPress={() => navigation.openDrawer()}>
+      <Text style={{ color: colors.text }}>Settings</Text>
+      {/* <Pressable onPress={() => navigation.openDrawer()}>
         <Ionicons name="menu" size={24} color="black" />
-      </Pressable>
+      </Pressable> */}
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

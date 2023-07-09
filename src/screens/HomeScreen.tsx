@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import React, { useContext, useState } from "react";
+import { Button, SafeAreaView, StyleSheet, Text } from "react-native";
+
+//COMPONENTS
 import { CustomButton } from "../components/CustomButton";
 import { AuthContext, defaultContextState } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
+// import { CustomDrawer } from "../navigation/CustomDrawer";
+
+//ICONS
+import { Entypo } from "@expo/vector-icons";
 
 interface Props {
   navigation: any;
@@ -11,11 +17,15 @@ interface Props {
 export const HomeScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleActive = () => {
+    setIsActive(!isActive);
+    console.log(isActive);
+  };
 
   const { colors } = theme;
   const { user } = state;
-
-  console.log(state);
 
   const styles = StyleSheet.create({
     container: {
@@ -28,6 +38,12 @@ export const HomeScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Entypo
+        name="menu"
+        size={24}
+        color="black"
+        onPress={() => navigation.toggleDrawer()}
+      />
       <Text style={{ color: colors.text }}>{user.userName}</Text>
       <Text style={{ color: colors.text }}>{user.userEmail}</Text>
       <CustomButton

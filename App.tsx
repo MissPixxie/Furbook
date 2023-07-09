@@ -11,6 +11,11 @@ interface Props {
 }
 
 export default function App({ children }: Props) {
+
+  const { state } = useContext(AuthContext);
+
+  console.log(state)
+  
   return (
     <SafeAreaProvider>
       <ThemeProvider>
