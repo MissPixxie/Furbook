@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useContext } from "react";
+import { DrawerStack } from "./DrawerStack";
 
 //CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
@@ -14,19 +15,24 @@ import { SearchScreen } from "../screens/SearchScreen";
 
 //ICONS
 import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
-import { DrawerStack } from "./DrawerStack";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
-export const TabNavigator = () => {
+interface Props {
+  user?: string;
+}
+
+export const TabNavigator = ({ user }: Props) => {
   const { theme } = useContext(ThemeContext);
+  const navigation = useNavigation<any>();
   const { colors } = theme;
   const { tabBar } = colors;
 
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
         tabBarShowLabel: false,
         tabBarBackground: () => (
           <LinearGradient colors={tabBar} style={{ height: 70 }} />
@@ -39,6 +45,15 @@ export const TabNavigator = () => {
         name="Home2"
         component={DrawerStack}
         options={{
+          headerTitleAlign: "center",
+          headerRight: () => (
+            <Ionicons
+              name="menu"
+              size={34}
+              color="black"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size} color={color} />
           ),
@@ -48,6 +63,7 @@ export const TabNavigator = () => {
         name="Dogs"
         component={DogsScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="paw" size={size} color={color} />
           ),
@@ -57,6 +73,7 @@ export const TabNavigator = () => {
         name="Messages"
         component={MessagesScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="envelope" size={size} color={color} />
           ),
@@ -66,6 +83,7 @@ export const TabNavigator = () => {
         name="Search"
         component={SearchScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <FontAwesome name="search" size={size} color={color} />
           ),
@@ -75,6 +93,7 @@ export const TabNavigator = () => {
         name="Notifications"
         component={NotificationScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="notifications" size={size} color={color} />
           ),

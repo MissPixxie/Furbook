@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  DrawerToggleButton,
+  createDrawerNavigator,
+} from "@react-navigation/drawer";
 
 //SCREENS
 import { HomeScreen } from "../screens/HomeScreen";
@@ -16,42 +19,30 @@ import { TabNavigator } from "./TabNavigator";
 
 const Drawer = createDrawerNavigator();
 
+// headerleft: null ???
+
 export const DrawerStack = () => {
-  console.log("drawer navigator rendered");
   return (
     <Drawer.Navigator
       drawerContent={({ navigation }) => (
         <CustomDrawer navigation={navigation} />
       )}
       screenOptions={{
-        headerShown: false,
-        drawerActiveBackgroundColor: "#123b3b",
-        drawerActiveTintColor: "#fff",
-        drawerInactiveTintColor: "#333",
         drawerPosition: "right",
-        drawerLabelStyle: {
-          fontSize: 16,
-        },
+        headerShown: false,
       }}
     >
       <Drawer.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          drawerIcon: ({ color }) => (
-            <Ionicons name="settings-sharp" size={20} color={color} />
+          headerTitleAlign: "center",
+          headerRight: () => (
+            <Ionicons name="menu" size={34} color="black" onPress={() => {}} />
           ),
         }}
       />
-      <Drawer.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          drawerIcon: ({ color }) => (
-            <Ionicons name="settings-sharp" size={20} color={color} />
-          ),
-        }}
-      />
+      <Drawer.Screen name="Settings" component={SettingsScreen} />
     </Drawer.Navigator>
   );
 };

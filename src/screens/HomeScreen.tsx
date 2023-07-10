@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, SafeAreaView, StyleSheet, Text } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 //COMPONENTS
 import { CustomButton } from "../components/CustomButton";
@@ -28,25 +28,37 @@ export const HomeScreen = ({ navigation }: Props) => {
       alignItems: "center",
       backgroundColor: colors.background,
     },
+    viewBox: {
+      flex: 2,
+      width: "100%",
+      backgroundColor: colors.primary,
+      padding: 20,
+    },
+    pinned: {
+      flex: 2,
+      width: "100%",
+      backgroundColor: colors.secondary,
+    },
   });
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.viewBox}>
+        <View style={styles.pinned}>
+          <Text>Pinned</Text>
+        </View>
+      </View>
+      <View style={styles.viewBox}>
+        <View style={styles.pinned}>
+          <Text>Add stuff</Text>
+        </View>
+      </View>
       <Entypo
         name="menu"
         size={24}
         color="black"
         onPress={() => navigation.toggleDrawer()}
       />
-      <Text style={{ color: colors.text }}>{user.userName}</Text>
-      <Text style={{ color: colors.text }}>{user.userEmail}</Text>
     </SafeAreaView>
   );
-  /* <Switch
-                            trackColor={ newTheme === 'light' ? '#767577' : '#81ff83'}
-                            thumbColor={newTheme === 'light' ? '#f4f3f4' : '#184718'}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleTheme}
-                            value={newTheme === 'light'}
-                        /> */
 };

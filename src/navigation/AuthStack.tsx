@@ -1,5 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useContext, useState } from "react";
+import {
+  DrawerToggleButton,
+  createDrawerNavigator,
+} from "@react-navigation/drawer";
+import { CustomDrawer } from "./CustomDrawer";
 
 //CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
@@ -12,6 +17,7 @@ import { TabNavigator } from "./TabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export const AuthStack = () => {
   const { state, setState } = useContext(AuthContext);
@@ -21,22 +27,36 @@ export const AuthStack = () => {
 
   return (
     <NavigationContainer>
-      {state.isLoggedIn ? (
-        <TabNavigator />
-      ) : (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Sign in"
-            component={SignInScreen}
+      <Drawer.Navigator
+        drawerContent={({ navigation }) => (
+          <CustomDrawer navigation={navigation} />
+        )}
+        screenOptions={{
+          drawerPosition: "right",
+          headerShown: false,
+        }}
+      >
+        {state.isLoggedIn ? (
+          <Drawer.Screen
+            name="Tab Navigator"
+            component={TabNavigator}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="Sign up"
-            component={SignUpScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      )}
+        ) : (
+          <>
+            <Drawer.Screen
+              name="Sign in"
+              component={SignInScreen}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Sign up"
+              component={SignUpScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        )}
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
