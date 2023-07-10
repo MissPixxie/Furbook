@@ -16,7 +16,6 @@ import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 
-const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export const AuthStack = () => {

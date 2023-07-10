@@ -53,12 +53,6 @@ export const HomeScreen = ({ navigation }: Props) => {
           <Text>Add stuff</Text>
         </View>
       </View>
-      <Entypo
-        name="menu"
-        size={24}
-        color="black"
-        onPress={() => navigation.toggleDrawer()}
-      />
     </SafeAreaView>
   );
 };

@@ -16,15 +16,13 @@ import { SearchScreen } from "../screens/SearchScreen";
 //ICONS
 import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../context/AuthContext";
 
 const Tab = createBottomTabNavigator();
 
-interface Props {
-  user?: string;
-}
-
-export const TabNavigator = ({ user }: Props) => {
+export const TabNavigator = () => {
   const { theme } = useContext(ThemeContext);
+  const { state, setState } = useContext(AuthContext);
   const navigation = useNavigation<any>();
   const { colors } = theme;
   const { tabBar } = colors;
@@ -42,7 +40,7 @@ export const TabNavigator = ({ user }: Props) => {
       }}
     >
       <Tab.Screen
-        name="Home2"
+        name={state.user.userName}
         component={DrawerStack}
         options={{
           headerTitleAlign: "center",
