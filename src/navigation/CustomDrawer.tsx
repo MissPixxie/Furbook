@@ -1,12 +1,6 @@
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, Switch } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Text, TouchableOpacity, View } from "react-native";
 import { AuthContext, defaultContextState } from "../context/AuthContext";
 
 //CONTEXT
@@ -14,8 +8,8 @@ import { CustomButton } from "../components/CustomButton";
 import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
-import { Octicons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import { Octicons, Ionicons, FontAwesome } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   navigation: any;
@@ -26,6 +20,7 @@ export const CustomDrawer = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const { colors } = theme;
+  const { drawer } = colors;
 
   return (
     <DrawerContentScrollView
@@ -35,16 +30,26 @@ export const CustomDrawer = ({ navigation }: Props) => {
       }}
     >
       <View>
-        <Text
+        <View
           style={{
-            fontSize: 28,
-            textAlign: "center",
-            marginTop: 20,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
             marginBottom: 10,
           }}
         >
-          Account
-        </Text>
+          <Ionicons name="person" size={24} color={colors.text} />
+          <Text
+            style={{
+              fontSize: 28,
+              color: colors.text,
+              marginLeft: 15,
+            }}
+          >
+            Account
+          </Text>
+        </View>
+
         {/* <DrawerItem
           label="Settings"
           icon={({ focused, color, size }) => (
@@ -78,9 +83,25 @@ export const CustomDrawer = ({ navigation }: Props) => {
         />
       </View>
       <View>
-        <Text style={{ fontSize: 28, textAlign: "center", marginBottom: 10 }}>
-          Help
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 10,
+          }}
+        >
+          <FontAwesome name="question-circle" size={24} color={colors.text} />
+          <Text
+            style={{
+              fontSize: 28,
+              color: colors.text,
+              marginLeft: 15,
+            }}
+          >
+            Help
+          </Text>
+        </View>
         <CustomButton
           title="About Furbooks"
           fontSize={20}
@@ -106,10 +127,27 @@ export const CustomDrawer = ({ navigation }: Props) => {
           justifyContent: "center",
           alignItems: "center",
           marginBottom: 20,
+          borderTopColor: "#9c9c9c",
+          borderTopWidth: 2,
         }}
       >
-        <Octicons name="sign-out" size={28} color="black" />
-        <Text style={{ fontSize: 24, marginLeft: 10 }}>Logout</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setState(defaultContextState);
+            navigation.closeDrawer();
+          }}
+          style={{
+            flexDirection: "row",
+            marginTop: 20,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 24, marginRight: 25, color: colors.text }}>
+            Logout
+          </Text>
+          <Octicons name="sign-out" size={26} color={colors.text} />
+        </TouchableOpacity>
+
         {/* <DrawerItem
           label="Logout"
           icon={({ focused, color, size }) => (

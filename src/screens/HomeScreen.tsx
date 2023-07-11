@@ -9,6 +9,7 @@ import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
 import { Entypo } from "@expo/vector-icons";
+import { OverlayComponent } from "../components/OverlayComponent";
 
 interface Props {
   navigation: any;
@@ -43,6 +44,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <OverlayComponent /> */}
       <View style={styles.viewBox}>
         <View style={styles.pinned}>
           <Text>Pinned</Text>

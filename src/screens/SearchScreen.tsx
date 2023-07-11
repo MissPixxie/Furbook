@@ -56,7 +56,7 @@ export const SearchScreen = ({ navigation }: Props) => {
   const [filterType, setFilterType] = useState(filter_type.dogs);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -66,7 +66,6 @@ export const SearchScreen = ({ navigation }: Props) => {
       >
         <AddPlace closeModal={toggleModal} />
       </Modal>
-      {/* <Overlay isVisible={overlayVisable} onBackdropPress={toggleOverlay}> */}
       <View>
         <SmallButton
           title="Filter"
@@ -130,18 +129,15 @@ export const SearchScreen = ({ navigation }: Props) => {
           <GetPlaces setModalVisible={setModalVisible} theme={theme} />
         )}
       </View>
-      {/* </Overlay> */}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+    marginVertical: 8,
   },
   modal: {
     marginTop: 30,

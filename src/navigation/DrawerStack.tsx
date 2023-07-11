@@ -41,7 +41,10 @@ export const DrawerStack = () => {
           ),
         }}
       />
+      {/* <Drawer.Screen name="Settings" component={} />
       <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen name="Settings" component={SettingsScreen} /> */}
     </Drawer.Navigator>
   );
 };

@@ -4,11 +4,12 @@ import { Text, StyleSheet, TouchableOpacity } from "react-native";
 interface Props {
   title: string;
   onPress: () => void;
-  bgColor: any;
+  bgColor?: any;
   borderColor?: string;
   color?: string;
   borderWidth?: number;
   fontSize?: FontSize;
+  icon?: any;
 }
 
 type FontSize = 18 | 20 | 22 | 26 | 28 | 32;
@@ -20,7 +21,8 @@ export const CustomButton = ({
   borderColor,
   color,
   borderWidth,
-  fontSize,
+  fontSize = 22,
+  icon,
 }: Props) => {
   const styles = StyleSheet.create({
     button: {

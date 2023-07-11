@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -11,10 +11,11 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import IP from "../../fetchIP";
 
-import { Foundation } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
+
 import { CustomButton } from "./CustomButton";
+import { ThemeContext } from "../context/ThemeContext";
+import { Overlay } from "@rneui/themed";
 
 interface Props {
   closeModal: () => void;
@@ -32,6 +33,9 @@ export const AddPlace = ({ closeModal }: Props) => {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { colors } = theme;
 
   const [selected, setSelected] = useState("");
   const data = [
@@ -68,68 +72,74 @@ export const AddPlace = ({ closeModal }: Props) => {
 
   return (
     <KeyboardAwareScrollView>
-      <View style={styles.container}>
-        <Entypo
-          name="cross"
-          size={36}
-          color="black"
-          style={styles.exitButton}
-          onPress={closeModal}
-        />
-        <View style={styles.inputs}>
-          <View style={styles.Input}>
-            <Entypo name="location-pin" size={24} color="black" />
-            <TextInput
-              onChangeText={setName}
-              value={name}
-              placeholder="Name"
-              style={styles.inputText}
-            />
+      <Overlay isVisible={true}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            paddingBottom: 20,
+          }}
+        >
+          <Entypo
+            name="cross"
+            size={36}
+            color="black"
+            style={styles.exitButton}
+            onPress={closeModal}
+          />
+          <View style={styles.inputs}>
+            <View style={styles.Input}>
+              <Entypo name="location-pin" size={24} color="black" />
+              <TextInput
+                onChangeText={setName}
+                value={name}
+                placeholder="Name"
+                style={styles.inputText}
+              />
+            </View>
+            <View style={styles.Input}>
+              <Foundation name="telephone" size={24} color="black" />
+              <TextInput
+                onChangeText={setLocation}
+                value={location}
+                style={styles.inputText}
+                placeholder="Location"
+              />
+            </View>
+            <View style={styles.Input}>
+              <MaterialIcons name="category" size={24} color="black" />
+              <TextInput
+                onChangeText={setCategory}
+                value={category}
+                placeholder="Category"
+                style={styles.inputText}
+              />
+            </View>
+            <View style={styles.Input}>
+              <Entypo name="pencil" size={24} color="black" />
+              <TextInput
+                onChangeText={setDescription}
+                value={description}
+                placeholder="Description"
+                style={styles.inputText}
+              />
+            </View>
           </View>
-          <View style={styles.Input}>
-            <Foundation name="telephone" size={24} color="black" />
-            <TextInput
-              onChangeText={setLocation}
-              value={location}
-              style={styles.inputText}
-              placeholder="Location"
-            />
-          </View>
-          <View style={styles.Input}>
-            <MaterialIcons name="category" size={24} color="black" />
-            <TextInput
-              onChangeText={setCategory}
-              value={category}
-              placeholder="Category"
-              style={styles.inputText}
-            />
-          </View>
-          <View style={styles.Input}>
-            <Entypo name="pencil" size={24} color="black" />
-            <TextInput
-              onChangeText={setDescription}
-              value={description}
-              placeholder="Description"
-              style={styles.inputText}
-            />
-          </View>
+          <CustomButton
+            title="Add new place"
+            bgColor="#f7f7f7"
+            borderColor="#71ce24"
+            borderWidth={2}
+            onPress={newPlace}
+          />
+          <CustomButton title="Close" bgColor="#bced95" onPress={closeModal} />
         </View>
-        <Pressable onPress={newPlace}>
-          <Text style={styles.addButton}>Add new place</Text>
-        </Pressable>
-        <CustomButton title="Close" bgColor="#bced95" onPress={closeModal} />
-      </View>
+      </Overlay>
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
   inputs: {
     padding: 10,
     marginBottom: 15,
@@ -150,31 +160,6 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     fontSize: 18,
     borderBottomColor: "black",
-  },
-  text: {
-    fontSize: 18,
-    marginTop: 10,
-  },
-  addButton: {
-    backgroundColor: "#0a2121",
-    width: 300,
-    textAlign: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 5,
-    elevation: 3,
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: "#0a2121",
-  },
-  SigninText: {
-    fontSize: 18,
-    color: "white",
   },
   exitButton: {
     alignSelf: "flex-end",

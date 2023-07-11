@@ -15,6 +15,7 @@ import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
 import { NavigationContainer } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,7 +23,7 @@ export const AuthStack = () => {
   const { state, setState } = useContext(AuthContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
-  const { tabBar } = colors;
+  const { tabBar, drawer } = colors;
 
   return (
     <NavigationContainer>
@@ -34,7 +35,7 @@ export const AuthStack = () => {
           drawerPosition: "right",
           headerShown: false,
           drawerStyle: {
-            backgroundColor: theme.colors.secondary,
+            backgroundColor: colors.primary,
           },
         }}
       >

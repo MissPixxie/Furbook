@@ -14,6 +14,7 @@ import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
 import { RefreshControl } from "react-native-gesture-handler";
+import { OverlayComponent } from "./OverlayComponent";
 
 interface Props {
   theme: any;
@@ -41,7 +42,7 @@ interface Rating {
 export const GetPlaces = ({ setModalVisible, theme }: Props) => {
   const thisTheme = theme.dark;
 
-  console.log("getplaces component rendered")
+  console.log("getplaces component rendered");
 
   const { colors } = theme;
 
@@ -120,62 +121,6 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
               <Text style={{ fontSize: 20, color: colors.text }}>
                 {item.description}
               </Text>
-              <Text
-                style={styles.postComments}
-                onPress={() => {
-                  setIsVisable(!isVisable);
-                }}
-              >
-                Comments
-              </Text>
-              {isVisable && (
-                <View>
-                  <Text style={{ fontSize: 18, color: colors.theme }}>
-                    {item.comments.commentTitle}
-                  </Text>
-                  <Text style={{ fontSize: 18, color: colors.theme }}>
-                    {item.comments.commentText}
-                  </Text>
-                </View>
-              )}
-              {item.date && <Text>{item.date.toString()}</Text>}
-              <View style={styles.reviewContainer}>
-                <Pressable
-                  onPress={() => {
-                    pawRating(1, item._id);
-                  }}
-                >
-                  <Ionicons name="paw" size={24} color="#264026" />
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    pawRating(2, item._id);
-                  }}
-                >
-                  <Ionicons name="paw" size={24} color="#264026" />
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    pawRating(3, item._id);
-                  }}
-                >
-                  <Ionicons name="paw" size={24} color="#264026" />
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    pawRating(4, item._id);
-                  }}
-                >
-                  <Ionicons name="paw" size={24} color="#264026" />
-                </Pressable>
-                <Pressable
-                  onPress={() => {
-                    pawRating(5, item._id);
-                  }}
-                >
-                  <Ionicons name="paw" size={24} color="#264026" />
-                </Pressable>
-              </View>
             </View>
           </Pressable>
         )}
@@ -190,7 +135,6 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
     </SafeAreaView>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

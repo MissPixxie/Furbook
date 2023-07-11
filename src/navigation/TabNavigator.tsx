@@ -49,6 +49,7 @@ export const TabNavigator = () => {
               name="settings-outline"
               size={34}
               color="black"
+              style={{ marginRight: 20 }}
               onPress={() => navigation.toggleDrawer()}
             />
           ),

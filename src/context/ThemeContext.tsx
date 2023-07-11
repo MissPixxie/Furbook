@@ -16,6 +16,7 @@ interface Theme {
     border: string;
     notification: string;
     tabBar: Array<string>;
+    drawer: Array<string>;
   };
 }
 
@@ -32,14 +33,15 @@ const MyTheme: MyTheme = {
   dark: {
     dark: true,
     colors: {
-      primary: "#202020",
+      primary: "#373737",
       secondary: "#e2e2e2",
-      background: "#0c0c0c",
+      background: "#202020",
       card: "rgb(255, 255, 255)",
       text: "#fff",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
       tabBar: ["#252525", "#141414"],
+      drawer: ["#3c3c3c", "#7d7d7d"],
     },
   },
   light: {
@@ -53,6 +55,7 @@ const MyTheme: MyTheme = {
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
       tabBar: ["#bced95", "#fff"],
+      drawer: ["#eaeaea", "#fff"],
     },
   },
 };
