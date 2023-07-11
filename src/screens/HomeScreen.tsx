@@ -9,7 +9,6 @@ import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
 import { Entypo } from "@expo/vector-icons";
-import { OverlayComponent } from "../components/OverlayComponent";
 
 interface Props {
   navigation: any;
@@ -40,6 +39,12 @@ export const HomeScreen = ({ navigation }: Props) => {
       width: "100%",
       backgroundColor: colors.secondary,
     },
+    addStuff: {
+      flex: 2,
+      width: "100%",
+      backgroundColor: colors.secondary,
+      borderRadius: 15,
+    },
   });
 
   return (
@@ -51,7 +56,7 @@ export const HomeScreen = ({ navigation }: Props) => {
         </View>
       </View>
       <View style={styles.viewBox}>
-        <View style={styles.pinned}>
+        <View style={styles.addStuff}>
           <Text>Add stuff</Text>
         </View>
       </View>

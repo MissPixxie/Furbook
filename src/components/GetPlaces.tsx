@@ -11,10 +11,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import IP from "../../fetchIP";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
 import { RefreshControl } from "react-native-gesture-handler";
-import { OverlayComponent } from "./OverlayComponent";
+import { Button } from "@rneui/themed";
 
 interface Props {
   theme: any;
@@ -107,30 +107,46 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         renderItem={({ item }) => (
-          <Pressable onPress={() => Alert.alert("pressed")}>
-            <View style={styles.postContainer}>
-              <Text style={{ fontSize: 26, color: colors.text }}>
-                {item.name}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.location}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.category}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.description}
-              </Text>
-            </View>
-          </Pressable>
+          <View style={styles.postContainer}>
+            <Text style={{ fontSize: 26, color: colors.text }}>
+              {item.name}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.location}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.category}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.description}
+            </Text>
+          </View>
         )}
-        ListFooterComponent={
-          <CustomButton
-            title="Add new place"
-            onPress={() => setModalVisible(true)}
-            bgColor="#bced95"
-          />
-        }
+        // ListFooterComponent={
+        //   <CustomButton
+        //     title="Add new place"
+        //     onPress={() => setModalVisible(true)}
+        //     bgColor="#bced95"
+        //   />
+        // }
+      />
+      <Entypo
+        name="circle-with-plus"
+        size={64}
+        color="black"
+        style={{
+          position: "absolute",
+          top: "86%",
+          left: "87%",
+          backgroundColor: "#bced95",
+          borderRadius: 50,
+          shadowColor: "black",
+          shadowOffset: { width: -2, height: 4 },
+          shadowOpacity: 0.9,
+          shadowRadius: 3,
+          elevation: 5,
+        }}
+        onPress={() => setModalVisible(true)}
       />
     </SafeAreaView>
   );

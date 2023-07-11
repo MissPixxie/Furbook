@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { BlurView } from "expo-blur";
 import IP from "../../fetchIP";
 
 import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
@@ -16,6 +17,7 @@ import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
 import { ThemeContext } from "../context/ThemeContext";
 import { Overlay } from "@rneui/themed";
+import { BackgroundImage } from "@rneui/themed/dist/config";
 
 interface Props {
   closeModal: () => void;
@@ -72,7 +74,14 @@ export const AddPlace = ({ closeModal }: Props) => {
 
   return (
     <KeyboardAwareScrollView>
-      <Overlay isVisible={true}>
+      <Overlay
+        isVisible={true}
+        backdropStyle={{ backgroundColor: "black", opacity: 0.7 }}
+        overlayStyle={{
+          borderRadius: 10,
+          backgroundColor: colors.background,
+        }}
+      >
         <View
           style={{
             justifyContent: "center",
