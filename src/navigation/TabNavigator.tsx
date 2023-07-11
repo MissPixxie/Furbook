@@ -46,7 +46,7 @@ export const TabNavigator = () => {
           headerTitleAlign: "center",
           headerRight: () => (
             <Ionicons
-              name="menu"
+              name="settings-outline"
               size={34}
               color="black"
               onPress={() => navigation.toggleDrawer()}

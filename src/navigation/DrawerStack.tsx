@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
 import {
   DrawerToggleButton,
@@ -9,19 +9,18 @@ import {
 import { HomeScreen } from "../screens/HomeScreen";
 import { SettingsScreen } from "../screens/SettingsScreen";
 import { CustomDrawer } from "./CustomDrawer";
+import { ThemeContext } from "../context/ThemeContext";
 
 // ICONS
 import { Ionicons } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AuthStack } from "./AuthStack";
-import { TabNavigator } from "./TabNavigator";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Drawer = createDrawerNavigator();
-
-// headerleft: null ???
+const Stack = createNativeStackNavigator();
 
 export const DrawerStack = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <Drawer.Navigator
       drawerContent={({ navigation }) => (

@@ -33,6 +33,9 @@ export const AuthStack = () => {
         screenOptions={{
           drawerPosition: "right",
           headerShown: false,
+          drawerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
         }}
       >
         {state.isLoggedIn ? (
