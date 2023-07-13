@@ -10,6 +10,9 @@ interface Props {
   children: React.ReactNode;
 }
 
+// skärmläsare ?
+// olika default inställningar beroende på ålder?
+
 export default function App({ children }: Props) {
   const { state } = useContext(AuthContext);
 
