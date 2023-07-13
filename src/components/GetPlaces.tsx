@@ -15,23 +15,11 @@ import { Ionicons, Entypo } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
 import { RefreshControl } from "react-native-gesture-handler";
 import { Button } from "@rneui/themed";
+import { Places, useFetch } from "./FetchData";
 
 interface Props {
   theme: any;
   setModalVisible: any;
-}
-
-interface Place {
-  _id: string;
-  name: string;
-  location: string;
-  category: string;
-  description: string;
-  date: Date;
-  comments: {
-    commentTitle: string;
-    commentText: string;
-  };
 }
 
 interface Rating {
@@ -41,19 +29,12 @@ interface Rating {
 
 export const GetPlaces = ({ setModalVisible, theme }: Props) => {
   const thisTheme = theme.dark;
-
-  console.log("getplaces component rendered");
+  const { data, error, loading } = useFetch<Places[]>(IP + "/places");
 
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
-  const [data, setData] = useState<Place[]>([]);
-  const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -62,19 +43,6 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
     }, 2000);
   }, []);
 
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(IP + "/places");
-      const jsonData = await response.json();
-      setData(jsonData);
-      setLoading(false);
-      const test = JSON.stringify(jsonData);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
-    }
-  };
 
   async function pawRating(paw: number, _id: string) {
     try {

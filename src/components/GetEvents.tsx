@@ -9,6 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
+import { Events, useFetch } from "./FetchData";
 
 import IP from "../../fetchIP";
 import { Entypo } from "@expo/vector-icons";
@@ -17,27 +18,12 @@ interface Props {
   theme: any;
 }
 
-interface Event {
-  title: string;
-  place: number;
-  time: string;
-  description: string;
-  typeOfEvent: string;
-  date: Date;
-}
-
 export const GetEvents = ({ theme }: Props) => {
+  const { data, error, loading } = useFetch<Events[]>(IP + "/events");
   const thisTheme = theme.dark;
-  console.log("getevents component rendered");
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
-  const [data, setData] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -46,20 +32,6 @@ export const GetEvents = ({ theme }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(IP + "/events");
-      const jsonData = await response.json();
-      setData(jsonData);
-      setLoading(false);
-      const test = JSON.stringify(jsonData);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>

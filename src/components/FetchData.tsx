@@ -31,6 +31,9 @@ export type Dogs = {
   sex: string;
   breed: string;
   neutered: boolean;
+  images?: string;
+  friends?: string;
+  owner: string;
 };
 
 export type Messages = {

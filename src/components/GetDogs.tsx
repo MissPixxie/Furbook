@@ -4,31 +4,19 @@ import { SafeAreaView, View, Text, StyleSheet, FlatList } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 
 import IP from "../../fetchIP";
+import { Dogs, useFetch } from "./FetchData";
 
 interface Props {
   theme: any;
 }
 
-interface Dog {
-  name: string;
-  age: number;
-  sex: string;
-  breed: string;
-  neutered: boolean;
-}
-
 export const GetDogs = ({ theme }: Props) => {
   const thisTheme = theme.dark;
   const { colors } = theme;
-  const [data, setData] = useState<Dog[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
 
   // loggas 3 gånger?!!
   console.log("getdogs component rendered");
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -37,20 +25,6 @@ export const GetDogs = ({ theme }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(IP + "/dogs");
-      const jsonData = await response.json();
-      setData(jsonData);
-      setLoading(false);
-      const test = JSON.stringify(jsonData);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -71,6 +45,9 @@ export const GetDogs = ({ theme }: Props) => {
             </Text>
             <Text style={{ fontSize: 20, color: colors.text }}>
               {item.neutered}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.owner}
             </Text>
           </View>
         )}

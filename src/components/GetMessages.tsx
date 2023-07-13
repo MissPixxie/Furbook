@@ -9,6 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
+import { Messages, useFetch } from "./FetchData";
 
 import IP from "../../fetchIP";
 import { Entypo } from "@expo/vector-icons";
@@ -17,27 +18,12 @@ interface Props {
   theme: any;
 }
 
-interface Message {
-  sender: string;
-  receiver: number;
-  message: {
-    messageTitle: string;
-    messageContent: string;
-  };
-  date: Date;
-}
-
 export const GetMessages = ({ theme }: Props) => {
   const thisTheme = theme.dark;
   const { colors } = theme;
+  const { data, error, loading } = useFetch<Messages[]>(IP + "/users/messages");
 
   const [isVisable, setIsVisable] = useState(false);
-  const [data, setData] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -47,19 +33,6 @@ export const GetMessages = ({ theme }: Props) => {
     }, 2000);
   }, []);
 
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(IP + "/users/messages");
-      const jsonData = await response.json();
-      setData(jsonData);
-      setLoading(false);
-      const test = JSON.stringify(jsonData);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
