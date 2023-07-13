@@ -14,6 +14,9 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 import { RefreshControl } from "react-native-gesture-handler";
+import { useFetch } from "../components/FetchData";
+import IP from "../../fetchIP";
+import { Dogs } from "../components/FetchData";
 
 interface Props {
   navigation: any;
@@ -21,14 +24,15 @@ interface Props {
 
 export const NotificationScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const text = "Hello, my container is blurring contents underneath!";
+  console.log(data);
 
   return (
     <View style={styles.container}>
-      <Text>{text}</Text>
-      <Text>{text}</Text>
+      {data?.map((event) => (
+        <Text key={event._id}>{event.breed}</Text>
+      ))}
     </View>
   );
 };
