@@ -7,6 +7,8 @@ import {
   SafeAreaView,
   TextInput,
   Modal,
+  FlatList,
+  RefreshControl,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -35,6 +37,30 @@ export const DogsScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <FlatList
+        data={data}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        renderItem={({ item }) => (
+          <View style={styles.postContainer}>
+            <Text style={{ fontSize: 26, color: colors.text }}>
+              {item.name}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.age}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>{item.sex}</Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.breed}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.neutered}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.owner}
+            </Text>
+          </View>
+        )}
+      /> */}
       <Modal
         animationType="slide"
         transparent={true}

@@ -21,6 +21,7 @@ interface User {
   userID: string;
   userName: string;
   userEmail: string;
+  
 }
 
 export const defaultContextState: State = {

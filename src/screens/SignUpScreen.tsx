@@ -16,21 +16,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { Users } from "../components/FetchData";
 
 interface Props {
   navigation: any;
 }
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
-
 export const SignUpScreen = ({ navigation }: Props) => {
-
   const [name, setName] = useState("");
   const [email, setMail] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [matchpassword, setMatchPassword] = useState("");
 
@@ -44,6 +40,8 @@ export const SignUpScreen = ({ navigation }: Props) => {
         body: JSON.stringify({
           name: name,
           email: email,
+          country: country,
+          city: city,
           password: password,
         }),
       })
@@ -97,7 +95,24 @@ export const SignUpScreen = ({ navigation }: Props) => {
               style={styles.inputText}
             />
           </View>
-
+          <View style={styles.Input}>
+            <TextInput
+              onChangeText={setCountry}
+              value={country}
+              placeholder="Country"
+              placeholderTextColor={"#636363"}
+              style={styles.inputText}
+            />
+          </View>
+          <View style={styles.Input}>
+            <TextInput
+              onChangeText={setCity}
+              value={city}
+              placeholder="City"
+              placeholderTextColor={"#636363"}
+              style={styles.inputText}
+            />
+          </View>
           <View style={styles.Input}>
             <Ionicons name="lock-closed-outline" size={24} color="black" />
             <TextInput

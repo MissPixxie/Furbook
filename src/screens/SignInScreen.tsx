@@ -27,8 +27,6 @@ export const SignInScreen = ({ navigation }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { userID, userName, userEmail } = state.user;
 
-  console.log(state);
-
   async function signIn() {
     try {
       const response = await fetch(IP + "/signin", {
