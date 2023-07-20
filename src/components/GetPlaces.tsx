@@ -11,11 +11,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import IP from "../../fetchIP";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
 import { RefreshControl } from "react-native-gesture-handler";
-import { Button } from "@rneui/themed";
+import { Button, Card } from "@rneui/themed";
 import { Places, useFetch } from "./FetchData";
+import { CustomCard } from "./CustomCard";
 
 interface Props {
   theme: any;
@@ -35,6 +36,7 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
 
   const [isVisable, setIsVisable] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isActive, setActive] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -43,6 +45,10 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
     }, 2000);
   }, []);
 
+  const toggleSavedItems = () => {
+    setActive((prevState) => !prevState);
+    console.log(isActive);
+  };
 
   async function pawRating(paw: number, _id: string) {
     try {
@@ -67,6 +73,48 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
     }
   }
 
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "column",
+      paddingHorizontal: 10,
+    },
+    postContainer: {
+      width: "100%",
+      backgroundColor: colors.card,
+      marginVertical: 10,
+      alignSelf: "center",
+      padding: 15,
+      borderRadius: 10,
+      shadowColor: "#080808",
+      shadowOffset: { width: -5, height: 4 },
+      shadowOpacity: 0.9,
+      shadowRadius: 3,
+      elevation: 4,
+    },
+    filterButton: {
+      width: "30%",
+      backgroundColor: "#bced95",
+      borderRadius: 10,
+      padding: 5,
+      textAlign: "center",
+      alignSelf: "flex-end",
+      marginVertical: 10,
+    },
+    filterButtonText: {
+      textAlign: "center",
+      fontSize: 20,
+    },
+    postComments: {
+      marginVertical: 5,
+      fontSize: 18,
+      color: "green",
+    },
+    reviewContainer: {
+      flexDirection: "row",
+      columnGap: 5,
+    },
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -76,6 +124,23 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
         }
         renderItem={({ item }) => (
           <View style={styles.postContainer}>
+            {isActive ? (
+              <AntDesign
+                name="pushpino"
+                size={24}
+                color="black"
+                style={{ alignSelf: "flex-end" }}
+                onPress={toggleSavedItems}
+              />
+            ) : (
+              <AntDesign
+                name="pushpin"
+                size={24}
+                color="black"
+                style={{ alignSelf: "flex-end" }}
+                onPress={toggleSavedItems}
+              />
+            )}
             <Text style={{ fontSize: 26, color: colors.text }}>
               {item.name}
             </Text>
@@ -119,41 +184,3 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: 15,
-  },
-  postContainer: {
-    width: "100%",
-    marginVertical: 10,
-    alignSelf: "center",
-    padding: 15,
-    borderBottomColor: "#bced95",
-    borderBottomWidth: 2,
-  },
-  filterButton: {
-    width: "30%",
-    backgroundColor: "#bced95",
-    borderRadius: 10,
-    padding: 5,
-    textAlign: "center",
-    alignSelf: "flex-end",
-    marginVertical: 10,
-  },
-  filterButtonText: {
-    textAlign: "center",
-    fontSize: 20,
-  },
-  postComments: {
-    marginVertical: 5,
-    fontSize: 18,
-    color: "green",
-  },
-  reviewContainer: {
-    flexDirection: "row",
-    columnGap: 5,
-  },
-});

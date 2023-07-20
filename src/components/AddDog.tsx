@@ -96,7 +96,6 @@ export const AddDog = ({ closeModal }: Props) => {
           />
           <View style={styles.inputs}>
             <View style={styles.Input}>
-              <Entypo name="location-pin" size={24} color="black" />
               <TextInput
                 onChangeText={setName}
                 value={name}
@@ -105,7 +104,6 @@ export const AddDog = ({ closeModal }: Props) => {
               />
             </View>
             <View style={styles.Input}>
-              <Foundation name="telephone" size={24} color="black" />
               <TextInput
                 onChangeText={setAge}
                 value={age}
@@ -114,7 +112,6 @@ export const AddDog = ({ closeModal }: Props) => {
               />
             </View>
             <View style={styles.Input}>
-              <MaterialIcons name="category" size={24} color="black" />
               <TextInput
                 onChangeText={setSex}
                 value={sex}
@@ -123,7 +120,6 @@ export const AddDog = ({ closeModal }: Props) => {
               />
             </View>
             <View style={styles.Input}>
-              <Entypo name="pencil" size={24} color="black" />
               <TextInput
                 onChangeText={setBreed}
                 value={breed}
@@ -132,7 +128,6 @@ export const AddDog = ({ closeModal }: Props) => {
               />
             </View>
             <View style={styles.Input}>
-              <Entypo name="pencil" size={24} color="black" />
               <TextInput
                 onChangeText={setNeutered}
                 value={neutered}

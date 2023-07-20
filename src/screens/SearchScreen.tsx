@@ -77,13 +77,13 @@ export const SearchScreen = ({ navigation }: Props) => {
 
       <View>
         <SearchBar
-          round
           containerStyle={{
-            borderRadius: 15,
-            backgroundColor: thisTheme ? colors.primary : "#e2e2e2",
+            backgroundColor: thisTheme ? colors.background : "#e2e2e2",
+            borderBottomColor: "transparent",
+            borderTopColor: "transparent",
           }}
           inputContainerStyle={{
-            backgroundColor: thisTheme ? "#a4a4a4" : "#fff",
+            backgroundColor: thisTheme ? "#535353" : "#fff",
           }}
           searchIcon={{
             size: 32,
@@ -122,7 +122,7 @@ export const SearchScreen = ({ navigation }: Props) => {
           icon={<Entypo name="location-pin" size={20} color={colors.text} />}
         />
       </View>
-      <View style={{ flex: 1, backgroundColor: colors.primary }}>
+      <View style={{ flex: 1 }}>
         {filterType === filter_type.dogs && <GetDogs theme={theme} />}
         {filterType === filter_type.events && <GetEvents theme={theme} />}
         {filterType === filter_type.places && (

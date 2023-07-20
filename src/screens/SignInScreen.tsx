@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthContext } from "../context/AuthContext";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface Props {
   navigation: any;
