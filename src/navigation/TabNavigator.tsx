@@ -40,7 +40,7 @@ export const TabNavigator = () => {
       }}
     >
       <Tab.Screen
-        name={state.user.userName}
+        name={"state.user.userName"}
         component={DrawerStack}
         options={{
           headerTitleAlign: "center",

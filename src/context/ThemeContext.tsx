@@ -35,8 +35,8 @@ const MyTheme: MyTheme = {
     colors: {
       primary: "#373737",
       secondary: "#e2e2e2",
-      background: "#1b1b1b",
-      card: "#202020",
+      background: "#151515",
+      card: "#272727",
       text: "#fff",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",

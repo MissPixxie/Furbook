@@ -1,21 +1,18 @@
-import React from "react";
-import { useState, useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Alert,
-  SafeAreaView,
-  TextInput,
-  Button,
-} from "react-native";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { LinearGradient } from "expo-linear-gradient";
-import IP from "../../fetchIP";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import React, { useContext, useState } from "react";
+import {
+  Alert,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { FIREBASE_AUTH } from "../../.firebase";
 import { AuthContext } from "../context/AuthContext";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface Props {
   navigation: any;
@@ -24,44 +21,61 @@ interface Props {
 export const SignInScreen = ({ navigation }: Props) => {
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const { state, setState } = useContext(AuthContext);
   const { userID, userName, userEmail } = state.user;
+  const auth = FIREBASE_AUTH;
 
-  async function signIn() {
-    try {
-      const response = await fetch(IP + "/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+  const signIn = async () => {
+    setLoading(true);
+    const response = await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        console.log(response);
+        const user = userCredentials.user;
       })
-        .then((resp) => resp.json())
-        .then((data) => {
-          const { message, user } = data;
-          if (message === "User exists") {
-            setState({
-              user: {
-                userID: user.ID,
-                userName: user.name,
-                userEmail: user.email,
-              },
-              isLoggedIn: true,
-            });
-          } else {
-            return "Log in";
-          }
-        });
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    }
-  }
+      .then(() => setLoading(false))
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode + errorMessage);
+        Alert.alert("User not found");
+      });
+  };
+
+  // async function signIn() {
+  //   try {
+  //     const response = await fetch(IP + "/signin", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         email: email,
+  //         password: password,
+  //       }),
+  //     })
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         const { message, user } = data;
+  //         if (message === "User exists") {
+  //           setState({
+  //             user: {
+  //               userID: user.ID,
+  //               userName: user.name,
+  //               userEmail: user.email,
+  //             },
+  //             isLoggedIn: true,
+  //           });
+  //         } else {
+  //           return "Log in";
+  //         }
+  //       });
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }
 
   return (
     <LinearGradient
@@ -73,9 +87,9 @@ export const SignInScreen = ({ navigation }: Props) => {
         <View style={styles.input}>
           <Ionicons name="person" size={24} color="black" />
           <TextInput
-            onChangeText={setMail}
-            defaultValue={email}
             placeholder="Email"
+            value={email}
+            onChangeText={(text) => setMail(text)}
             placeholderTextColor={"#636363"}
             style={styles.inputText}
           />
@@ -83,15 +97,14 @@ export const SignInScreen = ({ navigation }: Props) => {
         <View style={styles.input}>
           <Ionicons name="lock-closed-outline" size={24} color="black" />
           <TextInput
-            secureTextEntry={true}
-            onChangeText={setPassword}
-            defaultValue={password}
             placeholder="Password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             placeholderTextColor={"#636363"}
             style={styles.inputText}
           />
         </View>
-
         <Pressable onPress={signIn}>
           <Text style={styles.SignInButton}>Sign in</Text>
         </Pressable>

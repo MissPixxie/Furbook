@@ -1,21 +1,22 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useContext, useState } from "react";
-import {
-  DrawerToggleButton,
-  createDrawerNavigator,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import React, { useContext, useEffect, useState } from "react";
 import { CustomDrawer } from "./CustomDrawer";
 
 //CONTEXT
-import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 //SCREENS
+import { NavigationContainer } from "@react-navigation/native";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../.firebase";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
-import { NavigationContainer } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+
+interface Props {
+  children: React.ReactNode;
+}
 
 const Drawer = createDrawerNavigator();
 
@@ -24,6 +25,14 @@ export const AuthStack = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
   const { tabBar, drawer } = colors;
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log("user", user);
+      setUser(user);
+    });
+  }, []);
 
   return (
     <NavigationContainer>
@@ -39,7 +48,7 @@ export const AuthStack = () => {
           },
         }}
       >
-        {state.isLoggedIn ? (
+        {user ? (
           <Drawer.Screen
             name="Tab Navigator"
             component={TabNavigator}

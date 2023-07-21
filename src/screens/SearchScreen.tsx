@@ -61,7 +61,6 @@ export const SearchScreen = ({ navigation }: Props) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        style={styles.modal}
         onRequestClose={toggleModal}
       >
         <AddPlace closeModal={toggleModal} />
@@ -99,7 +98,14 @@ export const SearchScreen = ({ navigation }: Props) => {
           value={search}
         />
       </View>
-      <View style={styles.buttonsContainer}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          marginTop: 3,
+          marginBottom: 8,
+        }}
+      >
         <SmallButton
           title="Dogs"
           bgColor="#e2e2e2"
@@ -132,29 +138,3 @@ export const SearchScreen = ({ navigation }: Props) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginVertical: 8,
-  },
-  modal: {
-    marginTop: 30,
-  },
-  blurContainer: {
-    flex: 1,
-  },
-  buttonClose: {
-    borderRadius: 10,
-    backgroundColor: "#264026",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    elevation: 2,
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});

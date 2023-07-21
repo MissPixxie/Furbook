@@ -19,12 +19,13 @@ import { ThemeContext } from "../context/ThemeContext";
 import { Entypo } from "@expo/vector-icons";
 import { Users, useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
+import { NavigationProp } from "@react-navigation/native";
 
-interface Props {
-  navigation: any;
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
 }
 
-export const HomeScreen = ({ navigation }: Props) => {
+export const HomeScreen = ({ navigation }: RouterProps) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);

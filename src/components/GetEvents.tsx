@@ -44,12 +44,11 @@ export const GetEvents = ({ theme }: Props) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      flexDirection: "column",
       paddingHorizontal: 10,
     },
     postContainer: {
       width: "100%",
-      marginVertical: 10,
+      marginBottom: 20,
       backgroundColor: colors.card,
       alignSelf: "center",
       padding: 15,
@@ -62,43 +61,6 @@ export const GetEvents = ({ theme }: Props) => {
     },
     arrowButton: {
       alignSelf: "center",
-    },
-    filterButton: {
-      width: "30%",
-      backgroundColor: "#bced95",
-      borderRadius: 10,
-      padding: 5,
-      textAlign: "center",
-      alignSelf: "flex-end",
-      marginVertical: 10,
-    },
-    filterButtonText: {
-      textAlign: "center",
-      fontSize: 20,
-    },
-    openModalButton: {
-      width: "80%",
-      backgroundColor: "#264026",
-      borderRadius: 10,
-      marginVertical: 10,
-      alignSelf: "center",
-    },
-    buttonText: {
-      fontSize: 26,
-      paddingHorizontal: 5,
-      paddingVertical: 10,
-      textAlign: "center",
-    },
-    postComments: {
-      marginVertical: 5,
-      fontSize: 18,
-    },
-    metaComments: {
-      fontSize: 18,
-    },
-    reviewContainer: {
-      flexDirection: "row",
-      columnGap: 5,
     },
   });
 
@@ -128,15 +90,6 @@ export const GetEvents = ({ theme }: Props) => {
                 onPress={toggleSavedItems}
               />
             )}
-            <Text style={{ fontSize: 26, color: colors.text }}>
-              {item.title}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.place}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.time}
-            </Text>
             <Text style={{ fontSize: 26, color: colors.text }}>
               {item.title}
             </Text>

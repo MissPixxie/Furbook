@@ -1,10 +1,11 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, Image } from "react-native";
 
 interface Props {
   children: React.ReactNode;
   title?: string;
-  onPress: () => void;
+  onPress?: () => void;
   bgColor?: any;
   color?: string;
   fontSize?: FontSize;
@@ -48,8 +49,8 @@ export const CustomCard = ({
   });
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
+    <LinearGradient colors={["#000", "#fff", "#000"]}>
+      {children}
+    </LinearGradient>
   );
 };

@@ -40,7 +40,7 @@ export const GetDogs = ({ theme }: Props) => {
     },
     postContainer: {
       width: "100%",
-      marginVertical: 10,
+      marginBottom: 20,
       flexDirection: "row",
       justifyContent: "space-around",
       backgroundColor: colors.card,

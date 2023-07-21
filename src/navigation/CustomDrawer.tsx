@@ -8,8 +8,7 @@ import { CustomButton } from "../components/CustomButton";
 import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
-import { Octicons, Ionicons, FontAwesome } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
 
 interface Props {
   navigation: any;
