@@ -8,8 +8,6 @@ import { ThemeContext } from "../context/ThemeContext";
 
 //SCREENS
 import { NavigationContainer } from "@react-navigation/native";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../.firebase";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
@@ -25,14 +23,6 @@ export const AuthStack = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
   const { tabBar, drawer } = colors;
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log("user", user);
-      setUser(user);
-    });
-  }, []);
 
   return (
     <NavigationContainer>
@@ -48,7 +38,7 @@ export const AuthStack = () => {
           },
         }}
       >
-        {user ? (
+        {state.isLoggedIn ? (
           <Drawer.Screen
             name="Tab Navigator"
             component={TabNavigator}

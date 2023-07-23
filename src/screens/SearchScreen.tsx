@@ -57,14 +57,6 @@ export const SearchScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={toggleModal}
-      >
-        <AddPlace closeModal={toggleModal} />
-      </Modal>
       <View>
         <SmallButton
           title="Filter"
@@ -132,7 +124,7 @@ export const SearchScreen = ({ navigation }: Props) => {
         {filterType === filter_type.dogs && <GetDogs theme={theme} />}
         {filterType === filter_type.events && <GetEvents theme={theme} />}
         {filterType === filter_type.places && (
-          <GetPlaces setModalVisible={setModalVisible} theme={theme} />
+          <GetPlaces theme={theme} />
         )}
       </View>
     </SafeAreaView>

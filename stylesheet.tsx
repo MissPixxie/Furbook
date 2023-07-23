@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import { ThemeContext } from "./src/context/ThemeContext";
+import { useContext } from "react";
 
 const { theme, toggleTheme } = useContext(ThemeContext);
 const { colors } = theme;
 
-export const styles = StyleSheet.create({
+export const BasicStyles = StyleSheet.create({
   postContainer: {
     width: "100%",
     backgroundColor: colors.card,
@@ -19,10 +20,18 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   text: {
-    fontSize: fontSize,
-    color: color,
+    color: colors.text,
     paddingHorizontal: 5,
     paddingVertical: 10,
     textAlign: "center",
+  },
+  inputs: {
+    backgroundColor: colors.inputs,
+    flexDirection: "row",
+    width: 300,
+    height: 50,
+    margin: 10,
+    padding: 10,
+    alignItems: "center",
   },
 });

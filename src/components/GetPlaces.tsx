@@ -10,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import IP from "../../fetchIP";
 import { Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -18,11 +19,10 @@ import { RefreshControl } from "react-native-gesture-handler";
 import { Button, Card } from "@rneui/themed";
 import { Places, useFetch } from "./FetchData";
 import { CustomCard } from "./CustomCard";
-import LottieView from "lottie-react-native";
+import { AddPlace } from "./AddPlace";
 
 interface Props {
   theme: any;
-  setModalVisible: any;
 }
 
 interface Rating {
@@ -30,13 +30,14 @@ interface Rating {
   paw: number;
 }
 
-export const GetPlaces = ({ setModalVisible, theme }: Props) => {
+export const GetPlaces = ({ theme }: Props) => {
   const thisTheme = theme.dark;
   const { data, error, loading } = useFetch<Places[]>(IP + "/places");
 
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isActive, setActive] = useState(false);
 
@@ -46,6 +47,10 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
@@ -101,6 +106,10 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior="padding">
+        {modalVisible && <AddPlace closeModal={toggleModal} />}
+      </KeyboardAvoidingView>
+      {/* Sortera på platsen som är närmst */}
       <FlatList
         data={data}
         refreshControl={
@@ -143,11 +152,11 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
                 {item.description}
               </Text>
             </View>
-            <CustomCard>
+            {/* <CustomCard>
               <Text style={{ fontSize: 20, color: colors.text }}>
                 {item.description}
               </Text>
-            </CustomCard>
+            </CustomCard> */}
           </View>
         )}
         // ListFooterComponent={

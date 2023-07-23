@@ -65,6 +65,9 @@ export const AddPlace = ({ closeModal }: Props) => {
       })
         .then((resp) => resp.json())
         .then((data) => {
+          if (data.ok) {
+            closeModal();
+          }
           Alert.alert(data.message);
         });
     } catch (error) {

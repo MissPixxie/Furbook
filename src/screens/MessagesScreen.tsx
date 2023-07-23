@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-
+import LottieView from "lottie-react-native";
 
 interface Props {
   navigation: any;
@@ -25,7 +25,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

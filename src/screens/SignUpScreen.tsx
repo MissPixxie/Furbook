@@ -1,18 +1,22 @@
-import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
+import React from "react";
+import { useState, useEffect, useRef } from "react";
 import {
-  Alert,
-  Pressable,
   SafeAreaView,
   StyleSheet,
-  Text,
   TextInput,
+  Text,
+  Pressable,
   View,
+  Alert,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import IP from "../../fetchIP";
 
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "../../.firebase";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { Users } from "../components/FetchData";
 
 interface Props {
   navigation: any;
@@ -25,55 +29,32 @@ export const SignUpScreen = ({ navigation }: Props) => {
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [matchpassword, setMatchPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const auth = FIREBASE_AUTH;
 
-  const signUp = async () => {
-    setLoading(true);
-    const response = await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
-        console.log(response);
-        const user = userCredentials.user;
-        Alert.alert("User created!");
+  async function signUp() {
+    try {
+      const response = await fetch(IP + "/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          country: country,
+          city: city,
+          password: password,
+        }),
       })
-      .then(() => setLoading(false))
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        if (errorCode === "auth/weak-password") {
-          Alert.alert("Password must be at least 6 characters");
-        } else {
-          Alert.alert("Something went wrong");
-        }
-      });
-  };
-
-  // async function signUp() {
-  //   try {
-  //     const response = await fetch(IP + "/signup", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         name: name,
-  //         email: email,
-  //         country: country,
-  //         city: city,
-  //         password: password,
-  //       }),
-  //     })
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         Alert.alert(data.message);
-  //       });
-  //   } catch (error) {
-  //     if (error instanceof Error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // }
+        .then((resp) => resp.json())
+        .then((data) => {
+          Alert.alert(data.message);
+        });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
+  }
 
   function checkPasswordMatch() {
     if (password === matchpassword) {
@@ -94,20 +75,20 @@ export const SignUpScreen = ({ navigation }: Props) => {
     >
       <SafeAreaView style={styles.container}>
         <View style={styles.inputs}>
-          {/* <View style={styles.Input}>
+          <View style={styles.Input}>
             <Ionicons name="person" size={24} color="black" />
             <TextInput
-              placeholder="Full name"
-              onChangeText={(text) => setName(text)}
+              onChangeText={setName}
               value={name}
+              placeholder="Full name"
               placeholderTextColor={"#636363"}
               style={styles.inputText}
             />
-          </View> */}
+          </View>
           <View style={styles.Input}>
             <Entypo name="mail" size={24} color="black" />
             <TextInput
-              onChangeText={(text) => setMail(text)}
+              onChangeText={setMail}
               value={email}
               placeholder="Email"
               placeholderTextColor={"#636363"}
@@ -115,9 +96,9 @@ export const SignUpScreen = ({ navigation }: Props) => {
               style={styles.inputText}
             />
           </View>
-          {/* <View style={styles.Input}>
+          <View style={styles.Input}>
             <TextInput
-              onChangeText={(text) => setCountry(text)}
+              onChangeText={setCountry}
               value={country}
               placeholder="Country"
               placeholderTextColor={"#636363"}
@@ -126,17 +107,17 @@ export const SignUpScreen = ({ navigation }: Props) => {
           </View>
           <View style={styles.Input}>
             <TextInput
-              onChangeText={(text) => setCity(text)}
+              onChangeText={setCity}
               value={city}
               placeholder="City"
               placeholderTextColor={"#636363"}
               style={styles.inputText}
             />
-          </View> */}
+          </View>
           <View style={styles.Input}>
             <Ionicons name="lock-closed-outline" size={24} color="black" />
             <TextInput
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={setPassword}
               value={password}
               secureTextEntry={true}
               placeholder="Password"
@@ -145,20 +126,20 @@ export const SignUpScreen = ({ navigation }: Props) => {
             />
           </View>
 
-          {/* <View style={styles.Input}>
+          <View style={styles.Input}>
             <Ionicons name="lock-closed-outline" size={24} color="black" />
             <TextInput
-              onChangeText={(text) => setMatchPassword(text)}
+              onChangeText={setMatchPassword}
               value={matchpassword}
               secureTextEntry={true}
               placeholder="Repeat password"
               placeholderTextColor={"#636363"}
               style={styles.inputText}
             />
-          </View> */}
+          </View>
         </View>
 
-        <Pressable onPress={signUp}>
+        <Pressable onPress={checkPasswordMatch}>
           <Text style={styles.SignInButton}>Register</Text>
         </Pressable>
         <Text style={styles.text}>Already have an account?</Text>

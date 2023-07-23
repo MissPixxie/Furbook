@@ -23,7 +23,6 @@
     "expo-linear-gradient": "~12.1.2",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
-    "firebase": "^10.1.0",
     "lottie-react-native": "5.1.4",
     "multer": "^1.4.5-lts.1",
     "react": "18.2.0",

@@ -12,6 +12,7 @@ interface Theme {
     secondary: string;
     background: string;
     card: string;
+    inputs: string;
     text: string;
     border: string;
     notification: string;
@@ -37,6 +38,7 @@ const MyTheme: MyTheme = {
       secondary: "#e2e2e2",
       background: "#151515",
       card: "#272727",
+      inputs: "#272727",
       text: "#fff",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
@@ -51,6 +53,7 @@ const MyTheme: MyTheme = {
       secondary: "#e2e2e2",
       background: "#f3f3f3",
       card: "#fff",
+      inputs: "#fff",
       text: "#000",
       border: "rgb(199, 199, 204)",
       notification: "rgb(255, 69, 58)",
