@@ -59,6 +59,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
     });
     const userdata = await response.json();
     setData([userdata.user]);
+    console.log(userdata);
   }
 
   console.log(data);
@@ -102,32 +103,19 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
           <Text>Add stuff</Text>
         </View>
       </View>
-      {/* <FlatList
+      <FlatList
         data={data}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         renderItem={({ item }) => (
           <View>
-            <Text style={{ fontSize: 20, color: colors.text }}>{item._id}</Text>
             <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.name}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.email}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.password}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.country}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.city}
+              {item.dogs}
             </Text>
           </View>
         )}
-      /> */}
+      />
     </SafeAreaView>
   );
 };

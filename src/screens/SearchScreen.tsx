@@ -121,11 +121,9 @@ export const SearchScreen = ({ navigation }: Props) => {
         />
       </View>
       <View style={{ flex: 1 }}>
-        {filterType === filter_type.dogs && <GetDogs theme={theme} />}
-        {filterType === filter_type.events && <GetEvents theme={theme} />}
-        {filterType === filter_type.places && (
-          <GetPlaces theme={theme} />
-        )}
+        {filterType === filter_type.dogs && <GetDogs />}
+        {filterType === filter_type.events && <GetEvents />}
+        {filterType === filter_type.places && <GetPlaces />}
       </View>
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { useState, useEffect } from "react";
 import {
   SafeAreaView,
@@ -20,17 +20,10 @@ import { Button, Card } from "@rneui/themed";
 import { Places, useFetch } from "./FetchData";
 import { CustomCard } from "./CustomCard";
 import { AddPlace } from "./AddPlace";
+import { ThemeContext } from "../context/ThemeContext";
 
-interface Props {
-  theme: any;
-}
-
-interface Rating {
-  _id: string;
-  paw: number;
-}
-
-export const GetPlaces = ({ theme }: Props) => {
+export const GetPlaces = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
   const { data, error, loading } = useFetch<Places[]>(IP + "/places");
 

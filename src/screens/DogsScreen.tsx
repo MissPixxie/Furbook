@@ -11,6 +11,7 @@ import {
   RefreshControl,
   KeyboardAvoidingView,
   Image,
+  Alert,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +19,7 @@ import { AuthContext } from "../context/AuthContext";
 import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import { BasicStyles } from "../../stylesheet";
-import { Dogs, useFetch } from "../components/FetchData";
+import { Dogs, Users, useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -29,7 +30,12 @@ interface Props {
 export const DogsScreen = ({ navigation }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
-  const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
+  // const { data, error, loading } = useFetch<Users[] | undefined>(
+  //   IP + "/users/get-dogs/" + user.userID
+  // );
+  // const dogsData = data?.dogs ?? [];
+  const [data, setData] = useState();
+
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,6 +57,30 @@ export const DogsScreen = ({ navigation }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
+  async function getDogs() {
+    try {
+      const response = await fetch(IP + "/users/get-dogs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: user.userID,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          console.log(data);
+          setData(data.dog);
+          // Alert.alert(data.message);
+        });
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    }
+  }
 
   const styles = StyleSheet.create({
     container: {
@@ -109,9 +139,9 @@ export const DogsScreen = ({ navigation }: Props) => {
               <Text style={{ fontSize: 18, color: colors.text }}>
                 {item.neutered}
               </Text>
-              {/* <Text style={{ fontSize: 18, color: colors.text }}>
-              Owner Id: {item.owner}
-            </Text> */}
+              <Text style={{ fontSize: 18, color: colors.text }}>
+                Owner Id: {item.owner}
+              </Text>
             </View>
             <Text
               style={{
@@ -122,13 +152,13 @@ export const DogsScreen = ({ navigation }: Props) => {
                 marginRight: 10,
               }}
             >
-              {item.age}
+              {/* {item.age} */}
             </Text>
           </View>
         )}
       />
       <Text>Dogs</Text>
-
+      <CustomButton title="Get dogs" bgColor="#bced95" onPress={getDogs} />
       <CustomButton
         title="New dog"
         bgColor="#bced95"

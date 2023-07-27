@@ -1,4 +1,4 @@
-import React, { createContext, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { useState, useEffect, useCallback } from "react";
 import {
   SafeAreaView,
@@ -15,12 +15,10 @@ import { Events, useFetch } from "./FetchData";
 import IP from "../../fetchIP";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { Card } from "@rneui/themed";
+import { ThemeContext } from "../context/ThemeContext";
 
-interface Props {
-  theme: any;
-}
-
-export const GetEvents = ({ theme }: Props) => {
+export const GetEvents = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const { data, error, loading } = useFetch<Events[]>(IP + "/events");
   const thisTheme = theme.dark;
   const { colors } = theme;

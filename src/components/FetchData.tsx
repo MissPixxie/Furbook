@@ -45,7 +45,7 @@ export type Users = {
   country: string;
   city: string;
   messages: {};
-  dogs: {};
+  dogs: [];
   savedPlaces: [];
   savedPosts: [];
   savedEvents: [];
