@@ -142,7 +142,7 @@ export const CustomDrawer = ({ navigation }: Props) => {
           }}
         >
           <Text style={{ fontSize: 24, marginRight: 25, color: colors.text }}>
-            Logout
+            Sign out
           </Text>
           <Octicons name="sign-out" size={26} color={colors.text} />
         </TouchableOpacity>

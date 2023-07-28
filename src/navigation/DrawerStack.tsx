@@ -14,6 +14,7 @@ import { ThemeContext } from "../context/ThemeContext";
 // ICONS
 import { Ionicons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { DogsDetailsScreen } from "../screens/DogsDetailsScreen";
 
 const Drawer = createDrawerNavigator();
 

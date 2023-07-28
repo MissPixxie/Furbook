@@ -10,38 +10,36 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { BlurView } from "expo-blur";
-import IP from "../../fetchIP";
+import { Overlay } from "@rneui/themed";
 
+// COMPONENTS
+import IP from "../../fetchIP";
+import { CustomButton } from "./CustomButton";
+
+// ICONS
 import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 
-import { CustomButton } from "./CustomButton";
+// CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
-import { Overlay } from "@rneui/themed";
-import { BackgroundImage } from "@rneui/themed/dist/config";
 import { AuthContext } from "../context/AuthContext";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { BasicStyles } from "../../stylesheet";
-import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
   closeModal: () => void;
+  refreshDogsPage: () => void;
 }
 
-export const AddDog = ({ closeModal }: Props) => {
+export const AddDog = ({ closeModal, refreshDogsPage }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
+  const owner = user.userID;
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { colors } = theme;
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
   const [breed, setBreed] = useState("");
   const [neutered, setNeutered] = useState("");
-
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const { colors } = theme;
-
-  const owner = user.userID;
 
   async function newDog() {
     try {
@@ -63,6 +61,7 @@ export const AddDog = ({ closeModal }: Props) => {
         .then((data) => {
           if (data.ok === true) {
             closeModal();
+            refreshDogsPage();
           }
           Alert.alert(data.message);
         });
