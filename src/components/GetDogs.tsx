@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import {
   SafeAreaView,
@@ -12,18 +12,14 @@ import { RefreshControl } from "react-native-gesture-handler";
 
 import IP from "../../fetchIP";
 import { Dogs, useFetch } from "./FetchData";
+import { ThemeContext } from "../context/ThemeContext";
 
-interface Props {
-  theme: any;
-}
-
-export const GetDogs = ({ theme }: Props) => {
+export const GetDogs = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
   const { colors } = theme;
-  const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
 
-  // loggas 3 gånger?!!
-  console.log("getdogs component rendered");
+  const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -40,7 +36,7 @@ export const GetDogs = ({ theme }: Props) => {
     },
     postContainer: {
       width: "100%",
-      marginVertical: 10,
+      marginBottom: 20,
       flexDirection: "row",
       justifyContent: "space-around",
       backgroundColor: colors.card,

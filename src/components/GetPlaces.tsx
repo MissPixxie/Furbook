@@ -1,4 +1,4 @@
-import React, { createContext, useCallback } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { useState, useEffect } from "react";
 import {
   SafeAreaView,
@@ -9,6 +9,8 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
+  Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import IP from "../../fetchIP";
 import { Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
@@ -17,24 +19,18 @@ import { RefreshControl } from "react-native-gesture-handler";
 import { Button, Card } from "@rneui/themed";
 import { Places, useFetch } from "./FetchData";
 import { CustomCard } from "./CustomCard";
+import { AddPlace } from "./AddPlace";
+import { ThemeContext } from "../context/ThemeContext";
 
-interface Props {
-  theme: any;
-  setModalVisible: any;
-}
-
-interface Rating {
-  _id: string;
-  paw: number;
-}
-
-export const GetPlaces = ({ setModalVisible, theme }: Props) => {
+export const GetPlaces = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
   const { data, error, loading } = useFetch<Places[]>(IP + "/places");
 
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [isActive, setActive] = useState(false);
 
@@ -44,6 +40,10 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
@@ -75,13 +75,12 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
 
   const styles = StyleSheet.create({
     container: {
-      flexDirection: "column",
       paddingHorizontal: 10,
     },
     postContainer: {
       width: "100%",
       backgroundColor: colors.card,
-      marginVertical: 10,
+      marginBottom: 20,
       alignSelf: "center",
       padding: 15,
       borderRadius: 10,
@@ -91,32 +90,19 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
       shadowRadius: 3,
       elevation: 4,
     },
-    filterButton: {
-      width: "30%",
-      backgroundColor: "#bced95",
-      borderRadius: 10,
-      padding: 5,
-      textAlign: "center",
-      alignSelf: "flex-end",
-      marginVertical: 10,
-    },
-    filterButtonText: {
-      textAlign: "center",
-      fontSize: 20,
-    },
-    postComments: {
-      marginVertical: 5,
-      fontSize: 18,
-      color: "green",
-    },
-    reviewContainer: {
-      flexDirection: "row",
-      columnGap: 5,
+    imgAvatar: {
+      width: "99%",
+      height: 200,
+      alignSelf: "center",
     },
   });
 
   return (
     <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior="padding">
+        {modalVisible && <AddPlace closeModal={toggleModal} />}
+      </KeyboardAvoidingView>
+      {/* Sortera på platsen som är närmst */}
       <FlatList
         data={data}
         refreshControl={
@@ -129,7 +115,7 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
                 name="pushpino"
                 size={24}
                 color="black"
-                style={{ alignSelf: "flex-end" }}
+                style={{ alignSelf: "flex-end", marginBottom: 10 }}
                 onPress={toggleSavedItems}
               />
             ) : (
@@ -137,22 +123,33 @@ export const GetPlaces = ({ setModalVisible, theme }: Props) => {
                 name="pushpin"
                 size={24}
                 color="black"
-                style={{ alignSelf: "flex-end" }}
+                style={{ alignSelf: "flex-end", marginBottom: 10 }}
                 onPress={toggleSavedItems}
               />
             )}
-            <Text style={{ fontSize: 26, color: colors.text }}>
-              {item.name}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.location}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.category}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.description}
-            </Text>
+            <Image
+              style={styles.imgAvatar}
+              source={require("../Images/beach.jpg")}
+            />
+            <View style={{ marginTop: 10 }}>
+              <Text style={{ fontSize: 26, color: colors.text }}>
+                {item.name}
+              </Text>
+              <Text style={{ fontSize: 20, color: colors.text }}>
+                {item.location}
+              </Text>
+              <Text style={{ fontSize: 20, color: colors.text }}>
+                {item.category}
+              </Text>
+              <Text style={{ fontSize: 20, color: colors.text }}>
+                {item.description}
+              </Text>
+            </View>
+            {/* <CustomCard>
+              <Text style={{ fontSize: 20, color: colors.text }}>
+                {item.description}
+              </Text>
+            </CustomCard> */}
           </View>
         )}
         // ListFooterComponent={

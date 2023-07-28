@@ -19,12 +19,13 @@ import { ThemeContext } from "../context/ThemeContext";
 import { Entypo } from "@expo/vector-icons";
 import { Users, useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
+import { NavigationProp } from "@react-navigation/native";
 
-interface Props {
-  navigation: any;
+interface RouterProps {
+  navigation: NavigationProp<any, any>;
 }
 
-export const HomeScreen = ({ navigation }: Props) => {
+export const HomeScreen = ({ navigation }: RouterProps) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
@@ -58,6 +59,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     });
     const userdata = await response.json();
     setData([userdata.user]);
+    console.log(userdata);
   }
 
   console.log(data);
@@ -101,32 +103,19 @@ export const HomeScreen = ({ navigation }: Props) => {
           <Text>Add stuff</Text>
         </View>
       </View>
-      {/* <FlatList
+      <FlatList
         data={data}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         renderItem={({ item }) => (
           <View>
-            <Text style={{ fontSize: 20, color: colors.text }}>{item._id}</Text>
             <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.name}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.email}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.password}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.country}
-            </Text>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.city}
+              {item.dogs}
             </Text>
           </View>
         )}
-      /> */}
+      />
     </SafeAreaView>
   );
 };

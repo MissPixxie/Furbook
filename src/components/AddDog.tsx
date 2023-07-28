@@ -7,38 +7,39 @@ import {
   Pressable,
   View,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { BlurView } from "expo-blur";
-import IP from "../../fetchIP";
+import { Overlay } from "@rneui/themed";
 
+// COMPONENTS
+import IP from "../../fetchIP";
+import { CustomButton } from "./CustomButton";
+
+// ICONS
 import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 
-import { CustomButton } from "./CustomButton";
+// CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
-import { Overlay } from "@rneui/themed";
-import { BackgroundImage } from "@rneui/themed/dist/config";
 import { AuthContext } from "../context/AuthContext";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   closeModal: () => void;
+  refreshDogsPage: () => void;
 }
 
-export const AddDog = ({ closeModal }: Props) => {
+export const AddDog = ({ closeModal, refreshDogsPage }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
+  const owner = user.userID;
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { colors } = theme;
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
   const [breed, setBreed] = useState("");
   const [neutered, setNeutered] = useState("");
-
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const { colors } = theme;
-
-  const owner = user.userID;
 
   async function newDog() {
     try {
@@ -60,6 +61,7 @@ export const AddDog = ({ closeModal }: Props) => {
         .then((data) => {
           if (data.ok === true) {
             closeModal();
+            refreshDogsPage();
           }
           Alert.alert(data.message);
         });
@@ -70,112 +72,124 @@ export const AddDog = ({ closeModal }: Props) => {
     }
   }
 
+  const styles = StyleSheet.create({
+    inputs: {
+      padding: 10,
+      marginBottom: 15,
+      borderRadius: 5,
+    },
+    Input: {
+      flexDirection: "row",
+      width: 300,
+      height: 50,
+      margin: 10,
+      padding: 10,
+      backgroundColor: colors.inputs,
+      alignItems: "center",
+      borderBottomWidth: 1,
+      borderBottomColor: "#262626",
+    },
+    inputText: {
+      marginLeft: 13,
+      fontSize: 18,
+      borderBottomColor: "black",
+      color: colors.text,
+    },
+    exitButton: {
+      alignSelf: "flex-end",
+      color: "#5d5d5d",
+      marginHorizontal: 20,
+      marginTop: 20,
+    },
+  });
+
   return (
     <KeyboardAwareScrollView>
-      <Overlay
-        isVisible={true}
-        backdropStyle={{ backgroundColor: "black", opacity: 0.7 }}
-        overlayStyle={{
-          borderRadius: 10,
-          backgroundColor: colors.background,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            paddingBottom: 20,
+      <KeyboardAvoidingView behavior="padding">
+        <Overlay
+          isVisible={true}
+          backdropStyle={{ backgroundColor: "black", opacity: 0.7 }}
+          overlayStyle={{
+            borderRadius: 10,
+            backgroundColor: colors.background,
           }}
         >
-          <Entypo
-            name="cross"
-            size={36}
-            color="black"
-            style={styles.exitButton}
-            onPress={closeModal}
-          />
-          <View style={styles.inputs}>
-            <View style={styles.Input}>
-              <TextInput
-                onChangeText={setName}
-                value={name}
-                placeholder="Name"
-                style={styles.inputText}
-              />
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              paddingBottom: 20,
+            }}
+          >
+            <Entypo
+              name="cross"
+              size={36}
+              color="black"
+              style={styles.exitButton}
+              onPress={closeModal}
+            />
+            <View style={styles.inputs}>
+              <View style={styles.Input}>
+                <TextInput
+                  onChangeText={setName}
+                  value={name}
+                  placeholder="Name"
+                  style={styles.inputText}
+                  placeholderTextColor={colors.text}
+                />
+              </View>
+              <View style={styles.Input}>
+                <TextInput
+                  onChangeText={setAge}
+                  value={age}
+                  style={styles.inputText}
+                  placeholder="Age"
+                  placeholderTextColor={colors.text}
+                />
+              </View>
+              <View style={styles.Input}>
+                <TextInput
+                  onChangeText={setSex}
+                  value={sex}
+                  placeholder="Sex"
+                  style={styles.inputText}
+                  placeholderTextColor={colors.text}
+                />
+              </View>
+              <View style={styles.Input}>
+                <TextInput
+                  onChangeText={setBreed}
+                  value={breed}
+                  placeholder="Breed"
+                  style={styles.inputText}
+                  placeholderTextColor={colors.text}
+                />
+              </View>
+              <View style={styles.Input}>
+                <TextInput
+                  onChangeText={setNeutered}
+                  value={neutered}
+                  placeholder="Neutered"
+                  style={styles.inputText}
+                  placeholderTextColor={colors.text}
+                />
+              </View>
             </View>
-            <View style={styles.Input}>
-              <TextInput
-                onChangeText={setAge}
-                value={age}
-                style={styles.inputText}
-                placeholder="Age"
-              />
-            </View>
-            <View style={styles.Input}>
-              <TextInput
-                onChangeText={setSex}
-                value={sex}
-                placeholder="Sex"
-                style={styles.inputText}
-              />
-            </View>
-            <View style={styles.Input}>
-              <TextInput
-                onChangeText={setBreed}
-                value={breed}
-                placeholder="Breed"
-                style={styles.inputText}
-              />
-            </View>
-            <View style={styles.Input}>
-              <TextInput
-                onChangeText={setNeutered}
-                value={neutered}
-                placeholder="Neutered"
-                style={styles.inputText}
-              />
-            </View>
+            <CustomButton
+              title="Add new dog"
+              bgColor="#f7f7f7"
+              borderColor="#71ce24"
+              borderWidth={2}
+              onPress={newDog}
+            />
+            <CustomButton
+              title="Close"
+              bgColor="#bced95"
+              onPress={closeModal}
+            />
           </View>
-          <CustomButton
-            title="Add new dog"
-            bgColor="#f7f7f7"
-            borderColor="#71ce24"
-            borderWidth={2}
-            onPress={newDog}
-          />
-          <CustomButton title="Close" bgColor="#bced95" onPress={closeModal} />
-        </View>
-      </Overlay>
+        </Overlay>
+      </KeyboardAvoidingView>
     </KeyboardAwareScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  inputs: {
-    padding: 10,
-    marginBottom: 15,
-    borderRadius: 5,
-  },
-  Input: {
-    flexDirection: "row",
-    width: 300,
-    height: 50,
-    margin: 10,
-    padding: 10,
-    backgroundColor: "white",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: "#262626",
-  },
-  inputText: {
-    marginLeft: 13,
-    fontSize: 18,
-    borderBottomColor: "black",
-  },
-  exitButton: {
-    alignSelf: "flex-end",
-    color: "#5d5d5d",
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-});

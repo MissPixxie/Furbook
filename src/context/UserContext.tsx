@@ -18,33 +18,53 @@ interface State {
 }
 
 interface User {
+  userImg: string;
   userID: string;
   userName: string;
   userEmail: string;
+  userPwd: string;
+  userLocation: {
+    userCountry: string;
+    userCity: string;
+  };
+  userDogs: [];
+  userSavedPlaces: [];
+  userSavedEvents: [];
+  userMessages: [];
 }
 
 export const defaultContextState: State = {
   user: {
+    userImg: "",
     userID: "",
     userName: "",
     userEmail: "",
+    userPwd: "",
+    userLocation: {
+      userCountry: "",
+      userCity: "",
+    },
+    userDogs: [],
+    userSavedPlaces: [],
+    userSavedEvents: [],
+    userMessages: [],
   },
   isLoggedIn: false,
 };
 
-export const AuthContext = createContext<Context>({
+export const UserContext = createContext<Context>({
   state: defaultContextState,
   setState: (state) => {},
 });
 
-export const AuthProvider = ({ children }: Props) => {
+export const UserProvider = ({ children }: Props) => {
   const [state, setState] = useState<State>(defaultContextState);
 
   return (
     <SafeAreaProvider>
-      <AuthContext.Provider value={{ state, setState }}>
+      <UserContext.Provider value={{ state, setState }}>
         {children}
-      </AuthContext.Provider>
+      </UserContext.Provider>
     </SafeAreaProvider>
   );
 };

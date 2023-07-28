@@ -57,15 +57,6 @@ export const SearchScreen = ({ navigation }: Props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        style={styles.modal}
-        onRequestClose={toggleModal}
-      >
-        <AddPlace closeModal={toggleModal} />
-      </Modal>
       <View>
         <SmallButton
           title="Filter"
@@ -99,7 +90,14 @@ export const SearchScreen = ({ navigation }: Props) => {
           value={search}
         />
       </View>
-      <View style={styles.buttonsContainer}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          marginTop: 3,
+          marginBottom: 8,
+        }}
+      >
         <SmallButton
           title="Dogs"
           bgColor="#e2e2e2"
@@ -123,38 +121,10 @@ export const SearchScreen = ({ navigation }: Props) => {
         />
       </View>
       <View style={{ flex: 1 }}>
-        {filterType === filter_type.dogs && <GetDogs theme={theme} />}
-        {filterType === filter_type.events && <GetEvents theme={theme} />}
-        {filterType === filter_type.places && (
-          <GetPlaces setModalVisible={setModalVisible} theme={theme} />
-        )}
+        {filterType === filter_type.dogs && <GetDogs />}
+        {filterType === filter_type.events && <GetEvents />}
+        {filterType === filter_type.places && <GetPlaces />}
       </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginVertical: 8,
-  },
-  modal: {
-    marginTop: 30,
-  },
-  blurContainer: {
-    flex: 1,
-  },
-  buttonClose: {
-    borderRadius: 10,
-    backgroundColor: "#264026",
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    elevation: 2,
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-});

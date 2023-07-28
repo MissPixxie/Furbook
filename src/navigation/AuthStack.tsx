@@ -1,21 +1,20 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useContext, useState } from "react";
-import {
-  DrawerToggleButton,
-  createDrawerNavigator,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import React, { useContext, useEffect, useState } from "react";
 import { CustomDrawer } from "./CustomDrawer";
 
 //CONTEXT
-import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 //SCREENS
+import { NavigationContainer } from "@react-navigation/native";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
-import { NavigationContainer } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+
+interface Props {
+  children: React.ReactNode;
+}
 
 const Drawer = createDrawerNavigator();
 

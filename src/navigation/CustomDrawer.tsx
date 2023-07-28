@@ -8,8 +8,7 @@ import { CustomButton } from "../components/CustomButton";
 import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
-import { Octicons, Ionicons, FontAwesome } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
 
 interface Props {
   navigation: any;
@@ -143,7 +142,7 @@ export const CustomDrawer = ({ navigation }: Props) => {
           }}
         >
           <Text style={{ fontSize: 24, marginRight: 25, color: colors.text }}>
-            Logout
+            Sign out
           </Text>
           <Octicons name="sign-out" size={26} color={colors.text} />
         </TouchableOpacity>

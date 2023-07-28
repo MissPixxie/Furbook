@@ -8,6 +8,7 @@ import {
   View,
   Alert,
   SafeAreaView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { BlurView } from "expo-blur";
@@ -64,6 +65,9 @@ export const AddPlace = ({ closeModal }: Props) => {
       })
         .then((resp) => resp.json())
         .then((data) => {
+          if (data.ok) {
+            closeModal();
+          }
           Alert.alert(data.message);
         });
     } catch (error) {
@@ -74,7 +78,7 @@ export const AddPlace = ({ closeModal }: Props) => {
   }
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAvoidingView behavior="padding">
       <Overlay
         isVisible={true}
         backdropStyle={{ backgroundColor: "black", opacity: 0.7 }}
@@ -145,7 +149,7 @@ export const AddPlace = ({ closeModal }: Props) => {
           <CustomButton title="Close" bgColor="#bced95" onPress={closeModal} />
         </View>
       </Overlay>
-    </KeyboardAwareScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

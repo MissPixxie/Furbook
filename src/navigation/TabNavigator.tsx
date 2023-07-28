@@ -2,9 +2,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useContext } from "react";
 import { DrawerStack } from "./DrawerStack";
+import { useNavigation } from "@react-navigation/native";
 
 //CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 //SCREENS
 import { DogsScreen } from "../screens/DogsScreen";
@@ -12,11 +14,10 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { MessagesScreen } from "../screens/MessagesScreen";
 import { NotificationScreen } from "../screens/NotificationsScreen";
 import { SearchScreen } from "../screens/SearchScreen";
+import { DogsDetailsScreen } from "../screens/DogsDetailsScreen";
 
 //ICONS
-import { Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { AuthContext } from "../context/AuthContext";
+import { Entypo, FontAwesome, Ionicons, AntDesign } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
@@ -62,10 +63,39 @@ export const TabNavigator = () => {
         name="Dogs"
         component={DogsScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
+          title: "My dogs",
+          headerStyle: {
+            backgroundColor: colors.card,
+          },
+          headerTintColor: colors.text,
+          headerTitleAlign: "center",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="paw" size={size} color={color} />
           ),
+        }}
+      />
+      <Tab.Screen
+        name="Dog Details"
+        component={DogsDetailsScreen}
+        options={{
+          tabBarItemStyle: { display: "none" },
+          headerShown: true,
+          headerLeft: () => (
+            <Ionicons
+              name="arrow-back"
+              size={36}
+              style={{ marginLeft: 15 }}
+              color={colors.text}
+              onPress={() => navigation.navigate("Dogs")}
+            />
+          ),
+          title: "",
+          headerStyle: {
+            backgroundColor: colors.card,
+          },
+          headerTintColor: colors.text,
+          headerTitleAlign: "center",
         }}
       />
       <Tab.Screen
