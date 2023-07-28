@@ -62,8 +62,8 @@ export const AddDog = ({ closeModal, addDog }: Props) => {
         .then((data) => {
           if (data.ok === true) {
             closeModal();
-            console.log(data);
-            addDog(data);
+            console.log(data.dog);
+            addDog(data.dog);
           }
           Alert.alert(data.message);
         });
