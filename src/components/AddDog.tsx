@@ -22,13 +22,14 @@ import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 // CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import { Dogs } from "./FetchData";
 
 interface Props {
   closeModal: () => void;
-  refreshDogsPage: () => void;
+  addDog: (dogs: Dogs) => void;
 }
 
-export const AddDog = ({ closeModal, refreshDogsPage }: Props) => {
+export const AddDog = ({ closeModal, addDog }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const owner = user.userID;
@@ -61,7 +62,8 @@ export const AddDog = ({ closeModal, refreshDogsPage }: Props) => {
         .then((data) => {
           if (data.ok === true) {
             closeModal();
-            refreshDogsPage();
+            console.log(data);
+            addDog(data);
           }
           Alert.alert(data.message);
         });

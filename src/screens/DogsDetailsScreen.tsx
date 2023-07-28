@@ -40,20 +40,13 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
 
   async function deleteDog() {
     try {
-      const response = await fetch(IP + "/users/remove-dogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id: user.userID,
-          dogId: dogId,
-        }),
+      const response = await fetch(`${IP}/dogs/${dogId}`, {
+        method: "DELETE",
       })
         .then((resp) => resp.json())
         .then((data) => {
           console.log(data);
-          setData(data.dog);
+          setData(data);
           Alert.alert("dog deleted");
           navigation.navigate("Dogs");
         });

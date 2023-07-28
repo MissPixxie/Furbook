@@ -20,6 +20,7 @@ import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import IP from "../../fetchIP";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Dogs, useFetch } from "../components/FetchData";
 
 interface Props {
   navigation: any;
@@ -30,8 +31,12 @@ export const DogsScreen = ({ navigation }: Props) => {
   const { user } = state;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
+  const { data, error, loading } = useFetch<Dogs[]>(
+    IP + "/dogs/" + user.userID
+  );
+  const [dogs, setDogs] = useState<Dogs[]>([]);
 
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [overlayVisable, setOverlayVisable] = useState(false);
 
@@ -39,9 +44,14 @@ export const DogsScreen = ({ navigation }: Props) => {
     setModalVisible(!modalVisible);
   };
 
+  const addDog = (dog: Dogs) => {
+    setDogs([...dogs, dog]);
+  };
+
   useEffect(() => {
-    getDogs();
-  }, []);
+    setDogs(data ?? []);
+    console.log(data);
+  }, [data]);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -50,30 +60,6 @@ export const DogsScreen = ({ navigation }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
-  async function getDogs() {
-    try {
-      const response = await fetch(IP + "/users/get-dogs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _id: user.userID,
-        }),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-          setData(data.dog);
-          // Alert.alert(data.message);
-        });
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    }
-  }
 
   const styles = StyleSheet.create({
     container: {
@@ -105,12 +91,10 @@ export const DogsScreen = ({ navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
-        {modalVisible && (
-          <AddDog closeModal={toggleModal} refreshDogsPage={getDogs} />
-        )}
+        {modalVisible && <AddDog closeModal={toggleModal} addDog={addDog} />}
       </KeyboardAvoidingView>
       <FlatList
-        data={data}
+        data={dogs}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -138,9 +122,6 @@ export const DogsScreen = ({ navigation }: Props) => {
                 <Text style={{ fontSize: 18, color: colors.text }}>
                   {item.neutered}
                 </Text>
-                {/* <Text style={{ fontSize: 18, color: colors.text }}>
-                Owner Id: {item.owner}
-              </Text> */}
               </View>
               <Text
                 style={{

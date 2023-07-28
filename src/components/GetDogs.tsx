@@ -81,9 +81,6 @@ export const GetDogs = () => {
               <Text style={{ fontSize: 18, color: colors.text }}>
                 {item.neutered}
               </Text>
-              {/* <Text style={{ fontSize: 18, color: colors.text }}>
-                Owner Id: {item.owner}
-              </Text> */}
             </View>
             <Text
               style={{
