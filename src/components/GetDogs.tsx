@@ -43,9 +43,9 @@ export const GetDogs = () => {
       padding: 15,
       borderRadius: 10,
       shadowColor: "#080808",
-      shadowOffset: { width: -5, height: 4 },
-      shadowOpacity: 0.9,
-      shadowRadius: 3,
+      shadowOffset: { width: -1, height: 2 },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
       elevation: 4,
     },
     imgAvatar: {

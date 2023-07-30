@@ -1,19 +1,29 @@
-import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, Pressable, Modal } from "react-native";
+import React, { useState, useContext, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Modal,
+  Animated,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SearchBar } from "@rneui/themed";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
-import { Overlay } from "@rneui/themed";
 
+// ICONS
+import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
+
+// CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
+
+// COMPONENTS
 import { GetEvents } from "../components/GetEvents";
 import { GetDogs } from "../components/GetDogs";
 import { GetPlaces } from "../components/GetPlaces";
 import { SmallButton } from "../components/SmallButton";
-import { AddPlace } from "../components/AddPlace";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface Props {
   navigation: any;
@@ -22,16 +32,13 @@ interface Props {
 export const SearchScreen = ({ navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
-
   const { colors } = theme;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [overlayVisable, setOverlayVisable] = useState(false);
-
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-
   const toggleOverlay = () => {
     setOverlayVisable(!overlayVisable);
   };
@@ -39,6 +46,18 @@ export const SearchScreen = ({ navigation }: Props) => {
   const [search, setSearch] = useState<string>("");
   const updateSearch = (search: string) => {
     setSearch(search);
+  };
+
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const selectTab = (tabIndex: number) => {
+    Animated.timing(slideAnim, {
+      toValue: -windowWidth * tabIndex,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
   };
 
   interface FILTER_TYPE {
@@ -69,7 +88,7 @@ export const SearchScreen = ({ navigation }: Props) => {
       <View>
         <SearchBar
           containerStyle={{
-            backgroundColor: thisTheme ? colors.background : "#e2e2e2",
+            backgroundColor: colors.background,
             borderBottomColor: "transparent",
             borderTopColor: "transparent",
           }}
@@ -101,30 +120,51 @@ export const SearchScreen = ({ navigation }: Props) => {
         <SmallButton
           title="Dogs"
           bgColor="#e2e2e2"
-          onPress={() => setFilterType(filter_type.dogs)}
-          active={filterType === filter_type.dogs}
+          onPress={() => {
+            selectTab(0);
+          }}
           icon={<Ionicons name="paw" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Events"
           bgColor="#e2e2e2"
-          onPress={() => setFilterType(filter_type.events)}
-          active={filterType === filter_type.events}
+          onPress={() => {
+            selectTab(1);
+          }}
           icon={<MaterialIcons name="event" size={20} color={colors.text} />}
         />
         <SmallButton
           title="Places"
           bgColor="#e2e2e2"
-          onPress={() => setFilterType(filter_type.places)}
-          active={filterType === filter_type.places}
+          onPress={() => {
+            selectTab(2);
+          }}
           icon={<Entypo name="location-pin" size={20} color={colors.text} />}
         />
       </View>
-      <View style={{ flex: 1 }}>
+      <View>
+        <Animated.View
+          style={{
+            flexDirection: "row",
+            transform: [{ translateX: slideAnim }],
+          }}
+        >
+          <View style={{ width: "100%", height: windowHeight }}>
+            <GetDogs />
+          </View>
+          <View style={{ width: "100%", height: windowHeight }}>
+            <GetEvents />
+          </View>
+          <View style={{ width: "100%", height: windowHeight }}>
+            <GetPlaces />
+          </View>
+        </Animated.View>
+      </View>
+      {/* <View style={{ flex: 1 }}>
         {filterType === filter_type.dogs && <GetDogs />}
         {filterType === filter_type.events && <GetEvents />}
         {filterType === filter_type.places && <GetPlaces />}
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };

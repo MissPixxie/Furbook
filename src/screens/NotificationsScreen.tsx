@@ -4,14 +4,18 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { SelectList } from "react-native-dropdown-select-list";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
+import Carousel from "react-native-snap-carousel";
 
 import { GetPlaces } from "../components/GetPlaces";
 import { AddPlace } from "../components/AddPlace";
 
-import { Ionicons } from "@expo/vector-icons";
-import { Foundation } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  Foundation,
+  Entypo,
+  MaterialIcons,
+} from "@expo/vector-icons";
+
 import { ThemeContext } from "../context/ThemeContext";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useFetch } from "../components/FetchData";
