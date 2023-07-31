@@ -1,13 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
 
 import IP from "../../fetchIP";
@@ -33,6 +27,7 @@ export const GetDogs = () => {
     container: {
       flex: 1,
       paddingHorizontal: 10,
+      backgroundColor: colors.background,
     },
     postContainer: {
       width: "100%",

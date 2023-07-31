@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import Carousel from "react-native-snap-carousel";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { GetPlaces } from "../components/GetPlaces";
 import { AddPlace } from "../components/AddPlace";

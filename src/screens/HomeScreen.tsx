@@ -3,11 +3,11 @@ import {
   Button,
   FlatList,
   RefreshControl,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //COMPONENTS
 import { CustomButton } from "../components/CustomButton";

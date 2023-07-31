@@ -61,10 +61,8 @@ export const UserProvider = ({ children }: Props) => {
   const [state, setState] = useState<State>(defaultContextState);
 
   return (
-    <SafeAreaProvider>
-      <UserContext.Provider value={{ state, setState }}>
-        {children}
-      </UserContext.Provider>
-    </SafeAreaProvider>
+    <UserContext.Provider value={{ state, setState }}>
+      {children}
+    </UserContext.Provider>
   );
 };

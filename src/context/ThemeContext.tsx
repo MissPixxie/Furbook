@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GradientTabIndicator } from "../navigation/GradientTabIndicator";
 
 interface Props {
   children: React.ReactNode;
@@ -77,10 +78,8 @@ export const ThemeProvider = ({ children }: Props) => {
   };
 
   return (
-    <SafeAreaProvider>
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        {children}
-      </ThemeContext.Provider>
-    </SafeAreaProvider>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
   );
 };

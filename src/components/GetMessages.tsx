@@ -1,13 +1,13 @@
 import React, { createContext } from "react";
 import { useState, useEffect, useCallback } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   Pressable,
   StyleSheet,
   FlatList,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
 import { Messages, useFetch } from "./FetchData";
 

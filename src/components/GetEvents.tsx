@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { useState, useEffect, useCallback } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   Pressable,
@@ -9,6 +8,7 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
 import { Events, useFetch } from "./FetchData";
 
@@ -43,6 +43,7 @@ export const GetEvents = () => {
     container: {
       flex: 1,
       paddingHorizontal: 10,
+      backgroundColor: colors.background,
     },
     postContainer: {
       width: "100%",

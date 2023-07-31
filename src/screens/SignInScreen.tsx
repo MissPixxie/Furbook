@@ -6,10 +6,10 @@ import {
   StyleSheet,
   Pressable,
   Alert,
-  SafeAreaView,
   TextInput,
   Button,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";

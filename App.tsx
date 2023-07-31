@@ -1,6 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useContext } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 import { AuthContext, AuthProvider } from "./src/context/AuthContext";
 import { ThemeContext, ThemeProvider } from "./src/context/ThemeContext";

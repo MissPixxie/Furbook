@@ -24,9 +24,10 @@ import { Dogs, useFetch } from "../components/FetchData";
 
 interface Props {
   navigation: any;
+  route: any;
 }
 
-export const DogsScreen = ({ navigation }: Props) => {
+export const DogsScreen = ({ route, navigation }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -95,9 +96,8 @@ export const DogsScreen = ({ navigation }: Props) => {
       </KeyboardAvoidingView>
       <FlatList
         data={dogs}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        refreshing={refreshing}
+        onRefresh={onRefresh}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>

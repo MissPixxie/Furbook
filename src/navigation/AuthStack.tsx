@@ -11,6 +11,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
 import { TabNavigator } from "./TabNavigator";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   children: React.ReactNode;
@@ -25,40 +26,42 @@ export const AuthStack = () => {
   const { tabBar, drawer } = colors;
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={({ navigation }) => (
-          <CustomDrawer navigation={navigation} />
-        )}
-        screenOptions={{
-          drawerPosition: "right",
-          headerShown: false,
-          drawerStyle: {
-            backgroundColor: colors.primary,
-          },
-        }}
-      >
-        {state.isLoggedIn ? (
-          <Drawer.Screen
-            name="Tab Navigator"
-            component={TabNavigator}
-            options={{ headerShown: false }}
-          />
-        ) : (
-          <>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Drawer.Navigator
+          drawerContent={({ navigation }) => (
+            <CustomDrawer navigation={navigation} />
+          )}
+          screenOptions={{
+            drawerPosition: "right",
+            headerShown: false,
+            drawerStyle: {
+              backgroundColor: colors.primary,
+            },
+          }}
+        >
+          {state.isLoggedIn ? (
             <Drawer.Screen
-              name="Sign in"
-              component={SignInScreen}
+              name="Tab Navigator"
+              component={TabNavigator}
               options={{ headerShown: false }}
             />
-            <Drawer.Screen
-              name="Sign up"
-              component={SignUpScreen}
-              options={{ headerShown: false }}
-            />
-          </>
-        )}
-      </Drawer.Navigator>
-    </NavigationContainer>
+          ) : (
+            <>
+              <Drawer.Screen
+                name="Sign in"
+                component={SignInScreen}
+                options={{ headerShown: false }}
+              />
+              <Drawer.Screen
+                name="Sign up"
+                component={SignUpScreen}
+                options={{ headerShown: false }}
+              />
+            </>
+          )}
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };

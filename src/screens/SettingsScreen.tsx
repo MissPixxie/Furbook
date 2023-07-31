@@ -5,10 +5,10 @@ import {
   StyleSheet,
   Pressable,
   Alert,
-  SafeAreaView,
   TextInput,
   Button,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";

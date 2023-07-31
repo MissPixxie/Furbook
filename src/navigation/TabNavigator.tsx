@@ -18,6 +18,7 @@ import { DogsDetailsScreen } from "../screens/DogsDetailsScreen";
 
 //ICONS
 import { Entypo, FontAwesome, Ionicons, AntDesign } from "@expo/vector-icons";
+import { TopTabNavigation } from "./TopTabNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -100,7 +101,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={MessagesScreen}
+        component={TopTabNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

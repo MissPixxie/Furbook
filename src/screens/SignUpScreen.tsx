@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   TextInput,
   Text,
@@ -9,6 +8,7 @@ import {
   View,
   Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";
 

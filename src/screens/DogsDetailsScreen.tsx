@@ -34,7 +34,6 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
   const { colors } = theme;
 
   const { dogId } = route.params;
-  console.log(dogId);
 
   const [data, setData] = useState();
 
@@ -48,7 +47,7 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
           console.log(data);
           setData(data);
           Alert.alert("dog deleted");
-          navigation.navigate("Dogs");
+          navigation.navigate("Dogs", { deleted: true });
         });
     } catch (error) {
       if (error instanceof Error) {
@@ -89,7 +88,6 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
       {/* <KeyboardAvoidingView behavior="padding">
         {modalVisible && <AddDog closeModal={toggleModal} />}
       </KeyboardAvoidingView> */}
-      <Text>Details</Text>
       {/* <CustomButton
         title="New dog"
         bgColor="#bced95"

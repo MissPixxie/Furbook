@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext } from "react";
 import { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   View,
   Text,
   Pressable,
@@ -12,6 +11,7 @@ import {
   Image,
   KeyboardAvoidingView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import IP from "../../fetchIP";
 import { Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
 import { CustomButton } from "./CustomButton";
@@ -76,6 +76,7 @@ export const GetPlaces = () => {
   const styles = StyleSheet.create({
     container: {
       paddingHorizontal: 10,
+      backgroundColor: colors.background,
     },
     postContainer: {
       width: "100%",

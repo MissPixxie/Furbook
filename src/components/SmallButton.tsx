@@ -7,10 +7,13 @@ interface Props {
   icon?: any;
   bgColor?: string;
   align?: AlignSelf;
-  onPress: () => void;
+  margin?: Margin;
+  onPress?: () => void;
 }
 
 type AlignSelf = "stretch" | "center" | "flex-start" | "flex-end";
+
+type Margin = 5 | 10 | 15 | 20 | 30;
 
 export const SmallButton = ({
   title,
@@ -18,6 +21,7 @@ export const SmallButton = ({
   icon,
   bgColor,
   align,
+  margin,
   onPress,
 }: Props) => {
   const styles = StyleSheet.create({
@@ -30,8 +34,9 @@ export const SmallButton = ({
       alignSelf: align,
       borderRadius: 10,
       padding: 5,
+      marginRight: margin,
       textAlign: "center",
-      marginVertical: 10,
+      marginVertical: 5,
       shadowColor: "#171717",
       shadowOffset: { width: -2, height: 4 },
       shadowOpacity: 0.2,

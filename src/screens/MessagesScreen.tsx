@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  SafeAreaView,
   TextInput,
   Button,
   Alert,
@@ -12,6 +11,10 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
@@ -61,7 +64,12 @@ export const MessagesScreen = ({ navigation }: Props) => {
   });
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: colors.background,
+      }}
+    >
       <View>
         <SmallButton
           title="Filter"
