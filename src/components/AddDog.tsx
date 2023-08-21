@@ -22,14 +22,15 @@ import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 // CONTEXT
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
-import { Dogs } from "./FetchData";
+import { Dogs } from "./Types";
 
 interface Props {
   closeModal: () => void;
   addDog: (dogs: Dogs) => void;
+  onRefresh: () => void;
 }
 
-export const AddDog = ({ closeModal, addDog }: Props) => {
+export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const owner = user.userID;
@@ -44,7 +45,7 @@ export const AddDog = ({ closeModal, addDog }: Props) => {
 
   async function newDog() {
     try {
-      const response = await fetch(IP + "/dogs/newdog", {
+      const response = await fetch(IP + "/dogs/new-dog", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,16 +58,15 @@ export const AddDog = ({ closeModal, addDog }: Props) => {
           neutered: neutered,
           owner: owner,
         }),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          if (data.ok === true) {
-            closeModal();
-            console.log(data.dog);
-            addDog(data.dog);
-          }
-          Alert.alert(data.message);
-        });
+      });
+      const resp = await response.json();
+      console.log(resp);
+      if (resp.ok === true) {
+        closeModal();
+        onRefresh();
+        console.log(resp.dog);
+      }
+      Alert.alert(resp.message);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);

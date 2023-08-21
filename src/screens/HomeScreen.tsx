@@ -43,26 +43,24 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
     }, 2000);
   }, [data]);
 
-  useEffect(() => {
-    getUserInformation().catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   getUserInformation().catch(console.error);
+  // }, []);
 
-  async function getUserInformation() {
-    const response = await fetch(IP + "/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: _id,
-      }),
-    });
-    const userdata = await response.json();
-    setData([userdata.user]);
-    console.log(userdata);
-  }
-
-  console.log(data);
+  // async function getUserInformation() {
+  //   const response = await fetch(IP + "/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       _id: _id,
+  //     }),
+  //   });
+  //   const userdata = await response.json();
+  //   setData([userdata.user]);
+  //   console.log("getting user data" + userdata);
+  // }
 
   const styles = StyleSheet.create({
     container: {

@@ -33,13 +33,15 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
 
-  const { dogId } = route.params;
+  const { dog } = route.params;
+  //const { id, name, age, sex, breed, neutered } = route.params;
+  console.log(dog);
 
   const [data, setData] = useState();
 
   async function deleteDog() {
     try {
-      const response = await fetch(`${IP}/dogs/${dogId}`, {
+      const response = await fetch(`${IP}/dogs/${dog._id}`, {
         method: "DELETE",
       })
         .then((resp) => resp.json())
@@ -47,7 +49,11 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
           console.log(data);
           setData(data);
           Alert.alert("dog deleted");
-          navigation.navigate("Dogs", { deleted: true });
+          navigation.navigate({
+            name: "Dogs",
+            params: { deleted: true },
+            merge: true,
+          });
         });
     } catch (error) {
       if (error instanceof Error) {
@@ -85,14 +91,38 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <KeyboardAvoidingView behavior="padding">
-        {modalVisible && <AddDog closeModal={toggleModal} />}
-      </KeyboardAvoidingView> */}
-      {/* <CustomButton
-        title="New dog"
-        bgColor="#bced95"
-        onPress={() => setModalVisible(true)}
-      /> */}
+      <FlatList
+        data={dog}
+        renderItem={({ item }) => (
+          <View style={styles.postContainer}>
+            <View style={{ marginLeft: 15, alignSelf: "flex-start" }}>
+              <Text style={{ fontSize: 26, color: colors.text }}>
+                {item.name}
+              </Text>
+              <Text style={{ fontSize: 18, color: colors.text }}>
+                {item.sex}
+              </Text>
+              <Text style={{ fontSize: 18, color: colors.text }}>
+                {item.breed}
+              </Text>
+              <Text style={{ fontSize: 18, color: colors.text }}>
+                {item.neutered}
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontSize: 20,
+                color: colors.text,
+                flexGrow: 2,
+                textAlign: "right",
+                marginRight: 10,
+              }}
+            >
+              {item.age}
+            </Text>
+          </View>
+        )}
+      />
       <CustomButton title="Remove dog" bgColor="#ee4444" onPress={deleteDog} />
     </SafeAreaView>
   );

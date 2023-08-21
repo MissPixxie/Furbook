@@ -32,7 +32,7 @@ export const SignUpScreen = ({ navigation }: Props) => {
 
   async function signUp() {
     try {
-      const response = await fetch(IP + "/signup", {
+      const response = await fetch(IP + "/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

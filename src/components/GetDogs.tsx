@@ -3,9 +3,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
+import { Dogs } from "./Types";
 
 import IP from "../../fetchIP";
-import { Dogs, useFetch } from "./FetchData";
+import { useFetch } from "./FetchData";
 import { ThemeContext } from "../context/ThemeContext";
 
 export const GetDogs = () => {

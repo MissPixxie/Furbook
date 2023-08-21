@@ -30,35 +30,31 @@ export const SignInScreen = ({ navigation }: Props) => {
 
   async function signIn() {
     try {
-      const response = await fetch(IP + "/signin", {
+      const response = await fetch(IP + "/sign-in", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          email: "test@hotmail.se",
           password: password,
         }),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          const { message, user } = data;
-          if (message === "User exists") {
-            setState({
-              user: {
-                userID: user.ID,
-                userName: user.name,
-                userEmail: user.email,
-              },
-              isLoggedIn: true,
-            });
-          } else {
-            return "Log in";
-          }
-        });
+      });
+      const data = await response.json();
+      console.log("user data" + data);
+      //const { message, user } = data;
+      // if (message === "User exists") {
+      setState({
+        user: {
+          userID: data._id,
+          userName: data.name,
+          userEmail: data.email,
+        },
+        isLoggedIn: true,
+      });
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error);
+        console.log("error" + error);
       }
     }
   }
@@ -74,7 +70,7 @@ export const SignInScreen = ({ navigation }: Props) => {
           <Ionicons name="person" size={24} color="black" />
           <TextInput
             onChangeText={setMail}
-            defaultValue={email}
+            defaultValue={"test@hotmail.se"}
             placeholder="Email"
             placeholderTextColor={"#636363"}
             style={styles.inputText}

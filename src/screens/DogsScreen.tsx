@@ -20,7 +20,8 @@ import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import IP from "../../fetchIP";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Dogs, useFetch } from "../components/FetchData";
+import { Dogs } from "../components/Types";
+import { useFetch } from "../components/FetchData";
 
 interface Props {
   navigation: any;
@@ -53,6 +54,14 @@ export const DogsScreen = ({ route, navigation }: Props) => {
     setDogs(data ?? []);
     console.log(data);
   }, [data]);
+
+  useEffect(() => {
+    if (route.params?.deleted) {
+      console.log("hello");
+      setDogs(data ?? []);
+      console.log(data);
+    }
+  }, [route.params?.deleted]);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -92,7 +101,13 @@ export const DogsScreen = ({ route, navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior="padding">
-        {modalVisible && <AddDog closeModal={toggleModal} addDog={addDog} />}
+        {modalVisible && (
+          <AddDog
+            closeModal={toggleModal}
+            addDog={addDog}
+            onRefresh={onRefresh}
+          />
+        )}
       </KeyboardAvoidingView>
       <FlatList
         data={dogs}
@@ -101,7 +116,15 @@ export const DogsScreen = ({ route, navigation }: Props) => {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("Dog Details", { dogId: item._id })
+              navigation.navigate("Dog Details", {
+                dog: item,
+                // id: item._id,
+                // name: item.name,
+                // age: item.age,
+                // sex: item.sex,
+                // breed: item.breed,
+                // neutered: item.neutered,
+              })
             }
           >
             <View style={styles.postContainer}>
