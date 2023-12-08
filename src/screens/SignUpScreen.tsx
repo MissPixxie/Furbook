@@ -16,7 +16,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Foundation } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import { Users } from "../components/FetchData";
+import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 
 interface Props {
   navigation: any;
@@ -29,6 +29,7 @@ export const SignUpScreen = ({ navigation }: Props) => {
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [matchpassword, setMatchPassword] = useState("");
+
 
   async function signUp() {
     try {

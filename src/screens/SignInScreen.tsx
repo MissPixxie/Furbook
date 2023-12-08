@@ -74,6 +74,7 @@ export const SignInScreen = ({ navigation }: Props) => {
             placeholder="Email"
             placeholderTextColor={"#636363"}
             style={styles.inputText}
+            autoComplete="email"
           />
         </View>
         <View style={styles.input}>

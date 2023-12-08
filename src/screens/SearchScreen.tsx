@@ -30,6 +30,11 @@ interface Props {
 }
 
 export const SearchScreen = ({ navigation }: Props) => {
+
+  console.log("Searchscreen rendered");
+
+
+
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
   const { colors } = theme;

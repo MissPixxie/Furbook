@@ -1,11 +1,13 @@
 export type Places = {
+  _id: string;
   name: string;
   category: string;
   location: string;
   description: string;
 };
 
-export type Events = {
+export interface Events {
+  _id: string;
   title: string;
   place: number;
   time: string;

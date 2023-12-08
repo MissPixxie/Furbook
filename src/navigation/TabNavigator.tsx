@@ -80,6 +80,7 @@ export const TabNavigator = () => {
         name="Dog Details"
         component={DogsDetailsScreen}
         options={{
+          title: "",
           tabBarItemStyle: { display: "none" },
           headerShown: true,
           headerLeft: () => (
@@ -91,7 +92,6 @@ export const TabNavigator = () => {
               onPress={() => navigation.navigate("Dogs")}
             />
           ),
-          title: "",
           headerStyle: {
             backgroundColor: colors.card,
           },

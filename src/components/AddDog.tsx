@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Overlay } from "@rneui/themed";
-
+import DropDownPicker from "react-native-dropdown-picker";
 // COMPONENTS
 import IP from "../../fetchIP";
 import { CustomButton } from "./CustomButton";
@@ -26,22 +26,37 @@ import { Dogs } from "./Types";
 
 interface Props {
   closeModal: () => void;
-  addDog: (dogs: Dogs) => void;
-  onRefresh: () => void;
+  //addDog: (dogs: Dogs) => void;
+  updateFunction: () => void;
 }
 
-export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
+export const AddDog = ({ closeModal, updateFunction }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const owner = user.userID;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
   const [breed, setBreed] = useState("");
   const [neutered, setNeutered] = useState("");
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" },
+  ]);
+
+  const [openSex, setOpenSex] = useState(false);
+  const [valueSex, setValueSex] = useState(null);
+  const [itemsSex, setItemsSex] = useState([
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+  ]);
 
   async function newDog() {
     try {
@@ -55,7 +70,7 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
           age: age,
           sex: sex,
           breed: breed,
-          neutered: neutered,
+          neutered: value,
           owner: owner,
         }),
       });
@@ -63,10 +78,8 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
       console.log(resp);
       if (resp.ok === true) {
         closeModal();
-        onRefresh();
-        console.log(resp.dog);
+        updateFunction();
       }
-      Alert.alert(resp.message);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
@@ -74,11 +87,33 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
     }
   }
 
+  const checkInput = () => {
+    if (!name) {
+      Alert.alert("Name is required");
+      return;
+    }
+    if (!age) {
+      Alert.alert("Age is required");
+      return;
+    }
+    if (!sex) {
+      Alert.alert("Sex is required");
+      return;
+    }
+    if (!breed) {
+      Alert.alert("Breed is required");
+      return;
+    }
+    if (!neutered) {
+      Alert.alert("Neutered is required");
+      return;
+    }
+  };
+
   const styles = StyleSheet.create({
     inputs: {
       padding: 10,
       marginBottom: 15,
-      borderRadius: 5,
     },
     Input: {
       flexDirection: "row",
@@ -88,13 +123,13 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
       padding: 10,
       backgroundColor: colors.inputs,
       alignItems: "center",
-      borderBottomWidth: 1,
-      borderBottomColor: "#262626",
+      borderColor: "black",
+      borderWidth: 1,
+      borderRadius: 9,
     },
     inputText: {
       marginLeft: 13,
       fontSize: 18,
-      borderBottomColor: "black",
       color: colors.text,
     },
     exitButton: {
@@ -114,13 +149,13 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
           overlayStyle={{
             borderRadius: 10,
             backgroundColor: colors.background,
+            display: "flex",
           }}
         >
           <View
             style={{
               justifyContent: "center",
               alignItems: "center",
-              paddingBottom: 20,
             }}
           >
             <Entypo
@@ -144,6 +179,7 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
                 <TextInput
                   onChangeText={setAge}
                   value={age}
+                  inputMode="numeric"
                   style={styles.inputText}
                   placeholder="Age"
                   placeholderTextColor={colors.text}
@@ -157,38 +193,94 @@ export const AddDog = ({ closeModal, addDog, onRefresh }: Props) => {
                   style={styles.inputText}
                   placeholderTextColor={colors.text}
                 />
+                {/* <Menu
+                  onSelect={(value) => Alert.alert(`Selected number: ${value}`)}
+                >
+                  <MenuTrigger text="Select option" />
+                  <MenuOptions>
+                    <MenuOption value={1} text="One" />
+                    <MenuOption value={2}>
+                      <Text style={{ color: "red" }}>Two</Text>
+                    </MenuOption>
+                    <MenuOption value={3} disabled={true} text="Three" />
+                  </MenuOptions>
+                </Menu> */}
+                {/* <DropDownPicker
+                  open={openSex}
+                  value={valueSex}
+                  items={itemsSex}
+                  setOpen={setOpenSex}
+                  setValue={setValueSex}
+                  setItems={setItemsSex}
+                  placeholder="Sex"
+                  style={{
+                    backgroundColor: colors.inputs,
+                    width: 300,
+                  }}
+                  dropDownContainerStyle={{
+                    backgroundColor: colors.inputs,
+                    width: 300,
+                  }}
+                  textStyle={{ color: colors.text, fontSize: 18, margin: 10 }}
+                /> */}
               </View>
               <View style={styles.Input}>
                 <TextInput
-                  onChangeText={setBreed}
+                  onChangeText={(value) => setBreed(value)}
                   value={breed}
                   placeholder="Breed"
                   style={styles.inputText}
                   placeholderTextColor={colors.text}
                 />
               </View>
-              <View style={styles.Input}>
-                <TextInput
-                  onChangeText={setNeutered}
-                  value={neutered}
-                  placeholder="Neutered"
-                  style={styles.inputText}
-                  placeholderTextColor={colors.text}
-                />
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 300,
+                  height: 50,
+                  padding: 10,
+                  marginTop: 10,
+                  alignItems: "center",
+                }}
+              >
+                <>
+                  <DropDownPicker
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                    placeholder="Neutered"
+                    style={{
+                      backgroundColor: colors.inputs,
+                      width: 300,
+                    }}
+                    dropDownContainerStyle={{
+                      backgroundColor: colors.inputs,
+                      width: 300,
+                      display: "flex",
+                      paddingVertical: 7,
+                    }}
+                    textStyle={{ color: colors.text, fontSize: 18, margin: 10 }}
+                  />
+                </>
               </View>
             </View>
-            <CustomButton
-              title="Add new dog"
-              bgColor="#f7f7f7"
-              borderColor="#71ce24"
-              borderWidth={2}
-              onPress={newDog}
-            />
-            <CustomButton
-              title="Close"
-              bgColor="#bced95"
-              onPress={closeModal}
-            />
+            <View style={{ zIndex: -1, width: "100%" }}>
+              <CustomButton
+                title="Add new dog"
+                bgColor="#f7f7f7"
+                borderColor="#71ce24"
+                borderWidth={2}
+                onPress={checkInput}
+              />
+              <CustomButton
+                title="Close"
+                bgColor="#bced95"
+                onPress={closeModal}
+              />
+            </View>
           </View>
         </Overlay>
       </KeyboardAvoidingView>

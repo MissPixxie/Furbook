@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   View,
   Text,
@@ -20,7 +26,7 @@ import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import IP from "../../fetchIP";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Dogs } from "../components/Types";
+import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 import { useFetch } from "../components/FetchData";
 
 interface Props {
@@ -29,47 +35,70 @@ interface Props {
 }
 
 export const DogsScreen = ({ route, navigation }: Props) => {
+  console.log("Dogsscreen rendered");
+
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
-  const { data, error, loading } = useFetch<Dogs[]>(
-    IP + "/dogs/" + user.userID
-  );
-  const [dogs, setDogs] = useState<Dogs[]>([]);
+  const [updateFromDetailScreen, setUpdateFromDetailScreen] = useState(false);
 
-  // const [data, setData] = useState();
+  // const { data, error, loading } = useFetch<Dogs[]>(
+  //   IP + "/dogs/" + user.userID
+  // );
+  const [data, setData] = useState<any>();
+
+  //const [dogs, setDogs] = useState<Dogs[]>([]);
+
   const [modalVisible, setModalVisible] = useState(false);
-  const [overlayVisable, setOverlayVisable] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
 
-  const addDog = (dog: Dogs) => {
-    setDogs([...dogs, dog]);
+  const updateWhenDogRemoved = (actionType: string, newState: boolean) => {
+    if (actionType === "updated") {
+      setUpdateFromDetailScreen(newState);
+      getData();
+    } else {
+      console.log("something went wrong");
+    }
   };
 
-  useEffect(() => {
-    setDogs(data ?? []);
-    console.log(data);
-  }, [data]);
+  // const addDog = (dog: Dogs) => {
+  //   setDogs([...dogs, dog]);
+  // };
+
+  // useEffect(() => {
+  //   setDogs(data || []);
+  // }, [data]);
 
   useEffect(() => {
-    if (route.params?.deleted) {
-      console.log("hello");
-      setDogs(data ?? []);
+    getData();
+    console.log("useEffect in Dogsscreen rendered");
+  }, []);
+
+  async function getData() {
+    try {
+      const response = await fetch(IP + "/dogs/" + user.userID);
+      const data = await response.json();
       console.log(data);
+      setData(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+      }
     }
-  }, [route.params?.deleted]);
+  }
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    getData();
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000);
-  }, []);
+    }, 1000);
+  }, [data]);
 
   const styles = StyleSheet.create({
     container: {
@@ -104,26 +133,26 @@ export const DogsScreen = ({ route, navigation }: Props) => {
         {modalVisible && (
           <AddDog
             closeModal={toggleModal}
-            addDog={addDog}
-            onRefresh={onRefresh}
+            //addDog={addDog}
+            updateFunction={getData}
           />
         )}
       </KeyboardAvoidingView>
       <FlatList
-        data={dogs}
+        data={data}
         refreshing={refreshing}
         onRefresh={onRefresh}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("Dog Details", {
-                dog: item,
-                // id: item._id,
-                // name: item.name,
-                // age: item.age,
-                // sex: item.sex,
-                // breed: item.breed,
-                // neutered: item.neutered,
+                id: item._id,
+                name: item.name,
+                age: item.age,
+                sex: item.sex,
+                breed: item.breed,
+                neutered: item.neutered,
+                updateWhenDogRemoved,
               })
             }
           >

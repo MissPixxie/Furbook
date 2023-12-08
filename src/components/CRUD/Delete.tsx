@@ -1,33 +1,58 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { Users, Events, Places, Messages } from "../Types";
+import { useEffect, useState } from "react";
 import IP from "../../../fetchIP";
+import { Dogs, Events, Messages, Places, Users } from "../Types";
 
 interface Props {
-  location: string;
-  id: string;
+  url: URL;
+  id?: string;
+  type: Types;
 }
 
-export function deleteData<T>(url: string, id: string) {
-  const [testData, setData] = useState<T>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>(null);
+type Types = Users | Events | Places | Dogs | Messages;
 
-  async function deleteDog() {
-    try {
-      const response = await fetch(`${IP}/dogs/${dog._id}`, {
-        method: "DELETE",
-      });
-      const data = response.json();
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
+type URL = "/dogs/" | "/users/" | "/events/" | "/places/";
+
+export function deleteData<T>(url: URL, type: Types, id?: string) {
+  // const [data, setData] = useState();
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<any>(null);
+
+  useEffect(() => {
+    const deleteItem = async () => {
+      // setLoading(true);
+      // setData(undefined);
+      // setError(undefined);
+      try {
+        const response = await fetch(IP + url, {
+          method: "DELETE",
+          body: JSON.stringify({
+            type,
+          }),
+        });
+        const data = await response.json();
+      } catch (error) {
+        //  setError(error);
+      } finally {
+        //  setLoading(false);
       }
-    }
-  }
+    };
+    deleteItem();
+  }, [url]);
 
+  // async function deleteDog() {
+  //   try {
+  //     const response = await fetch(`${IP}/dogs/${}`, {
+  //       method: "DELETE",
+  //     });
+  //     const data = response.json();
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }
 
-  if (loading) return { loading, error: undefined, data: undefined };
-  if (error) return { loading, error, data: undefined };
-  return { loading, error, testData };
+  // if (loading) return { loading, error: undefined, data: undefined };
+  // if (error) return { loading, error, data: undefined };
+  // return { loading, error, data };
 }

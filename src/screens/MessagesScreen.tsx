@@ -34,6 +34,11 @@ const windowWidth = Dimensions.get("window").width;
 //const windowHeight = Dimensions.get("window").height;
 
 export const MessagesScreen = ({ navigation }: Props) => {
+
+  console.log("Messagescreen rendered");
+
+
+
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
   const { colors } = theme;

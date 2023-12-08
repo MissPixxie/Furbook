@@ -11,6 +11,7 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // CONTEXT
 import { AuthContext } from "../context/AuthContext";
@@ -20,7 +21,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import IP from "../../fetchIP";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { deleteData } from "../components/CRUD/Delete";
 
 interface Props {
   navigation: any;
@@ -28,33 +29,40 @@ interface Props {
 }
 
 export const DogsDetailsScreen = ({ route, navigation }: Props) => {
+  console.log("DogDetailsscreen rendered");
+
   const { state, setState } = useContext(AuthContext);
   const { user } = state;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
 
-  const { dog } = route.params;
-  //const { id, name, age, sex, breed, neutered } = route.params;
-  console.log(dog);
+  //const { dog } = route.params;
+  //console.log(event.data.state);
+  const { id, name, age, sex, breed, neutered } = route.params;
+  const updateWhenDogRemoved = route.params.updateWhenDogRemoved;
+
+  const updateDogScreen = () => {
+    updateWhenDogRemoved("updated");
+    navigation.navigate({
+      name: "Dogs",
+      actionType: "updated",
+      newData: true,
+    });
+  };
 
   const [data, setData] = useState();
 
   async function deleteDog() {
     try {
-      const response = await fetch(`${IP}/dogs/${dog._id}`, {
+      const response = await fetch(`${IP}/dogs/${id}`, {
         method: "DELETE",
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-          setData(data);
-          Alert.alert("dog deleted");
-          navigation.navigate({
-            name: "Dogs",
-            params: { deleted: true },
-            merge: true,
-          });
-        });
+      });
+      const data = await response.json();
+      console.log(data);
+      if (data.deleted === true) {
+        Alert.alert("dog deleted");
+        updateDogScreen();
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
@@ -87,42 +95,25 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
       height: 100,
       borderRadius: 400 / 2,
     },
+    aboutText: {
+      color: colors.text,
+      fontSize: 24,
+    },
   });
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={dog}
-        renderItem={({ item }) => (
-          <View style={styles.postContainer}>
-            <View style={{ marginLeft: 15, alignSelf: "flex-start" }}>
-              <Text style={{ fontSize: 26, color: colors.text }}>
-                {item.name}
-              </Text>
-              <Text style={{ fontSize: 18, color: colors.text }}>
-                {item.sex}
-              </Text>
-              <Text style={{ fontSize: 18, color: colors.text }}>
-                {item.breed}
-              </Text>
-              <Text style={{ fontSize: 18, color: colors.text }}>
-                {item.neutered}
-              </Text>
-            </View>
-            <Text
-              style={{
-                fontSize: 20,
-                color: colors.text,
-                flexGrow: 2,
-                textAlign: "right",
-                marginRight: 10,
-              }}
-            >
-              {item.age}
-            </Text>
-          </View>
-        )}
+      <Image
+        style={styles.imgAvatar}
+        source={require("../Images/OGBUB40.jpg")}
       />
+      <View>
+        <Text style={{ color: colors.text }}>{name}</Text>
+        <Text style={{ color: colors.text }}>{age}</Text>
+        <Text style={{ color: colors.text }}>{sex}</Text>
+        <Text style={{ color: colors.text }}>{breed}</Text>
+        <Text style={{ color: colors.text }}>{neutered}</Text>
+      </View>
       <CustomButton title="Remove dog" bgColor="#ee4444" onPress={deleteDog} />
     </SafeAreaView>
   );

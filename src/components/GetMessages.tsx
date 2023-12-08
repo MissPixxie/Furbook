@@ -1,15 +1,10 @@
 import React, { createContext } from "react";
 import { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import { View, Text, Pressable, StyleSheet, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
-import { Messages, useFetch } from "./FetchData";
+import { useFetch } from "./FetchData";
+import { Messages } from "./Types";
 
 import IP from "../../fetchIP";
 import { Entypo } from "@expo/vector-icons";
@@ -32,7 +27,6 @@ export const GetMessages = ({ theme }: Props) => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
 
   return (
     <SafeAreaView style={styles.container}>

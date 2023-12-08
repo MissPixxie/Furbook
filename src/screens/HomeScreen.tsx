@@ -17,19 +17,24 @@ import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
 import { Entypo } from "@expo/vector-icons";
-import { Users, useFetch } from "../components/FetchData";
+import { useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
 import { NavigationProp } from "@react-navigation/native";
+import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
 export const HomeScreen = ({ navigation }: RouterProps) => {
+
+console.log("Homescreen rendered");
+
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
-  const [data, setData] = useState<Users[]>([]); // Declare the 'data' state variable
+  const [data, setData] = useState<Users[]>([]);
+
 
   const { colors } = theme;
   const { user } = state;

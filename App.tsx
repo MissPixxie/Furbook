@@ -4,6 +4,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { MenuProvider } from "react-native-popup-menu";
 
 import { AuthContext, AuthProvider } from "./src/context/AuthContext";
 import { ThemeContext, ThemeProvider } from "./src/context/ThemeContext";

@@ -22,6 +22,7 @@ import { useFetch } from "./FetchData";
 import { CustomCard } from "./CustomCard";
 import { AddPlace } from "./AddPlace";
 import { ThemeContext } from "../context/ThemeContext";
+import { PlaceItem } from "./PlaceItem";
 
 export const GetPlaces = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -99,86 +100,37 @@ export const GetPlaces = () => {
     },
   });
 
+  const itemFromList = ({ item }: { item: Places }) => {
+    return <PlaceItem item={item} />;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior="padding">
-        {modalVisible && <AddPlace closeModal={toggleModal} />}
-      </KeyboardAvoidingView>
-      {/* Sortera på platsen som är närmst */}
       <FlatList
         data={data}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-        renderItem={({ item }) => (
-          <View style={styles.postContainer}>
-            {isActive ? (
-              <AntDesign
-                name="pushpino"
-                size={24}
-                color="black"
-                style={{ alignSelf: "flex-end", marginBottom: 10 }}
-                onPress={toggleSavedItems}
-              />
-            ) : (
-              <AntDesign
-                name="pushpin"
-                size={24}
-                color="black"
-                style={{ alignSelf: "flex-end", marginBottom: 10 }}
-                onPress={toggleSavedItems}
-              />
-            )}
-            <Image
-              style={styles.imgAvatar}
-              source={require("../Images/beach.jpg")}
-            />
-            <View style={{ marginTop: 10 }}>
-              <Text style={{ fontSize: 26, color: colors.text }}>
-                {item.name}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.location}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.category}
-              </Text>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.description}
-              </Text>
-            </View>
-            {/* <CustomCard>
-              <Text style={{ fontSize: 20, color: colors.text }}>
-                {item.description}
-              </Text>
-            </CustomCard> */}
-          </View>
-        )}
-        // ListFooterComponent={
-        //   <CustomButton
-        //     title="Add new place"
-        //     onPress={() => setModalVisible(true)}
-        //     bgColor="#bced95"
-        //   />
-        // }
-      />
-      <Entypo
-        name="circle-with-plus"
-        size={64}
-        color="black"
-        style={{
-          position: "absolute",
-          top: "86%",
-          left: "87%",
-          backgroundColor: "#bced95",
-          borderRadius: 50,
-          shadowColor: "black",
-          shadowOffset: { width: -2, height: 4 },
-          shadowOpacity: 0.9,
-          shadowRadius: 3,
-          elevation: 5,
-        }}
-        onPress={() => setModalVisible(true)}
+        renderItem={itemFromList}
+        keyExtractor={(item) => item._id.toString()}
       />
     </SafeAreaView>
   );
+  //     <Entypo
+  //       name="circle-with-plus"
+  //       size={64}
+  //       color="black"
+  //       style={{
+  //         position: "absolute",
+  //         top: "86%",
+  //         left: "87%",
+  //         backgroundColor: "#bced95",
+  //         borderRadius: 50,
+  //         shadowColor: "black",
+  //         shadowOffset: { width: -2, height: 4 },
+  //         shadowOpacity: 0.9,
+  //         shadowRadius: 3,
+  //         elevation: 5,
+  //       }}
+  //       onPress={() => setModalVisible(true)}
+  //     />
+  //   </SafeAreaView>
+  // );
 };

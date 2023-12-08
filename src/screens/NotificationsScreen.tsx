@@ -21,13 +21,15 @@ import { ThemeContext } from "../context/ThemeContext";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
-import { Dogs } from "../components/FetchData";
+import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 
 interface Props {
   navigation: any;
 }
 
 export const NotificationScreen = ({ navigation }: Props) => {
+  console.log("Notificationsscreen rendered");
+
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { data, error, loading } = useFetch<Dogs[]>(IP + "/dogs");
 

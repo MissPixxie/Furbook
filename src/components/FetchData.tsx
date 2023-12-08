@@ -1,14 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { useState } from "react";
-import { Alert } from "react-native";
-import IP from "../../fetchIP";
-import { AuthContext } from "../context/AuthContext";
-import { Date } from "mongoose";
-import { Places, Dogs, Users, Events, Messages } from "./Types";
-
-interface Props {
-  location: string;
-}
+import { useEffect, useState, useMemo } from "react";
 
 export function useFetch<T>(url: string) {
   const [data, setData] = useState<T>();
