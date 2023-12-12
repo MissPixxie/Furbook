@@ -21,25 +21,22 @@ import { useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
 import { NavigationProp } from "@react-navigation/native";
 import { Users, Dogs, Events, Places, Messages } from "../components/Types";
+import { EventItem } from "../components/EventItem";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
 }
 
 export const HomeScreen = ({ navigation }: RouterProps) => {
-
-console.log("Homescreen rendered");
+  console.log("Homescreen rendered");
 
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<Users[]>([]);
 
-
   const { colors } = theme;
   const { user } = state;
-
-  const _id = user.userID;
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -47,25 +44,6 @@ console.log("Homescreen rendered");
       setRefreshing(false);
     }, 2000);
   }, [data]);
-
-  // useEffect(() => {
-  //   getUserInformation().catch(console.error);
-  // }, []);
-
-  // async function getUserInformation() {
-  //   const response = await fetch(IP + "/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       _id: _id,
-  //     }),
-  //   });
-  //   const userdata = await response.json();
-  //   setData([userdata.user]);
-  //   console.log("getting user data" + userdata);
-  // }
 
   const styles = StyleSheet.create({
     container: {
@@ -93,6 +71,10 @@ console.log("Homescreen rendered");
     },
   });
 
+  const itemFromList = ({ item }: { item: Events }) => {
+    return <EventItem item={item} />;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <OverlayComponent /> */}
@@ -107,17 +89,12 @@ console.log("Homescreen rendered");
         </View>
       </View>
       <FlatList
-        data={data}
+        data={user.userSavedEvents}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        renderItem={({ item }) => (
-          <View>
-            <Text style={{ fontSize: 20, color: colors.text }}>
-              {item.dogs}
-            </Text>
-          </View>
-        )}
+        renderItem={itemFromList}
+        keyExtractor={(item) => item._id.toString()}
       />
     </SafeAreaView>
   );

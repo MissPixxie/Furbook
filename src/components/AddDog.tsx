@@ -36,28 +36,25 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
   const owner = user.userID;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
-  const [isFormValid, setIsFormValid] = useState(false);
 
+  // INPUTS
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
   const [breed, setBreed] = useState("");
-  const [neutered, setNeutered] = useState("");
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Yes", value: "Yes" },
-    { label: "No", value: "No" },
+  const [openNeutered, setOpenNeutered] = useState(false);
+  const [neutered, setNeutered] = useState(null);
+  const [neuteredItems, setNeuteredItems] = useState([
+    { label: "Yes", value: true },
+    { label: "No", value: false },
   ]);
-
-  const [openSex, setOpenSex] = useState(false);
-  const [valueSex, setValueSex] = useState(null);
-  const [itemsSex, setItemsSex] = useState([
+  const [openGender, setOpenGender] = useState(false);
+  const [gender, setGender] = useState(null);
+  const [genderItems, setGenderItems] = useState([
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
   ]);
 
+  console.log(neutered);
   async function newDog() {
     try {
       const response = await fetch(IP + "/dogs/new-dog", {
@@ -68,9 +65,9 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
         body: JSON.stringify({
           name: name,
           age: age,
-          sex: sex,
+          sex: gender,
           breed: breed,
-          neutered: value,
+          neutered: neutered,
           owner: owner,
         }),
       });
@@ -96,7 +93,7 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
       Alert.alert("Age is required");
       return;
     }
-    if (!sex) {
+    if (!gender) {
       Alert.alert("Sex is required");
       return;
     }
@@ -107,13 +104,14 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
     if (!neutered) {
       Alert.alert("Neutered is required");
       return;
+    } else {
+      newDog();
     }
   };
 
   const styles = StyleSheet.create({
     inputs: {
       padding: 10,
-      marginBottom: 15,
     },
     Input: {
       flexDirection: "row",
@@ -149,12 +147,14 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
           overlayStyle={{
             borderRadius: 10,
             backgroundColor: colors.background,
-            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
           }}
         >
           <View
             style={{
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "center",
             }}
           >
@@ -185,44 +185,39 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
                   placeholderTextColor={colors.text}
                 />
               </View>
-              <View style={styles.Input}>
-                <TextInput
-                  onChangeText={setSex}
-                  value={sex}
-                  placeholder="Sex"
-                  style={styles.inputText}
-                  placeholderTextColor={colors.text}
-                />
-                {/* <Menu
-                  onSelect={(value) => Alert.alert(`Selected number: ${value}`)}
-                >
-                  <MenuTrigger text="Select option" />
-                  <MenuOptions>
-                    <MenuOption value={1} text="One" />
-                    <MenuOption value={2}>
-                      <Text style={{ color: "red" }}>Two</Text>
-                    </MenuOption>
-                    <MenuOption value={3} disabled={true} text="Three" />
-                  </MenuOptions>
-                </Menu> */}
-                {/* <DropDownPicker
-                  open={openSex}
-                  value={valueSex}
-                  items={itemsSex}
-                  setOpen={setOpenSex}
-                  setValue={setValueSex}
-                  setItems={setItemsSex}
-                  placeholder="Sex"
-                  style={{
-                    backgroundColor: colors.inputs,
-                    width: 300,
-                  }}
-                  dropDownContainerStyle={{
-                    backgroundColor: colors.inputs,
-                    width: 300,
-                  }}
-                  textStyle={{ color: colors.text, fontSize: 18, margin: 10 }}
-                /> */}
+              <View
+                style={{
+                  flexDirection: "row",
+                  width: 300,
+                  height: 50,
+                  padding: 10,
+                  marginTop: 10,
+                  alignItems: "center",
+                  zIndex: 1,
+                }}
+              >
+                <>
+                  <DropDownPicker
+                    open={openGender}
+                    value={gender}
+                    items={genderItems}
+                    setOpen={setOpenGender}
+                    setValue={setGender}
+                    setItems={setGenderItems}
+                    placeholder="Sex"
+                    style={{
+                      backgroundColor: colors.inputs,
+                      width: 300,
+                    }}
+                    dropDownContainerStyle={{
+                      backgroundColor: colors.inputs,
+                      width: 300,
+                      display: "flex",
+                      paddingVertical: 7,
+                    }}
+                    textStyle={{ color: colors.text, fontSize: 18, margin: 10 }}
+                  />
+                </>
               </View>
               <View style={styles.Input}>
                 <TextInput
@@ -245,12 +240,12 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
               >
                 <>
                   <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
+                    open={openNeutered}
+                    value={neutered}
+                    items={neuteredItems}
+                    setOpen={setOpenNeutered}
+                    setValue={setNeutered}
+                    setItems={setNeuteredItems}
                     placeholder="Neutered"
                     style={{
                       backgroundColor: colors.inputs,

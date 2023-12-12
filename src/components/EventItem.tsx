@@ -16,6 +16,7 @@ import { Events } from "./Types";
 import IP from "../../fetchIP";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 interface ItemProps {
   item: Events;
@@ -23,14 +24,23 @@ interface ItemProps {
 
 export const EventItem = ({ item }: ItemProps) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { state } = useContext(AuthContext);
   const thisTheme = theme.dark;
   const { colors } = theme;
 
   const [isVisable, setIsVisable] = useState(false);
   const [isActive, setActive] = useState(false);
 
+  console.log(isActive);
+
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
+    if (isActive) {
+      const savedEvents = state.user.userSavedEvents;
+      // push event to array
+      savedEvents.push(item);
+      console.log(savedEvents);
+    }
     console.log(isActive);
   };
 
@@ -66,7 +76,7 @@ export const EventItem = ({ item }: ItemProps) => {
     <View style={styles.postContainer}>
       {isActive ? (
         <AntDesign
-          name="pushpino"
+          name="pushpin"
           size={24}
           color="black"
           style={{ alignSelf: "flex-end" }}
@@ -74,7 +84,7 @@ export const EventItem = ({ item }: ItemProps) => {
         />
       ) : (
         <AntDesign
-          name="pushpin"
+          name="pushpino"
           size={24}
           color="black"
           style={{ alignSelf: "flex-end" }}

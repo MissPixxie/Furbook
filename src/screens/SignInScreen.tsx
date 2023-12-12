@@ -41,14 +41,21 @@ export const SignInScreen = ({ navigation }: Props) => {
         }),
       });
       const data = await response.json();
-      console.log("user data" + data);
       //const { message, user } = data;
       // if (message === "User exists") {
       setState({
         user: {
+          userImg: data.userImg,
           userID: data._id,
           userName: data.name,
           userEmail: data.email,
+          userPwd: data.password,
+          userCountry: data.country,
+          userCity: data.city,
+          userDogs: data.dogs,
+          userSavedPlaces: data.savedPlaces,
+          userSavedEvents: data.savedEvents,
+          userMessages: data.messages,
         },
         isLoggedIn: true,
       });

@@ -14,7 +14,7 @@ export interface Events {
   description: string;
   typeOfEvent: string;
   date: Date;
-};
+}
 
 export type Dogs = {
   _id: string;
@@ -39,7 +39,7 @@ export type Users = {
   dogs: [];
   savedPlaces: [];
   savedPosts: [];
-  savedEvents: [];
+  savedEvents: Array<Events>;
   createdAt: Date;
 };
 

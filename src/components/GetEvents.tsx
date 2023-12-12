@@ -21,11 +21,7 @@ import { EventItem } from "./EventItem";
 export const GetEvents = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { data, error, loading } = useFetch<Events[]>(IP + "/events");
-  const thisTheme = theme.dark;
   const { colors } = theme;
-
-  const [isVisable, setIsVisable] = useState(false);
-  const [isActive, setActive] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -34,11 +30,6 @@ export const GetEvents = () => {
       setRefreshing(false);
     }, 2000);
   }, []);
-
-  const toggleSavedItems = () => {
-    setActive((prevState) => !prevState);
-    console.log(isActive);
-  };
 
   const styles = StyleSheet.create({
     container: {
