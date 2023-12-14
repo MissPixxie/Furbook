@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import UsersModel from "../../Server/models/UsersModel";
 import { Events, Places } from "../components/Types";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
 interface Props {
   children: React.ReactNode;

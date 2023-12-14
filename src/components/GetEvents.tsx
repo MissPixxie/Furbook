@@ -17,11 +17,14 @@ import IP from "../../fetchIP";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 import { EventItem } from "./EventItem";
+import { useQuery } from "@tanstack/react-query";
 
 export const GetEvents = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { data, error, loading } = useFetch<Events[]>(IP + "/events");
+  //const { data, error, loading } = useFetch<Events[]>(IP + "/events");
   const { colors } = theme;
+
+  console.log("GetEvents rendered");
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -31,27 +34,11 @@ export const GetEvents = () => {
     }, 2000);
   }, []);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 10,
-      backgroundColor: colors.background,
-    },
-    postContainer: {
-      width: "100%",
-      marginBottom: 20,
-      backgroundColor: colors.card,
-      alignSelf: "center",
-      padding: 15,
-      borderRadius: 10,
-      shadowColor: "#080808",
-      shadowOffset: { width: -1, height: 2 },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-      elevation: 4,
-    },
-    arrowButton: {
-      alignSelf: "center",
+  const { data } = useQuery({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const response = await fetch(IP + "/events");
+      return response.json();
     },
   });
 
@@ -60,7 +47,7 @@ export const GetEvents = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <FlatList
         data={data}
         renderItem={itemFromList}

@@ -35,14 +35,15 @@ export const EventItem = ({ item }: ItemProps) => {
 
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
+  };
+
+  useEffect(() => {
     if (isActive) {
-      const savedEvents = state.user.userSavedEvents;
-      // push event to array
+      const savedEvents = [...state.user.userSavedEvents];
       savedEvents.push(item);
       console.log(savedEvents);
     }
-    console.log(isActive);
-  };
+  }, [isActive, item, state.user.userSavedEvents]);
 
   const styles = StyleSheet.create({
     container: {

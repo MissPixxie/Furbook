@@ -23,13 +23,16 @@ import { CustomCard } from "./CustomCard";
 import { AddPlace } from "./AddPlace";
 import { ThemeContext } from "../context/ThemeContext";
 import { PlaceItem } from "./PlaceItem";
+import { useQuery } from "@tanstack/react-query";
 
 export const GetPlaces = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const thisTheme = theme.dark;
-  const { data, error, loading } = useFetch<Places[]>(IP + "/places");
+  //const { data, error, loading } = useFetch<Places[]>(IP + "/places");
 
   const { colors } = theme;
+
+  console.log("GetPlaces rendered");
 
   const [isVisable, setIsVisable] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,6 +54,14 @@ export const GetPlaces = () => {
     setActive((prevState) => !prevState);
     console.log(isActive);
   };
+
+  const { data } = useQuery({
+    queryKey: ["places"],
+    queryFn: async () => {
+      const response = await fetch(IP + "/places");
+      return response.json();
+    },
+  });
 
   async function pawRating(paw: number, _id: string) {
     try {
@@ -75,37 +86,12 @@ export const GetPlaces = () => {
     }
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      paddingHorizontal: 10,
-      backgroundColor: colors.background,
-    },
-    postContainer: {
-      width: "100%",
-      backgroundColor: colors.card,
-      marginBottom: 20,
-      alignSelf: "center",
-      padding: 15,
-      borderRadius: 10,
-      shadowColor: "#080808",
-      shadowOffset: { width: -1, height: 2 },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-      elevation: 4,
-    },
-    imgAvatar: {
-      width: "99%",
-      height: 200,
-      alignSelf: "center",
-    },
-  });
-
   const itemFromList = ({ item }: { item: Places }) => {
     return <PlaceItem item={item} />;
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <FlatList
         data={data}
         renderItem={itemFromList}

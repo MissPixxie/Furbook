@@ -9,12 +9,12 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import { AuthContext } from "../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { LinearGradient } from "expo-linear-gradient";
 import IP from "../../fetchIP";
-import { Ionicons } from "@expo/vector-icons";
-import { AuthContext } from "../context/AuthContext";
+import { Ionicons } from "@expo/vector-icons"; //import { AuthContext } from "../context/AuthContext";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface Props {
@@ -28,6 +28,25 @@ export const SignInScreen = ({ navigation }: Props) => {
   const { state, setState } = useContext(AuthContext);
   const { userID, userName, userEmail } = state.user;
 
+  // async function signIn() {
+  //   try {
+  //     const response = await fetch(IP + "/sign-in", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         email: "test@hotmail.se",
+  //         password: "1234",
+  //       }),
+  //     });
+  //     return await response.json();
+  //   } catch (error) {
+  //     if (error instanceof Error) {
+  //       console.log("error" + error);
+  //     }
+  //   }
+  // }
   async function signIn() {
     try {
       const response = await fetch(IP + "/sign-in", {

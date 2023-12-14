@@ -1,5 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useContext } from "react";
+import { AppStateStatus, Platform } from "react-native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -20,13 +22,17 @@ interface Props {
 export default function App({ children }: Props) {
   const { state } = useContext(AuthContext);
 
+  const queryClient = new QueryClient();
+
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <AuthProvider>
-          <AuthStack />
-          {children}
-        </AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <AuthStack />
+            {children}
+          </AuthProvider>
+        </QueryClientProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

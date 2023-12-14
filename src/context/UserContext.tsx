@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import { useReducer } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import UsersModel from "../../Server/models/UsersModel";
+import { Events, Places } from "../components/Types";
 
 interface Props {
   children: React.ReactNode;
@@ -23,13 +24,11 @@ interface User {
   userName: string;
   userEmail: string;
   userPwd: string;
-  userLocation: {
-    userCountry: string;
-    userCity: string;
-  };
+  userCountry: string;
+  userCity: string;
   userDogs: [];
-  userSavedPlaces: [];
-  userSavedEvents: [];
+  userSavedPlaces: Array<Places>;
+  userSavedEvents: Array<Events>;
   userMessages: [];
 }
 
@@ -40,10 +39,8 @@ export const defaultContextState: State = {
     userName: "",
     userEmail: "",
     userPwd: "",
-    userLocation: {
-      userCountry: "",
-      userCity: "",
-    },
+    userCountry: "",
+    userCity: "",
     userDogs: [],
     userSavedPlaces: [],
     userSavedEvents: [],
