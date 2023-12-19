@@ -17,6 +17,8 @@ export const TopTabNavigation = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
 
+  console.log(theme);
+
   const [search, setSearch] = useState<string>("");
   const updateSearch = (search: string) => {
     setSearch(search);
@@ -24,7 +26,7 @@ export const TopTabNavigation = () => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView>
+      <SafeAreaView style={{ backgroundColor: colors.background }}>
         <View>
           <SmallButton
             title="Filter"
@@ -65,7 +67,9 @@ export const TopTabNavigation = () => {
           tabBarStyle: { backgroundColor: colors.card },
           tabBarLabelStyle: { color: colors.text },
         }}
-        style={{ marginTop: "1%" }}
+        sceneContainerStyle={{
+          backgroundColor: colors.background,
+        }}
       >
         <Tab.Screen
           name="Dogs"

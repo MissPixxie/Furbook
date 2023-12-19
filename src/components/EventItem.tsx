@@ -46,11 +46,6 @@ export const EventItem = ({ item }: ItemProps) => {
   }, [isActive, item, state.user.userSavedEvents]);
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 10,
-      backgroundColor: colors.background,
-    },
     postContainer: {
       width: "100%",
       marginBottom: 20,
@@ -74,50 +69,52 @@ export const EventItem = ({ item }: ItemProps) => {
   });
 
   return (
-    <View style={styles.postContainer}>
-      {isActive ? (
-        <AntDesign
-          name="pushpin"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-end" }}
-          onPress={toggleSavedItems}
-        />
-      ) : (
-        <AntDesign
-          name="pushpino"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-end" }}
-          onPress={toggleSavedItems}
-        />
-      )}
-      <Text style={{ fontSize: 26, color: colors.text }}>{item.title}</Text>
-      <Text style={{ fontSize: 20, color: colors.text }}>{item.place}</Text>
-      <Text style={{ fontSize: 20, color: colors.text }}>{item.time}</Text>
-      <Pressable
-        onPress={() => {
-          setIsVisable(!isVisable);
-        }}
-        style={styles.arrowButton}
-      >
-        {isVisable ? (
-          <Entypo name="chevron-thin-up" size={42} color={colors.text} />
+    <View style={{ marginHorizontal: 10 }}>
+      <View style={styles.postContainer}>
+        {isActive ? (
+          <AntDesign
+            name="pushpin"
+            size={24}
+            color="black"
+            style={{ alignSelf: "flex-end" }}
+            onPress={toggleSavedItems}
+          />
         ) : (
-          <Entypo name="chevron-thin-down" size={42} color={colors.text} />
+          <AntDesign
+            name="pushpino"
+            size={24}
+            color="black"
+            style={{ alignSelf: "flex-end" }}
+            onPress={toggleSavedItems}
+          />
         )}
-      </Pressable>
-      {isVisable && (
-        <View>
-          <Text style={{ fontSize: 20, color: colors.text }}>
-            {item.description}
-          </Text>
-          <Text style={{ fontSize: 20, color: colors.text }}>
-            {item.typeOfEvent}
-          </Text>
-        </View>
-      )}
-      {item.date && <Text>{item.date.toString()}</Text>}
+        <Text style={{ fontSize: 26, color: colors.text }}>{item.title}</Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>{item.place}</Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>{item.time}</Text>
+        <Pressable
+          onPress={() => {
+            setIsVisable(!isVisable);
+          }}
+          style={styles.arrowButton}
+        >
+          {isVisable ? (
+            <Entypo name="chevron-thin-up" size={42} color={colors.text} />
+          ) : (
+            <Entypo name="chevron-thin-down" size={42} color={colors.text} />
+          )}
+        </Pressable>
+        {isVisable && (
+          <View>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.description}
+            </Text>
+            <Text style={{ fontSize: 20, color: colors.text }}>
+              {item.typeOfEvent}
+            </Text>
+          </View>
+        )}
+        {item.date && <Text>{item.date.toString()}</Text>}
+      </View>
     </View>
   );
 };

@@ -44,11 +44,6 @@ export const PlaceItem = ({ item }: ItemProps) => {
   };
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 10,
-      backgroundColor: colors.background,
-    },
     postContainer: {
       width: "100%",
       marginBottom: 20,
@@ -74,31 +69,40 @@ export const PlaceItem = ({ item }: ItemProps) => {
   });
 
   return (
-    <View style={styles.postContainer}>
-      {isActive ? (
-        <AntDesign
-          name="pushpin"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-end" }}
-          onPress={toggleSavedItems}
+    <View style={{ marginHorizontal: 10 }}>
+      <View style={styles.postContainer}>
+        {isActive ? (
+          <AntDesign
+            name="pushpin"
+            size={24}
+            color="black"
+            style={{ alignSelf: "flex-end" }}
+            onPress={toggleSavedItems}
+          />
+        ) : (
+          <AntDesign
+            name="pushpino"
+            size={24}
+            color="black"
+            style={{ alignSelf: "flex-end" }}
+            onPress={toggleSavedItems}
+          />
+        )}
+        <Image
+          style={styles.imgAvatar}
+          source={require("../Images/beach.jpg")}
         />
-      ) : (
-        <AntDesign
-          name="pushpino"
-          size={24}
-          color="black"
-          style={{ alignSelf: "flex-end" }}
-          onPress={toggleSavedItems}
-        />
-      )}
-      <Image style={styles.imgAvatar} source={require("../Images/beach.jpg")} />
-      <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
-      <Text style={{ fontSize: 20, color: colors.text }}>{item.category}</Text>
-      <Text style={{ fontSize: 20, color: colors.text }}>{item.location}</Text>
-      <Text style={{ fontSize: 20, color: colors.text }}>
-        {item.description}
-      </Text>
+        <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>
+          {item.category}
+        </Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>
+          {item.location}
+        </Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>
+          {item.description}
+        </Text>
+      </View>
     </View>
   );
 };

@@ -39,16 +39,10 @@ export const DogItem = ({ item }: ItemProps) => {
   };
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingHorizontal: 10,
-      backgroundColor: colors.background,
-    },
     postContainer: {
       width: "100%",
-      marginBottom: 20,
+      marginVertical: 10,
       flexDirection: "row",
-      justifyContent: "space-around",
       backgroundColor: colors.card,
       padding: 15,
       borderRadius: 10,
@@ -66,7 +60,7 @@ export const DogItem = ({ item }: ItemProps) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={{ marginHorizontal: 10 }}>
       <View style={styles.postContainer}>
         <Image
           style={styles.imgAvatar}

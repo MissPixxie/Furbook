@@ -1,13 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  FlatList,
-  Button,
-} from "react-native";
+import { FlatList, ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useFetch } from "./FetchData";
@@ -26,15 +19,7 @@ export const GetEvents = () => {
 
   console.log("GetEvents rendered");
 
-  const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
-
-  const { data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
       const response = await fetch(IP + "/events");
@@ -47,12 +32,16 @@ export const GetEvents = () => {
   };
 
   return (
-    <SafeAreaView>
-      <FlatList
-        data={data}
-        renderItem={itemFromList}
-        keyExtractor={(item) => item._id.toString()}
-      />
-    </SafeAreaView>
+    <View style={{ marginTop: 10 }}>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#3d8228" />
+      ) : (
+        <FlatList
+          data={data}
+          renderItem={itemFromList}
+          keyExtractor={(item) => item._id.toString()}
+        />
+      )}
+    </View>
   );
 };

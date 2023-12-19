@@ -101,7 +101,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={TopTabNavigation}
+        component={MessagesScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -111,7 +111,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen
         name="Search"
-        component={SearchScreen}
+        component={TopTabNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
