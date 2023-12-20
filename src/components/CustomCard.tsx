@@ -27,30 +27,27 @@ export const CustomCard = ({
   flexDirection,
 }: Props) => {
   const styles = StyleSheet.create({
-    button: {
-      width: "80%",
-      backgroundColor: bgColor,
+    linearGradient: {
+      padding: 20,
+      color: color,
       borderRadius: 10,
-      marginVertical: 10,
-      alignSelf: "center",
       shadowColor: "#171717",
       shadowOffset: { width: -2, height: 4 },
       shadowOpacity: 0.2,
       shadowRadius: 3,
       elevation: 3,
     },
-    text: {
-      fontSize: fontSize,
-      color: color,
-      paddingHorizontal: 5,
-      paddingVertical: 10,
-      textAlign: "center",
-    },
+    cardContainer: {},
   });
 
   return (
-    <LinearGradient colors={["#000", "#fff", "#000"]}>
-      {children}
-    </LinearGradient>
+    <View style={styles.cardContainer}>
+      <LinearGradient
+        colors={["#404040", "#333333", "#262626"]}
+        style={styles.linearGradient}
+      >
+        {children}
+      </LinearGradient>
+    </View>
   );
 };

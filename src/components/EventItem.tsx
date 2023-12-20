@@ -17,6 +17,8 @@ import IP from "../../fetchIP";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import { useMutation } from "@tanstack/react-query";
+import { useSaveEvent } from "../API/useSaveEvent";
 
 interface ItemProps {
   item: Events;
@@ -31,19 +33,26 @@ export const EventItem = ({ item }: ItemProps) => {
   const [isVisable, setIsVisable] = useState(false);
   const [isActive, setActive] = useState(false);
 
-  console.log(isActive);
+  // useEffect(() => {
+  //   if (isActive) {
+  //     const savedEvents = [...state.user.userSavedEvents];
+  //     savedEvents.push(item);
+  //     console.log(savedEvents);
+  //   }
+  // }, [isActive, item, state.user.userSavedEvents]);
+
+  const userMutation = useMutation({
+    mutationFn: async () => hello,
+  });
 
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
+    userMutation.mutate();
   };
 
-  useEffect(() => {
-    if (isActive) {
-      const savedEvents = [...state.user.userSavedEvents];
-      savedEvents.push(item);
-      console.log(savedEvents);
-    }
-  }, [isActive, item, state.user.userSavedEvents]);
+  function hello() {
+    console.log("hej");
+  }
 
   const styles = StyleSheet.create({
     postContainer: {
@@ -68,6 +77,8 @@ export const EventItem = ({ item }: ItemProps) => {
     },
   });
 
+  const nyttEvent = useSaveEvent({ eventId: item._id });
+
   return (
     <View style={{ marginHorizontal: 10 }}>
       <View style={styles.postContainer}>
@@ -91,6 +102,13 @@ export const EventItem = ({ item }: ItemProps) => {
         <Text style={{ fontSize: 26, color: colors.text }}>{item.title}</Text>
         <Text style={{ fontSize: 20, color: colors.text }}>{item.place}</Text>
         <Text style={{ fontSize: 20, color: colors.text }}>{item.time}</Text>
+
+        <View>
+          <Pressable onPress={nyttEvent}>
+            <Text>Tryck</Text>
+          </Pressable>
+        </View>
+
         <Pressable
           onPress={() => {
             setIsVisable(!isVisable);

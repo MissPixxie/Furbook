@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   Button,
   FlatList,
+  Pressable,
   RefreshControl,
   StyleSheet,
   Text,
@@ -14,6 +15,7 @@ import { CustomButton } from "../components/CustomButton";
 import { AuthContext, defaultContextState } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 // import { CustomDrawer } from "../navigation/CustomDrawer";
+import { fetchSavedEvents } from "../API/fetchSavedEvents";
 
 //ICONS
 import { Entypo } from "@expo/vector-icons";
@@ -22,6 +24,8 @@ import IP from "../../fetchIP";
 import { NavigationProp } from "@react-navigation/native";
 import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 import { EventItem } from "../components/EventItem";
+import { CustomCard } from "../components/CustomCard";
+import { useSaveEvent } from "../API/useSaveEvent";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
@@ -35,8 +39,13 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<Users[]>([]);
 
+  const { events } = fetchSavedEvents();
+
   const { colors } = theme;
   const { user } = state;
+
+  console.log(user.userSavedEvents);
+  console.log(events);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -44,6 +53,8 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
       setRefreshing(false);
     }, 2000);
   }, [data]);
+
+  console.log(fetchSavedEvents);
 
   const styles = StyleSheet.create({
     container: {
@@ -72,27 +83,23 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   });
 
   const itemFromList = ({ item }: { item: Events }) => {
-    return <EventItem item={item} />;
+    return (
+      <>
+        <CustomCard>
+          <EventItem item={item} />
+        </CustomCard>
+      </>
+    );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <OverlayComponent /> */}
-      <View style={styles.viewBox}>
-        <View style={styles.pinned}>
-          <Text>Pinned</Text>
-        </View>
-      </View>
-      <View style={styles.viewBox}>
-        <View style={styles.addStuff}>
-          <Text>Add stuff</Text>
-        </View>
-      </View>
+      <CustomCard color="white">
+        <Text>Hej</Text>
+        <Text>lgkjglkdfjglkdflgdfjkg</Text>
+      </CustomCard>
       <FlatList
         data={user.userSavedEvents}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
         renderItem={itemFromList}
         keyExtractor={(item) => item._id.toString()}
       />

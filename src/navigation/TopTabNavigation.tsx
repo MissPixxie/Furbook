@@ -17,8 +17,6 @@ export const TopTabNavigation = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
 
-  console.log(theme);
-
   const [search, setSearch] = useState<string>("");
   const updateSearch = (search: string) => {
     setSearch(search);

@@ -32,8 +32,6 @@ export const DogItem = ({ item }: ItemProps) => {
   const [isVisable, setIsVisable] = useState(false);
   const [isActive, setActive] = useState(false);
 
-  console.log(isActive);
-
   const toggleSavedItems = () => {
     setActive((prevState) => !prevState);
   };
