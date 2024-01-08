@@ -19,6 +19,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
 import { useMutation } from "@tanstack/react-query";
 import { useSaveEvent } from "../API/useSaveEvent";
+import { useRemoveSavedEvent } from "../API/useRemoveSavedEvent";
 
 interface ItemProps {
   item: Events;
@@ -77,7 +78,9 @@ export const EventItem = ({ item }: ItemProps) => {
     },
   });
 
-  const nyttEvent = useSaveEvent({ eventId: item._id });
+  const newEvent = useSaveEvent({ eventId: item._id });
+
+  const removeEvent = useRemoveSavedEvent({ eventId: item._id });
 
   return (
     <View style={{ marginHorizontal: 10 }}>
@@ -104,8 +107,11 @@ export const EventItem = ({ item }: ItemProps) => {
         <Text style={{ fontSize: 20, color: colors.text }}>{item.time}</Text>
 
         <View>
-          <Pressable onPress={nyttEvent}>
-            <Text>Tryck</Text>
+          <Pressable onPress={newEvent}>
+            <Text>Lägg till</Text>
+          </Pressable>
+          <Pressable onPress={removeEvent}>
+            <Text>Ta bort</Text>
           </Pressable>
         </View>
 

@@ -44,9 +44,6 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   const { colors } = theme;
   const { user } = state;
 
-  console.log(user.userSavedEvents);
-  console.log(events);
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -94,7 +91,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <CustomCard color="white">
+      {/* <CustomCard color="white">
         <Text>Hej</Text>
         <Text>lgkjglkdfjglkdflgdfjkg</Text>
       </CustomCard>
@@ -102,7 +99,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
         data={user.userSavedEvents}
         renderItem={itemFromList}
         keyExtractor={(item) => item._id.toString()}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
