@@ -1,4 +1,4 @@
-Hobbe project in React Native, social media platform for dog owners. Node.js Express backend with a MongoDB database.
+Hobby project in React Native, social media platform for dog owners. Node.js Express backend with a MongoDB database.
 
 ![mydogs-light](https://github.com/MissPixxie/Furbook/assets/78534885/447f19b1-e944-4a7c-adb3-1f1d0ef6f584)
 
