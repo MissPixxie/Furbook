@@ -14,6 +14,7 @@ import {
   KeyboardAvoidingView,
   Image,
   Pressable,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
