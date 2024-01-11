@@ -82,10 +82,10 @@ export const TopTabNavigation = () => {
           options={{
             tabBarIndicatorStyle: { backgroundColor: "#992899" },
             tabBarContentContainerStyle: {
-              backgroundColor: "blue",
+              backgroundColor: colors.secondary,
             },
             tabBarItemStyle: {
-              backgroundColor: "green",
+              backgroundColor: colors.secondaryLight,
               borderRadius: 5,
             },
             tabBarGap: 10,

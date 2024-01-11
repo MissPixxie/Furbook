@@ -11,6 +11,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import Svg, { Ellipse, G } from "react-native-svg";
 
 interface Props {
   navigation: any;
@@ -54,6 +55,8 @@ export const CustomDrawer = ({ navigation }: Props) => {
           backgroundColor: "white",
           justifyContent: "center",
           alignItems: "center",
+          borderBottomWidth: 2,
+          borderBottomColor: "#EBF9E0",
         }}
       >
         <Image
@@ -64,6 +67,44 @@ export const CustomDrawer = ({ navigation }: Props) => {
       <View
         style={{ paddingTop: 20, flex: 4, backgroundColor: colors.background }}
       >
+        <Svg
+          style={{
+            position: "absolute",
+            zIndex: -1,
+          }}
+        >
+          <G transform="translate(34.427 -197.218)">
+            <Ellipse
+              cx={189.5}
+              cy={332.5}
+              fill={theme.dark ? "#F3FFEB" : "#FFF"}
+              fillOpacity={theme.dark ? 0.4 : 1}
+              rx={189.5}
+              ry={332.5}
+              transform="rotate(12.04 -857.228 859.75)"
+            />
+            <Ellipse
+              cx={183.572}
+              cy={323.196}
+              fill="#EBF9E0"
+              fillOpacity={theme.dark ? 0.3 : 0.9}
+              opacity={0.61}
+              rx={183.572}
+              ry={323.196}
+              transform="rotate(-5 3651.248 -191.369)"
+            />
+            <Ellipse
+              cx={189.5}
+              cy={332.5}
+              fill={theme.dark ? "#DBF1CA" : "#86AE69"}
+              fillOpacity={theme.dark ? 0.4 : 0.1}
+              opacity={0.76}
+              rx={189.5}
+              ry={332.5}
+              transform="rotate(-19.01 1470.716 351.908)"
+            />
+          </G>
+        </Svg>
         <View style={styles.links}>
           <View style={styles.titleContainer}>
             <Ionicons name="person" size={20} color={colors.text} />
@@ -73,25 +114,25 @@ export const CustomDrawer = ({ navigation }: Props) => {
             title="Profile"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <CustomButton
             title="Privacy settings"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <CustomButton
             title="Notifications"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <CustomButton
             title="Theme"
             fontSize={16}
             onPress={toggleTheme}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <View style={styles.titleContainer}>
             <FontAwesome name="question-circle" size={20} color={colors.text} />
@@ -101,19 +142,19 @@ export const CustomDrawer = ({ navigation }: Props) => {
             title="About Furbooks"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <CustomButton
             title="Contact"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
           <CustomButton
             title="Privacy policy"
             fontSize={16}
             onPress={() => {}}
-            bgColor={colors.secondary}
+            bgColor={colors.secondaryLight}
           />
         </View>
         <View>
@@ -125,8 +166,6 @@ export const CustomDrawer = ({ navigation }: Props) => {
               justifyContent: "center",
               alignItems: "center",
               paddingVertical: 20,
-              borderTopColor: theme.dark ? colors.background : "#9c9c9c",
-              borderTopWidth: 2,
             }}
           >
             <TouchableOpacity

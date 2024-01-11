@@ -11,6 +11,7 @@ interface Theme {
   colors: {
     primary: string;
     secondary: string;
+    secondaryLight: string;
     background: string;
     card: string;
     inputs: string;
@@ -37,6 +38,7 @@ const MyTheme: MyTheme = {
     colors: {
       primary: "#373737",
       secondary: "#e2e2e2",
+      secondaryLight: "#E5E5E5",
       background: "#151515",
       card: "#272727",
       inputs: "#272727",
@@ -52,6 +54,7 @@ const MyTheme: MyTheme = {
     colors: {
       primary: "#f4f4f4",
       secondary: "#e2e2e2",
+      secondaryLight: "#FEFEFE",
       background: "#f3f3f3",
       card: "#fff",
       inputs: "#fff",
