@@ -3,13 +3,14 @@ import { GetDogs } from "../components/GetDogs";
 import { GetEvents } from "../components/GetEvents";
 import { GetPlaces } from "../components/GetPlaces";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { Entypo, FontAwesome, Ionicons, AntDesign } from "@expo/vector-icons";
 import { SmallButton } from "../components/SmallButton";
 import { GradientTabIndicator } from "./GradientTabIndicator";
 import { SearchBar } from "@rneui/themed";
+import { CustomCard } from "../components/CustomCard";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,6 +22,12 @@ export const TopTabNavigation = () => {
   const updateSearch = (search: string) => {
     setSearch(search);
   };
+
+  const styles = StyleSheet.create({
+    tabBarContainerStyle: {
+      backgroundColor: "blue",
+    },
+  });
 
   return (
     <SafeAreaProvider>
@@ -45,14 +52,14 @@ export const TopTabNavigation = () => {
               backgroundColor: "#fff",
             }}
             searchIcon={{
-              size: 32,
-              color: colors.text,
+              size: 26,
+              color: "black",
             }}
             inputStyle={{
-              fontSize: 20,
-              color: colors.text,
+              fontSize: 16,
+              color: "black",
             }}
-            placeholderTextColor={colors.text}
+            placeholderTextColor={"black"}
             placeholder="Type Here..."
             onChangeText={updateSearch}
             value={search}
@@ -74,6 +81,15 @@ export const TopTabNavigation = () => {
           component={GetDogs}
           options={{
             tabBarIndicatorStyle: { backgroundColor: "#992899" },
+            tabBarContentContainerStyle: {
+              backgroundColor: "blue",
+            },
+            tabBarItemStyle: {
+              backgroundColor: "green",
+              borderRadius: 5,
+            },
+            tabBarGap: 10,
+
             // tabBarLabel: () => <SmallButton title="Dogs" bgColor="#e2e2e2" />,
           }}
           // options={{

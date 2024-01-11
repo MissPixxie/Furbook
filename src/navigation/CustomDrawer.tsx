@@ -9,6 +9,7 @@ import { ThemeContext } from "../context/ThemeContext";
 
 //ICONS
 import { FontAwesome, Ionicons, Octicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 
 interface Props {
   navigation: any;
@@ -26,99 +27,114 @@ export const CustomDrawer = ({ navigation }: Props) => {
       contentContainerStyle={{
         flex: 1,
         justifyContent: "space-between",
+        backgroundColor: "white",
       }}
     >
       <View>
         <View
           style={{
-            flexDirection: "row",
+            backgroundColor: "white",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: 10,
           }}
         >
-          <Ionicons name="person" size={24} color={colors.text} />
-          <Text
+          <Image
+            source={require("../Images/avatar.jpg")}
+            style={{ height: 120, width: 120, borderRadius: 60 }}
+          />
+        </View>
+        <View style={{ backgroundColor: "#F6F6F6", paddingTop: 20 }}>
+          <View
             style={{
-              fontSize: 28,
-              color: colors.text,
-              marginLeft: 15,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 10,
             }}
           >
-            Account
-          </Text>
-        </View>
+            <Ionicons name="person" size={24} color={colors.text} />
+            <Text
+              style={{
+                fontSize: 28,
+                color: colors.text,
+                marginLeft: 15,
+              }}
+            >
+              Account
+            </Text>
+          </View>
 
-        {/* <DrawerItem
+          {/* <DrawerItem
           label="Settings"
           icon={({ focused, color, size }) => (
             <Ionicons name="settings-sharp" size={24} color="black" />
           )}
           onPress={() => navigation.navigate("Settings")}
         /> */}
-        <CustomButton
-          title="Profile"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
-        <CustomButton
-          title="Privacy settings"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
-        <CustomButton
-          title="Notifications"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
-        <CustomButton
-          title="Theme"
-          fontSize={20}
-          onPress={toggleTheme}
-          bgColor={colors.secondary}
-        />
-      </View>
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: 10,
-          }}
-        >
-          <FontAwesome name="question-circle" size={24} color={colors.text} />
-          <Text
+          <CustomButton
+            title="Profile"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
+          <CustomButton
+            title="Privacy settings"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
+          <CustomButton
+            title="Notifications"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
+          <CustomButton
+            title="Theme"
+            fontSize={20}
+            onPress={toggleTheme}
+            bgColor={colors.secondary}
+          />
+        </View>
+        <View>
+          <View
             style={{
-              fontSize: 28,
-              color: colors.text,
-              marginLeft: 15,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 10,
             }}
           >
-            Help
-          </Text>
+            <FontAwesome name="question-circle" size={24} color={colors.text} />
+            <Text
+              style={{
+                fontSize: 28,
+                color: colors.text,
+                marginLeft: 15,
+              }}
+            >
+              Help
+            </Text>
+          </View>
+          <CustomButton
+            title="About Furbooks"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
+          <CustomButton
+            title="Contact"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
+          <CustomButton
+            title="Privacy policy"
+            fontSize={20}
+            onPress={() => {}}
+            bgColor={colors.secondary}
+          />
         </View>
-        <CustomButton
-          title="About Furbooks"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
-        <CustomButton
-          title="Contact"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
-        <CustomButton
-          title="Privacy policy"
-          fontSize={20}
-          onPress={() => {}}
-          bgColor={colors.secondary}
-        />
       </View>
       <View
         style={{
@@ -137,14 +153,14 @@ export const CustomDrawer = ({ navigation }: Props) => {
           }}
           style={{
             flexDirection: "row",
-            marginTop: 20,
+            marginTop: 15,
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 24, marginRight: 25, color: colors.text }}>
+          <Text style={{ fontSize: 18, marginRight: 25, color: colors.text }}>
             Sign out
           </Text>
-          <Octicons name="sign-out" size={26} color={colors.text} />
+          <Octicons name="sign-out" size={22} color={colors.text} />
         </TouchableOpacity>
 
         {/* <DrawerItem

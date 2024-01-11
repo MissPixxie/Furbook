@@ -28,6 +28,7 @@ import { EventItem } from "../components/EventItem";
 import { CustomCard } from "../components/CustomCard";
 import { useSaveEvent } from "../API/useSaveEvent";
 import { Image } from "expo-image";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
@@ -116,7 +117,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ height: 100, width: 300, backgroundColor: "blue" }}>
+      {/* <View style={{ height: 100, width: 300, backgroundColor: "blue" }}>
         <Text>Some text</Text>
       </View>
       <View style={{ height: 100, width: 300, backgroundColor: "pink" }}>
@@ -127,7 +128,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
         {image && (
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         )}
-      </View>
+      </View> */}
       {/* <CustomCard color="white">
         <Text>Hej</Text>
         <Text>lgkjglkdfjglkdflgdfjkg</Text>
@@ -137,6 +138,14 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
         renderItem={itemFromList}
         keyExtractor={(item) => item._id.toString()}
       /> */}
+      <LinearGradient
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        colors={["#4c669f", "#3b5998", "#192f6a"]}
+        style={{ padding: 20 }}
+      >
+        <Text>Hello</Text>
+      </LinearGradient>
     </SafeAreaView>
   );
 };

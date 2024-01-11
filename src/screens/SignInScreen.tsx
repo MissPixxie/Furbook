@@ -94,12 +94,6 @@ export const SignInScreen = ({ navigation }: Props) => {
   }
 
   return (
-    // <ImageBackground
-    //   source={require("../Images/alvan-nee-1VgfQdCuX-4-unsplash.jpg")}
-    //   resizeMode="cover"
-    //   resizeMethod="auto"
-    //   style={{ flex: 1 }}
-    // >
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
@@ -162,19 +156,27 @@ export const SignInScreen = ({ navigation }: Props) => {
               <Text style={styles.signInButtonText}>Sign in</Text>
             </LinearGradient>
           </TouchableOpacity>
-
-          <Pressable onPress={() => navigation.navigate("Sign up")}>
-            <Text style={styles.SignUpButton}>Register</Text>
-          </Pressable>
-
           <Pressable onPress={() => Alert.alert("Glömt lösenord")}>
             <Text style={styles.forgotPasswordButton}>Forgot password?</Text>
           </Pressable>
+          <View style={styles.SignUpButton}>
+            <Text>Don't have an account? </Text>
+            <Pressable onPress={() => navigation.navigate("Sign up")}>
+              <Text
+                style={{
+                  color: "#597D3E",
+                  fontWeight: "bold",
+                  fontSize: 16,
+                }}
+              >
+                Sign up
+              </Text>
+            </Pressable>
+          </View>
         </View>
+        {/* </Svg> */}
       </View>
-      {/* </Svg> */}
     </View>
-    // </View>
     //   <SafeAreaView>
     //  </SafeAreaView>
     //</ImageBackground>
@@ -200,6 +202,8 @@ const styles = StyleSheet.create({
   input: {
     flexDirection: "row",
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#D0ECBB",
     padding: 10,
     backgroundColor: "#fff",
     marginBottom: 10,
@@ -213,7 +217,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "black",
+    color: "#597D3E",
     marginTop: 15,
     textAlign: "center",
   },
@@ -233,20 +237,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   SignUpButton: {
-    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
     textAlign: "center",
     paddingHorizontal: 10,
     paddingVertical: 15,
-    borderRadius: 5,
-    elevation: 3,
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: "bold",
     letterSpacing: 0.25,
     color: "black",
-    marginTop: 10,
-    borderWidth: 2,
-    borderColor: "#597D3E",
+    marginTop: 15,
   },
 });

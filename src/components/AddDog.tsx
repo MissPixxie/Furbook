@@ -31,6 +31,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
 import { Dogs } from "./Types";
 import { request } from "../../Server/app";
+import { forEachChild } from "typescript";
 
 interface Props {
   closeModal: () => void;
@@ -65,6 +66,7 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
   ]);
+
   // const pickerRef = useRef<any>();
 
   // function open() {
@@ -93,42 +95,6 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
         setImage(`${result.assets[0].uri}`);
       }
     }
-  };
-
-  const requestCameraPermission = () => {
-    let result = ImagePicker.getCameraPermissionsAsync();
-    if (ImagePicker.PermissionStatus.GRANTED) {
-      console.log(result);
-      return result;
-    } else {
-      console.log("Access Denied");
-    }
-  };
-
-  console.log(cameraPermission);
-
-  const takeImageFromCamera = async () => {
-    console.log(cameraPermission);
-    // let result = await requestCameraPermission();
-    // console.log(result);
-    // if (result?.granted == true) {
-    //   ImagePicker.launchCameraAsync();
-    // } else {
-    //   console.log("Access failed");
-    // }
-    //let permission = await requestCameraPermission();
-
-    // if(permission.assets) {
-    //   ImagePicker.
-    // }
-    // let result = await ImagePicker.requestCameraPermissionsAsync();
-
-    // if (!result.granted) {
-    //   console.log("Access granted");
-    //   ImagePicker.launchCameraAsync({
-    //     aspect: [4, 3],
-    //   });
-    // }
   };
 
   console.log(neutered);
@@ -210,8 +176,26 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
     exitButton: {
       alignSelf: "flex-end",
       color: "#5d5d5d",
-      marginHorizontal: 20,
-      marginTop: 20,
+      marginHorizontal: 10,
+      marginTop: 10,
+    },
+    ImageContainer: {
+      alignItems: "center",
+      justifyContent: "center",
+      marginBottom: 10,
+    },
+    ImageIconContainer: {
+      position: "absolute",
+      zIndex: 1,
+      top: 110,
+      right: 95,
+      backgroundColor: "#597D3E",
+    },
+    ImageIcon: {
+      position: "relative",
+      zIndex: 2,
+      top: 110,
+      right: 95,
     },
   });
 
@@ -246,32 +230,28 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
                 onPress={closeModal}
               />
               <View style={styles.inputs}>
-                <View
-                  style={{
-                    flex: 1,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button title="From camera roll" onPress={pickImage} />
-                  <Button title="Take image" onPress={takeImageFromCamera} />
-                  {image && (
+                <View style={styles.ImageContainer}>
+                  {image ? (
                     <Image
                       source={{ uri: image }}
-                      style={{ width: 200, height: 200 }}
+                      style={{ width: 200, height: 200, zIndex: -1 }}
+                    />
+                  ) : (
+                    <Image
+                      source={require("../Images/OGBUB40.jpg")}
+                      style={{ width: 140, height: 140, zIndex: -1 }}
                     />
                   )}
+                  <View style={styles.ImageIconContainer}>
+                    <MaterialIcons
+                      name="add-a-photo"
+                      size={36}
+                      color="black"
+                      onPress={pickImage}
+                      style={styles.ImageIcon}
+                    />
+                  </View>
                 </View>
-                <Picker
-                  // ref={pickerRef}
-                  selectedValue={selectedImageUpload}
-                  onValueChange={(itemValue, itemIndex) =>
-                    setSelectedImageUpload(itemValue)
-                  }
-                >
-                  <Picker.Item label="Java" value="java" />
-                  <Picker.Item label="JavaScript" value="js" />
-                </Picker>
                 <View style={styles.Input}>
                   <TextInput
                     onChangeText={setName}
