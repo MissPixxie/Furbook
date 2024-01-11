@@ -116,9 +116,9 @@ export const DogsScreen = ({ route, navigation }: Props) => {
       borderRadius: 10,
       backgroundColor: colors.card,
       shadowColor: "#080808",
-      shadowOffset: { width: -5, height: 4 },
-      shadowOpacity: 0.9,
-      shadowRadius: 3,
+      shadowOffset: { width: -1, height: 2 },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
       elevation: 4,
     },
     imgAvatar: {

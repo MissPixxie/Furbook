@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import {
   StyleSheet,
@@ -9,13 +9,19 @@ import {
   Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Button,
+  PermissionsAndroid,
+  Platform,
 } from "react-native";
+import { Image } from "expo-image";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Overlay } from "@rneui/themed";
 import DropDownPicker from "react-native-dropdown-picker";
 // COMPONENTS
 import IP from "../../fetchIP";
 import { CustomButton } from "./CustomButton";
+import * as ImagePicker from "expo-image-picker";
+import { Picker } from "@react-native-picker/picker";
 
 // ICONS
 import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
@@ -24,6 +30,7 @@ import { Foundation, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
 import { Dogs } from "./Types";
+import { request } from "../../Server/app";
 
 interface Props {
   closeModal: () => void;
@@ -37,6 +44,10 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
   const owner = user.userID;
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { colors } = theme;
+  const [image, setImage] = useState<string | null>(null);
+  const [selectedImageUpload, setSelectedImageUpload] = useState();
+  const [cameraPermission, setCameraPermission] =
+    ImagePicker.useCameraPermissions();
 
   // INPUTS
   const [name, setName] = useState("");
@@ -54,6 +65,71 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
   ]);
+  // const pickerRef = useRef<any>();
+
+  // function open() {
+  //   if (pickerRef != undefined) {
+  //     pickerRef.current.focus();
+  //   }
+  // }
+
+  // function close() {
+  //   if (pickerRef != undefined) {
+  //     pickerRef.current.blur();
+  //   }
+  // }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      console.log("PickImage function" + result);
+      if (result.assets[0].uri != null) {
+        setImage(`${result.assets[0].uri}`);
+      }
+    }
+  };
+
+  const requestCameraPermission = () => {
+    let result = ImagePicker.getCameraPermissionsAsync();
+    if (ImagePicker.PermissionStatus.GRANTED) {
+      console.log(result);
+      return result;
+    } else {
+      console.log("Access Denied");
+    }
+  };
+
+  console.log(cameraPermission);
+
+  const takeImageFromCamera = async () => {
+    console.log(cameraPermission);
+    // let result = await requestCameraPermission();
+    // console.log(result);
+    // if (result?.granted == true) {
+    //   ImagePicker.launchCameraAsync();
+    // } else {
+    //   console.log("Access failed");
+    // }
+    //let permission = await requestCameraPermission();
+
+    // if(permission.assets) {
+    //   ImagePicker.
+    // }
+    // let result = await ImagePicker.requestCameraPermissionsAsync();
+
+    // if (!result.granted) {
+    //   console.log("Access granted");
+    //   ImagePicker.launchCameraAsync({
+    //     aspect: [4, 3],
+    //   });
+    // }
+  };
 
   console.log(neutered);
   async function newDog() {
@@ -170,6 +246,32 @@ export const AddDog = ({ closeModal, updateFunction }: Props) => {
                 onPress={closeModal}
               />
               <View style={styles.inputs}>
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button title="From camera roll" onPress={pickImage} />
+                  <Button title="Take image" onPress={takeImageFromCamera} />
+                  {image && (
+                    <Image
+                      source={{ uri: image }}
+                      style={{ width: 200, height: 200 }}
+                    />
+                  )}
+                </View>
+                <Picker
+                  // ref={pickerRef}
+                  selectedValue={selectedImageUpload}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setSelectedImageUpload(itemValue)
+                  }
+                >
+                  <Picker.Item label="Java" value="java" />
+                  <Picker.Item label="JavaScript" value="js" />
+                </Picker>
                 <View style={styles.Input}>
                   <TextInput
                     onChangeText={setName}

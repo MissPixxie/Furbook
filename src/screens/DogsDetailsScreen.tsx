@@ -21,7 +21,6 @@ import { ThemeContext } from "../context/ThemeContext";
 import { AddDog } from "../components/AddDog";
 import { CustomButton } from "../components/CustomButton";
 import IP from "../../fetchIP";
-import { deleteData } from "../components/CRUD/Delete";
 
 interface Props {
   navigation: any;
@@ -76,28 +75,10 @@ export const DogsDetailsScreen = ({ route, navigation }: Props) => {
       backgroundColor: colors.background,
       paddingHorizontal: 10,
     },
-    postContainer: {
-      width: "100%",
-      marginBottom: 20,
-      flexDirection: "row",
-      justifyContent: "space-around",
-      padding: 15,
-      borderRadius: 10,
-      backgroundColor: colors.card,
-      shadowColor: "#080808",
-      shadowOffset: { width: -5, height: 4 },
-      shadowOpacity: 0.9,
-      shadowRadius: 3,
-      elevation: 4,
-    },
     imgAvatar: {
       width: 100,
       height: 100,
       borderRadius: 400 / 2,
-    },
-    aboutText: {
-      color: colors.text,
-      fontSize: 24,
     },
   });
 

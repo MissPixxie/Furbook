@@ -1,10 +1,23 @@
 {
   "expo": {
+    "ios": {
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Access is required for photos",
+        "NSCameraUsageDescription": "Access is required for using camera",
+        "NSMicrophoneUsageDescription": "Access is required for using camera"
+      }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photopermission": "Access is required for photos"
+        }
+      ]
+    ],
     "name": "authTest",
     "slug": "authTest",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   }
 }

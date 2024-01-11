@@ -71,37 +71,38 @@ export const PlaceItem = ({ item }: ItemProps) => {
   return (
     <View style={{ marginHorizontal: 10 }}>
       <View style={styles.postContainer}>
+        <Image
+          style={styles.imgAvatar}
+          source={require("../Images/beach.jpg")}
+        />
+        <Text style={{ fontSize: 20, color: colors.text }}>{item.name}</Text>
+        <Text style={{ fontSize: 16, color: colors.text }}>
+          {item.category}
+        </Text>
+        <Text style={{ fontSize: 16, color: colors.text }}>
+          {item.location}
+        </Text>
+        <Text style={{ fontSize: 16, color: colors.text }}>
+          {item.description}
+        </Text>
         {isActive ? (
-          <AntDesign
-            name="pushpin"
+          <Entypo
+            name="heart-outlined"
             size={24}
             color="black"
+            theme={"outlined"}
             style={{ alignSelf: "flex-end" }}
             onPress={toggleSavedItems}
           />
         ) : (
-          <AntDesign
-            name="pushpino"
+          <Entypo
+            name="heart"
             size={24}
             color="black"
             style={{ alignSelf: "flex-end" }}
             onPress={toggleSavedItems}
           />
         )}
-        <Image
-          style={styles.imgAvatar}
-          source={require("../Images/beach.jpg")}
-        />
-        <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
-        <Text style={{ fontSize: 20, color: colors.text }}>
-          {item.category}
-        </Text>
-        <Text style={{ fontSize: 20, color: colors.text }}>
-          {item.location}
-        </Text>
-        <Text style={{ fontSize: 20, color: colors.text }}>
-          {item.description}
-        </Text>
       </View>
     </View>
   );

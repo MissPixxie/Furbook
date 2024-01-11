@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
 
 //COMPONENTS
 import { CustomButton } from "../components/CustomButton";
@@ -26,6 +27,7 @@ import { Users, Dogs, Events, Places, Messages } from "../components/Types";
 import { EventItem } from "../components/EventItem";
 import { CustomCard } from "../components/CustomCard";
 import { useSaveEvent } from "../API/useSaveEvent";
+import { Image } from "expo-image";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
@@ -38,6 +40,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<Users[]>([]);
+  const [image, setImage] = useState<string | null>(null);
 
   const { events } = fetchSavedEvents();
 
@@ -89,8 +92,42 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
     );
   };
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    // const takeImageFromCamera = () => {
+    //   ImagePicker.launchCameraAsync();
+    // };
+
+    if (!result.canceled) {
+      console.log(result);
+      if (result.assets[0].uri != null) {
+        setImage(`${result.assets[0].uri}`);
+        console.log(result.assets[0].uri);
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{ height: 100, width: 300, backgroundColor: "blue" }}>
+        <Text>Some text</Text>
+      </View>
+      <View style={{ height: 100, width: 300, backgroundColor: "pink" }}>
+        <Text>Some other text</Text>
+      </View>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+        {image && (
+          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        )}
+      </View>
       {/* <CustomCard color="white">
         <Text>Hej</Text>
         <Text>lgkjglkdfjglkdflgdfjkg</Text>

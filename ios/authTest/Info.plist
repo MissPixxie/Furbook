@@ -51,5 +51,11 @@
 	<false/>
   <key>UIStatusBarStyle</key>
   <string>UIStatusBarStyleDefault</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Access is required for photos</string>
+    <key>NSCameraUsageDescription</key>
+	  <string>Access is required for using camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	  <string>Access is required for using camera</string>
 </dict>
 </plist>
