@@ -12,7 +12,7 @@ interface Props {
   icon?: any;
 }
 
-type FontSize = 18 | 20 | 22 | 26 | 28 | 32;
+type FontSize = 16 | 18 | 20 | 22 | 26 | 28 | 32;
 
 export const CustomButton = ({
   title,
