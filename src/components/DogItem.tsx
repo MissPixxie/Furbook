@@ -9,6 +9,19 @@ import {
   Button,
   Image,
 } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+  withRepeat,
+  SlideInUp,
+  withDelay,
+  withSequence,
+  StretchInX,
+  FlipInEasyX,
+  Easing,
+} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useFetch } from "./FetchData";
@@ -58,32 +71,57 @@ export const DogItem = ({ item }: ItemProps) => {
   });
 
   return (
-    <View style={{ marginHorizontal: 10 }}>
-      <View style={styles.postContainer}>
-        <Image
-          style={styles.imgAvatar}
-          source={require("../Images/OGBUB40.jpg")}
-        />
-        <View style={{ marginLeft: 15, alignSelf: "flex-start" }}>
-          <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
-          <Text style={{ fontSize: 18, color: colors.text }}>{item.sex}</Text>
-          <Text style={{ fontSize: 18, color: colors.text }}>{item.breed}</Text>
-          <Text style={{ fontSize: 18, color: colors.text }}>
-            {item.neutered}
-          </Text>
-        </View>
-        <Text
-          style={{
-            fontSize: 20,
-            color: colors.text,
-            flexGrow: 2,
-            textAlign: "right",
-            marginRight: 10,
-          }}
-        >
-          {item.age}
+    <Animated.View style={styles.postContainer}>
+      <Image
+        style={styles.imgAvatar}
+        source={require("../Images/OGBUB40.jpg")}
+      />
+      <View style={{ marginLeft: 15, alignSelf: "flex-start" }}>
+        <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
+        <Text style={{ fontSize: 18, color: colors.text }}>{item.sex}</Text>
+        <Text style={{ fontSize: 18, color: colors.text }}>{item.breed}</Text>
+        <Text style={{ fontSize: 18, color: colors.text }}>
+          {item.neutered}
         </Text>
       </View>
-    </View>
+      <Text
+        style={{
+          fontSize: 20,
+          color: colors.text,
+          flexGrow: 2,
+          textAlign: "right",
+          marginRight: 10,
+        }}
+      >
+        {item.age}
+      </Text>
+    </Animated.View>
+    // <View style={{ marginHorizontal: 10 }}>
+    //   <View style={styles.postContainer}>
+    //     <Image
+    //       style={styles.imgAvatar}
+    //       source={require("../Images/OGBUB40.jpg")}
+    //     />
+    //     <View style={{ marginLeft: 15, alignSelf: "flex-start" }}>
+    //       <Text style={{ fontSize: 26, color: colors.text }}>{item.name}</Text>
+    //       <Text style={{ fontSize: 18, color: colors.text }}>{item.sex}</Text>
+    //       <Text style={{ fontSize: 18, color: colors.text }}>{item.breed}</Text>
+    //       <Text style={{ fontSize: 18, color: colors.text }}>
+    //         {item.neutered}
+    //       </Text>
+    //     </View>
+    //     <Text
+    //       style={{
+    //         fontSize: 20,
+    //         color: colors.text,
+    //         flexGrow: 2,
+    //         textAlign: "right",
+    //         marginRight: 10,
+    //       }}
+    //     >
+    //       {item.age}
+    //     </Text>
+    //   </View>
+    // </View>
   );
 };

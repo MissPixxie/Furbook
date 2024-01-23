@@ -9,6 +9,17 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  withSpring,
+  withRepeat,
+  SlideInUp,
+  withDelay,
+  withSequence,
+  StretchInX,
+} from "react-native-reanimated";
 import * as ImagePicker from "expo-image-picker";
 
 //COMPONENTS
@@ -17,9 +28,6 @@ import { AuthContext, defaultContextState } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 // import { CustomDrawer } from "../navigation/CustomDrawer";
 import { fetchSavedEvents } from "../API/fetchSavedEvents";
-
-//ICONS
-import { Entypo } from "@expo/vector-icons";
 import { useFetch } from "../components/FetchData";
 import IP from "../../fetchIP";
 import { NavigationProp } from "@react-navigation/native";
@@ -29,6 +37,9 @@ import { CustomCard } from "../components/CustomCard";
 import { useSaveEvent } from "../API/useSaveEvent";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+
+//ICONS
+import { Entypo } from "@expo/vector-icons";
 
 interface RouterProps {
   navigation: NavigationProp<any, any>;
@@ -41,7 +52,12 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<Users[]>([]);
-  const [image, setImage] = useState<string | null>(null);
+  const [animationIsActive, setAnimationIsActive] = useState(false);
+  const toggleAnimation = () => {
+    console.log(animationIsActive);
+    setAnimationIsActive((previousState) => !previousState);
+    triggerAnimation();
+  };
 
   const { events } = fetchSavedEvents();
 
@@ -64,23 +80,6 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
       alignItems: "center",
       backgroundColor: colors.background,
     },
-    viewBox: {
-      flex: 2,
-      width: "100%",
-      backgroundColor: colors.primary,
-      padding: 20,
-    },
-    pinned: {
-      flex: 2,
-      width: "100%",
-      backgroundColor: colors.secondary,
-    },
-    addStuff: {
-      flex: 2,
-      width: "100%",
-      backgroundColor: colors.secondary,
-      borderRadius: 15,
-    },
   });
 
   const itemFromList = ({ item }: { item: Events }) => {
@@ -93,59 +92,89 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
     );
   };
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  const scaleX = useSharedValue(0);
+  const scaleY = useSharedValue(0);
+  const initialBottomPosition = useSharedValue(0);
+  const initialLeftPosition = useSharedValue(0);
+  const initialWidth = useSharedValue("0%");
 
-    // const takeImageFromCamera = () => {
-    //   ImagePicker.launchCameraAsync();
-    // };
+  const reanimatedStyle = useAnimatedStyle(() => {
+    return {
+      // transform: [{ scaleX: scaleX.value }, { scaleY: scaleX.value }],
+      bottom: initialBottomPosition.value,
+      left: initialLeftPosition.value,
+      width: initialWidth.value,
+    };
+  }, []);
 
-    if (!result.canceled) {
-      console.log(result);
-      if (result.assets[0].uri != null) {
-        setImage(`${result.assets[0].uri}`);
-        console.log(result.assets[0].uri);
-      }
+  const triggerAnimation = () => {
+    if (animationIsActive) {
+      // scaleX.value = withSpring(1);
+      // scaleY.value = withTiming(1);
+      initialLeftPosition.value = withRepeat(
+        withTiming(145, { duration: 1000 }),
+        1,
+        true
+      );
+      initialBottomPosition.value = withRepeat(
+        withTiming(-250, { duration: 1000 }),
+        1,
+        true
+      );
+      initialWidth.value = withSpring("5%");
+      // if (bottomPosition.value === 50) {
+      //   width.value = withSpring("90%", { damping: 50 });
+      // }
+    } else {
+      // scaleX.value = withSpring(0);
+      // scaleY.value = withSpring(0);
+      initialWidth.value = withSpring("0%", { damping: 50 });
+      initialBottomPosition.value = withRepeat(
+        withTiming(-100, { duration: 1000 }),
+        1,
+        true
+      );
+      initialLeftPosition.value = withRepeat(
+        withTiming(40, { duration: 1000 }),
+        1,
+        true
+      );
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={{ height: 100, width: 300, backgroundColor: "blue" }}>
-        <Text>Some text</Text>
+      <View style={styles.container}>
+        <Animated.View
+          style={[
+            {
+              height: 200,
+              width: "5%",
+              backgroundColor: "gray",
+              position: "absolute",
+              zIndex: 1,
+              bottom: -250,
+              left: 145,
+            },
+            reanimatedStyle,
+          ]}
+        />
       </View>
-      <View style={{ height: 100, width: 300, backgroundColor: "pink" }}>
-        <Text>Some other text</Text>
+      <View>
+        <Text>Activities</Text>
       </View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Button title="Pick an image from camera roll" onPress={pickImage} />
-        {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-        )}
-      </View> */}
-      {/* <CustomCard color="white">
-        <Text>Hej</Text>
-        <Text>lgkjglkdfjglkdflgdfjkg</Text>
-      </CustomCard>
-      <FlatList
-        data={user.userSavedEvents}
-        renderItem={itemFromList}
-        keyExtractor={(item) => item._id.toString()}
-      /> */}
-      <LinearGradient
+      {/* <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         colors={["#4c669f", "#3b5998", "#192f6a"]}
         style={{ padding: 20 }}
       >
+        <Animated.View
+          style={[{ height: SIZE, width: SIZE }, reanimatedStyle]}
+        />
         <Text>Hello</Text>
-      </LinearGradient>
+      </LinearGradient> */}
+      <Button title="Tryck" onPress={toggleAnimation} />
     </SafeAreaView>
   );
 };

@@ -3,7 +3,7 @@ import { GetDogs } from "../components/GetDogs";
 import { GetEvents } from "../components/GetEvents";
 import { GetPlaces } from "../components/GetPlaces";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { Entypo, FontAwesome, Ionicons, AntDesign } from "@expo/vector-icons";
@@ -11,6 +11,7 @@ import { SmallButton } from "../components/SmallButton";
 import { GradientTabIndicator } from "./GradientTabIndicator";
 import { SearchBar } from "@rneui/themed";
 import { CustomCard } from "../components/CustomCard";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,6 +27,11 @@ export const TopTabNavigation = () => {
   const styles = StyleSheet.create({
     tabBarContainerStyle: {
       backgroundColor: "blue",
+    },
+    tabBarLabel: {
+      paddingHorizontal: 25,
+      paddingVertical: 10,
+      borderRadius: 5,
     },
   });
 
@@ -68,10 +74,6 @@ export const TopTabNavigation = () => {
       </SafeAreaView>
 
       <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: { backgroundColor: colors.card },
-          tabBarLabelStyle: { color: colors.text },
-        }}
         sceneContainerStyle={{
           backgroundColor: colors.background,
         }}
@@ -82,27 +84,38 @@ export const TopTabNavigation = () => {
           options={{
             tabBarIndicatorStyle: { backgroundColor: "#992899" },
             tabBarContentContainerStyle: {
-              backgroundColor: colors.secondary,
+              backgroundColor: colors.background,
             },
-            tabBarItemStyle: {
-              backgroundColor: colors.secondaryLight,
-              borderRadius: 5,
+            tabBarLabel: () => {
+              return (
+                <LinearGradient
+                  colors={["#a7e05c", "#83a15d"]}
+                  style={styles.tabBarLabel}
+                >
+                  <Text>Dogs</Text>
+                </LinearGradient>
+              );
             },
-            tabBarGap: 10,
-
-            // tabBarLabel: () => <SmallButton title="Dogs" bgColor="#e2e2e2" />,
           }}
-          // options={{
-          //   tabBarIcon: () => (
-          //     <FontAwesome name="envelope" size={34} color={colors.text} />
-          //   ),
-          // }}
         />
         <Tab.Screen
           name="Events"
           component={GetEvents}
           options={{
             tabBarIndicatorStyle: { backgroundColor: "#992899" },
+            tabBarContentContainerStyle: {
+              backgroundColor: colors.background,
+            },
+            tabBarLabel: () => {
+              return (
+                <LinearGradient
+                  colors={["#a7e05c", "#83a15d"]}
+                  style={styles.tabBarLabel}
+                >
+                  <Text>Events</Text>
+                </LinearGradient>
+              );
+            },
           }}
         />
         <Tab.Screen
@@ -110,6 +123,19 @@ export const TopTabNavigation = () => {
           component={GetPlaces}
           options={{
             tabBarIndicatorStyle: { backgroundColor: "#992899" },
+            tabBarContentContainerStyle: {
+              backgroundColor: colors.background,
+            },
+            tabBarLabel: () => {
+              return (
+                <LinearGradient
+                  colors={["#a7e05c", "#83a15d"]}
+                  style={styles.tabBarLabel}
+                >
+                  <Text>Places</Text>
+                </LinearGradient>
+              );
+            },
           }}
         />
       </Tab.Navigator>
