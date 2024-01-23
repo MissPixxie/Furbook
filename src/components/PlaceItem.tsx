@@ -98,7 +98,7 @@ export const PlaceItem = ({ item }: ItemProps) => {
           <Entypo
             name="heart"
             size={24}
-            color="black"
+            color="#9c031a"
             style={{ alignSelf: "flex-end" }}
             onPress={toggleSavedItems}
           />

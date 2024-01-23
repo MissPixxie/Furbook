@@ -49,6 +49,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   console.log("Homescreen rendered");
 
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { colors } = theme;
   const { state, setState } = useContext(AuthContext);
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState<Users[]>([]);
@@ -60,8 +61,6 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   };
 
   const { events } = fetchSavedEvents();
-
-  const { colors } = theme;
   const { user } = state;
 
   const onRefresh = useCallback(() => {
@@ -144,6 +143,27 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{ width: "90%" }}>
+        <Text>Aktiviteter</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <CustomCard>
+            <Text>Akitivtet 1</Text>
+          </CustomCard>
+          <CustomCard>
+            <Text>Akitivtet 1</Text>
+          </CustomCard>
+          <CustomCard>
+            <Text>Akitivtet 1</Text>
+          </CustomCard>
+        </View>
+      </View>
+
+      <View>
+        <CustomCard>
+          <Text>Something else</Text>
+        </CustomCard>
+      </View>
+
       <View style={styles.container}>
         <Animated.View
           style={[

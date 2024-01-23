@@ -219,7 +219,7 @@ export const CustomDrawer = ({ navigation }: Props) => {
               <LinearGradient
                 colors={
                   theme.dark
-                    ? ["#BBE29D", "#E1F2D4"]
+                    ? ["#E1F2D4", "#83a15d"]
                     : ["white", colors.secondary]
                 }
                 style={{
