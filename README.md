@@ -1,5 +1,8 @@
 Hobby project in React Native, social media platform for dog owners. Node.js Express backend with a MongoDB database.
 
+
+![settings](https://github.com/MissPixxie/Furbook/assets/78534885/9cba9b6c-0937-4a5d-9836-ea7e925118a4)
+
 ![mydogs-light](https://github.com/MissPixxie/Furbook/assets/78534885/447f19b1-e944-4a7c-adb3-1f1d0ef6f584)
 
 
