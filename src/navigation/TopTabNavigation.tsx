@@ -8,7 +8,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { Entypo, FontAwesome, Ionicons, AntDesign } from "@expo/vector-icons";
 import { SmallButton } from "../components/SmallButton";
-import { GradientTabIndicator } from "./GradientTabIndicator";
 import { SearchBar } from "@rneui/themed";
 import { CustomCard } from "../components/CustomCard";
 import { LinearGradient } from "expo-linear-gradient";

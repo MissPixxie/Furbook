@@ -97,14 +97,14 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
   const initialLeftPosition = useSharedValue(0);
   const initialWidth = useSharedValue("0%");
 
-  const reanimatedStyle = useAnimatedStyle(() => {
-    return {
-      // transform: [{ scaleX: scaleX.value }, { scaleY: scaleX.value }],
-      bottom: initialBottomPosition.value,
-      left: initialLeftPosition.value,
-      width: initialWidth.value,
-    };
-  }, []);
+  // const reanimatedStyle = useAnimatedStyle(() => {
+  //   return {
+  //     // transform: [{ scaleX: scaleX.value }, { scaleY: scaleX.value }],
+  //     bottom: initialBottomPosition.value,
+  //     left: initialLeftPosition.value,
+  //     width: initialWidth.value,
+  //   };
+  // }, []);
 
   const triggerAnimation = () => {
     if (animationIsActive) {
@@ -176,12 +176,9 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
               bottom: -250,
               left: 145,
             },
-            reanimatedStyle,
+            // reanimatedStyle,
           ]}
         />
-      </View>
-      <View>
-        <Text>Activities</Text>
       </View>
       {/* <LinearGradient
         start={{ x: 0, y: 0 }}
@@ -194,7 +191,7 @@ export const HomeScreen = ({ navigation }: RouterProps) => {
         />
         <Text>Hello</Text>
       </LinearGradient> */}
-      <Button title="Tryck" onPress={toggleAnimation} />
+      {/* <Button title="Tryck" onPress={toggleAnimation} /> */}
     </SafeAreaView>
   );
 };

@@ -10,7 +10,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInScreen } from "../screens/SignInScreen";
 import { SignUpScreen } from "../screens/SignUpScreen";
-import { TabNavigator } from "./TabNavigator";
+import { BottomTabNavigator } from "./BottomTabNavigator";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
@@ -26,42 +26,37 @@ export const AuthStack = () => {
   const { tabBar, drawer } = colors;
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Drawer.Navigator
-          drawerContent={({ navigation }) => (
-            <CustomDrawer navigation={navigation} />
-          )}
-          screenOptions={{
-            drawerPosition: "right",
-            headerShown: false,
-            drawerStyle: {
-              backgroundColor: colors.primary,
-            },
-          }}
-        >
-          {state.isLoggedIn ? (
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContent={({ navigation }) => (
+          <CustomDrawer navigation={navigation} />
+        )}
+        screenOptions={{
+          drawerPosition: "right",
+          headerShown: false,
+        }}
+      >
+        {state.isLoggedIn ? (
+          <Drawer.Screen
+            name="Tab Navigator"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <>
             <Drawer.Screen
-              name="Tab Navigator"
-              component={TabNavigator}
+              name="Sign in"
+              component={SignInScreen}
               options={{ headerShown: false }}
             />
-          ) : (
-            <>
-              <Drawer.Screen
-                name="Sign in"
-                component={SignInScreen}
-                options={{ headerShown: false }}
-              />
-              <Drawer.Screen
-                name="Sign up"
-                component={SignUpScreen}
-                options={{ headerShown: false }}
-              />
-            </>
-          )}
-        </Drawer.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+            <Drawer.Screen
+              name="Sign up"
+              component={SignUpScreen}
+              options={{ headerShown: false }}
+            />
+          </>
+        )}
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };

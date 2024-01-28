@@ -46,7 +46,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={["#a7e05c", "#83a15d"]}
+        colors={["#c9fa89", "#83a15d"]}
         style={styles.messageContainer}
       >
         <Image
@@ -60,7 +60,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
       </LinearGradient>
 
       <LinearGradient
-        colors={["#a7e05c", "#83a15d"]}
+        colors={["#c9fa89", "#83a15d"]}
         style={styles.messageContainer}
       >
         <Image
@@ -74,7 +74,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
       </LinearGradient>
 
       <LinearGradient
-        colors={["#a7e05c", "#83a15d"]}
+        colors={["#c9fa89", "#83a15d"]}
         style={styles.messageContainer}
       >
         <Image
@@ -88,7 +88,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
       </LinearGradient>
 
       <LinearGradient
-        colors={["#a7e05c", "#83a15d"]}
+        colors={["#c9fa89", "#83a15d"]}
         style={styles.messageContainer}
       >
         <Image
@@ -102,7 +102,7 @@ export const MessagesScreen = ({ navigation }: Props) => {
       </LinearGradient>
 
       <LinearGradient
-        colors={["#a7e05c", "#83a15d"]}
+        colors={["#c9fa89", "#83a15d"]}
         style={styles.messageContainer}
       >
         <Image
